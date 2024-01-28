@@ -45,10 +45,10 @@ fRegress_concurrent <- function(y_mat, x_array, intercept = FALSE) {
       # Set based on x_array structure
       if (is.matrix(x_array)) {
         x_mat <- x_array[i, ]
-        mod_form_temp <- as.formula(paste0("ys ~ -1 + x_mat"))
+        mod_form_temp <- stats::as.formula(paste0("ys ~ -1 + x_mat"))
       } else {
         x_mat <- x_array[i, , ]
-        mod_form_temp <- as.formula(paste0(
+        mod_form_temp <- stats::as.formula(paste0(
           "ys ~ -1 + ",
           paste0("x_mat[,", 1:n_pred, "]", collapse = "+")
         ))
@@ -81,10 +81,10 @@ fRegress_concurrent <- function(y_mat, x_array, intercept = FALSE) {
       # Set based on x_array structure
       if (is.matrix(x_array)) {
         x_mat <- x_array[i, ]
-        mod_form_temp <- as.formula(paste0("ys ~ x_mat"))
+        mod_form_temp <- stats::as.formula(paste0("ys ~ x_mat"))
       } else {
         x_mat <- x_array[i, , ]
-        mod_form_temp <- as.formula(paste0(
+        mod_form_temp <- stats::as.formula(paste0(
           "ys ~ ", paste0("x_mat[,", 1:n_pred, "]", collapse = "+")
         ))
       }
