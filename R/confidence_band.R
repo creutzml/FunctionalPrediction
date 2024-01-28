@@ -16,9 +16,16 @@
 #' @param grid.size This determines on how fine grid the bands will be constructed before converted as an `fd' object. This parameter is used only when 'x' is fd object and 'cov.x' is bifd object.
 #' @param Bs.sim.size This determines bootstrap sample size for Bs
 #' @param n_int Number of intervals for the piecewise linear confidence bounds.
+#' @param one.sided Should the interval be two or one-sided?
+#' @param int.type One of either "confidence" or "prediction" (only applies to ``FFSCB'' bands)
+#' @param n.curves How many curves are in the original sample used 
+#' to calculate the average? (only applies to ``FFSCB'' bands)
+#' @param upper If one-sided is desired, should it be upper or lower? (only applies to ``FFSCB'' bands)
+
 #' @return confidence_band Either a collection of vector valued bands or `fd' object whose objectname is changed to confidence_band.
 #' @references 
 #' \itemize{
+#'    \item Creutzinger, M., Liebl, D., and Sharp, J. (2024+). Fair Simultaneous Prediction and Confidence Bands for Concurrent Functional Regressions: Comparing Sprinters with Prosthetic versus Biological Legs
 #'    \item Liebl, D. and Reimherr, M. (2022+). Fast and fair simultaneous confidence bands.
 #'    \item  Choi, H. and Reimherr, M. (2018). A geometric approach to confidence regions and bands for functional parameters. Journal of the Royal Statistical Society: Series B (Statistical Methodology) 80 239-260.
 #' }
@@ -57,7 +64,11 @@ confidence_band <- function(x,
                             conf.level  = 0.95, 
                             grid.size   = 200,
                             Bs.sim.size = 10000, 
-                            n_int       = 4){
+                            n_int       = 4, 
+                            one.sided   = F,
+                            int.type    = "confidence",
+                            n.curves    = df + 1,
+                            upper       = T){
   ### Check the data type ###
   if (inherits(x,"fd") & (inherits(cov.x,"bifd") | inherits(cov.x,"pca.fd") | inherits(cov.x,"eigen.fd"))) datatype="fd" else if
   ((inherits(x,"numeric") | inherits(x,"matrix"))  & (inherits(cov.x,"matrix") | inherits(cov.x,"list") | inherits(cov.x,"eigen") )) datatype="vector" else stop ("The format of data is unknown")
@@ -136,21 +147,44 @@ confidence_band <- function(x,
     
     if ("FFSCB.z" %in% type){
       tmp.colnames     <- c(colnames(result), paste0("FFSCB.z.u.",level), paste0("FFSCB.z.l.",level))
-      FFSCB.z          <- .make_band_FFSCB_z(tau=tau, diag.cov=diag(cov.m), conf.level=level, n_int=n_int)
-      result           <- cbind(result, x.v + FFSCB.z, x.v - FFSCB.z)
-      colnames(result) <- tmp.colnames
+      FFSCB.z          <- .make_band_FFSCB_z(tau=tau, diag.cov=diag(cov.m), conf.level=level, n_int=n_int, n.curves=n.curves, int.type=int.type, one.sided=one.sided)
+      if (one.sided) {
+        if (upper) {
+          result <- cbind(result, x.v + FFSCB.z)
+          colnames(result) <- tmp.colnames[1:2]
+        } else {
+          result <- cbind(result, x.v - FFSCB.z)
+          colnames(result) <- tmp.colnames[c(1,3)]
+        }
+      } else {
+        result <- cbind(result, x.v + FFSCB.z, x.v - FFSCB.z)
+        colnames(result) <- tmp.colnames
+      }
     }
     
     if ("FFSCB.t" %in% type){
       tmp.colnames     <- c(colnames(result), paste0("FFSCB.t.u.",level), paste0("FFSCB.t.l.",level))
       if(df <= 100){
-        FFSCB.t          <- .make_band_FFSCB_t(tau=tau, diag.cov=diag(cov.m), df=df, conf.level=level, n_int=n_int)
+        FFSCB.t          <- .make_band_FFSCB_t(tau=tau, diag.cov=diag(cov.m), df=df, conf.level=level, n_int=n_int, int.type=int.type, one.sided=one.sided)
+        FFSCB.t          <- FFSCB.t_list$band
         # matplot(cbind(x.v + FFSCB.t, x.v - FFSCB.t,x.v),type="l",lty=1,col=c(2,2,1))
       }else{
-        FFSCB.t          <- .make_band_FFSCB_z(tau=tau, diag.cov=diag(cov.m), conf.level=level, n_int=n_int)
+        FFSCB.t          <- .make_band_FFSCB_z(tau=tau, diag.cov=diag(cov.m), conf.level=level, n_int=n_int, n.curves=n.curves, int.type=int.type, one.sided=one.sided)
+        FFSCB.t          <- FFSCB.t_list$band
       }
-      result           <- cbind(result, x.v + FFSCB.t, x.v - FFSCB.t)
-      colnames(result) <- tmp.colnames
+      
+      if (one.sided) {
+        if (upper) {
+          result           <- cbind(result, x.v + FFSCB.t)
+          colnames(result) <- tmp.colnames[1:2]
+        } else {
+          result           <- cbind(result, x.v - FFSCB.t)
+          colnames(result) <- tmp.colnames[c(1,3)]
+        }
+      } else {
+        result           <- cbind(result, x.v + FFSCB.t, x.v - FFSCB.t)
+        colnames(result) <- tmp.colnames
+      }
     }
     
   }
