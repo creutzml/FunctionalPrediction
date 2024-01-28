@@ -30,7 +30,7 @@
 #'   type = c("FFSCB.t", "Bs", "BEc", "naive.t"),
 #'   conf.level = 0.95, one.sided = F, int.type = "confidence", 
 #'   n.curves = df + 1, upper = T)
-#' )
+#' 
 #' plot(b)
 #' lines(x = grid, y = mu0, lty = 2)
 #' @docType package
