@@ -71,10 +71,10 @@ tau = hat.tau; diag.cov = diag(hat.cov.mu);  conf.level=0.95; n_int=3; df=N-1
 x = hat.mu; cov.x = hat.cov.mu; tau = hat.tau; df=N-1; conf.level  = 0.95; 
 
 
-FFSCB_t1 <- make_band_FFSCB_t(x = hat.mu, diag.cov.x = diag(hat.cov.mu), tau = hat.tau, df = N-1, conf.level = 0.95, n_int = 5)
+FFSCB_t1 <- make_band_FFSCB_t(x = hat.mu, diag.cov.x = diag(hat.cov.mu), tau = hat.tau, df = N-1, conf.level = 0.95, n_int = 5, one.sided = F, int.type = "confidence", n.curves = df + 1, upper = T)
 matplot(FFSCB_t1[,-1], type="l", lty=1, col=1)
 
-FFSCB_z1 <- make_band_FFSCB_z(x = hat.mu, diag.cov.x = diag(hat.cov.mu), tau = hat.tau, conf.level = 0.95, n_int = 3)
+FFSCB_z1 <- make_band_FFSCB_z(x = hat.mu, diag.cov.x = diag(hat.cov.mu), tau = hat.tau, conf.level = 0.95, n_int = 3, one.sided = F, int.type = "confidence", n.curves = df + 1, upper = T)
 matplot(FFSCB_z1[,-1], type="l", lty=1, col=1)
 
 
@@ -95,7 +95,8 @@ lines(y=mu0, x=1:p, col=3)
 ## Make and plot confidence bands
 b <- confidence_band(x=hat.mu, cov.x=hat.cov.mu, tau=hat.tau, df=N-1,
                      type=c("FFSCB.z", "FFSCB.t", "Bs","BEc","naive.t")[c(1,2,5)],
-                     conf.level  = 0.95)
+                     conf.level  = 0.95, one.sided = F, int.type = "confidence", 
+                     n.curves = df + 1, upper = T))
 plot(b)
 lines(x=grid, y=mu0, lty=2)
 

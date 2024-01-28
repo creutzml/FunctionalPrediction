@@ -356,7 +356,7 @@ make_band_FFSCB_z <- function(x, diag.cov.x, tau, conf.level = 0.95, n_int = 4, 
 #' matplot(y = band[, 2:3], x = grid, lty = 2)
 #' lines(x = grid, y = band[, 1], lty = 1)
 #' @export
-make_band_FFSCB_t <- function(x, diag.cov.x, tau, df, conf.level = 0.95, n_int = 4) {
+make_band_FFSCB_t <- function(x, diag.cov.x, tau, df, conf.level = 0.95, n_int = 4, one.sided = F, int.type = "confidence", n.curves = df + 1, upper = T) {
   # Argument check
   if (!(int.type %in% c("confidence", "prediction"))) {
     stop("Incorrect argument given to `int.type`.")
