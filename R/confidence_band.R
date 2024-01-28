@@ -165,11 +165,11 @@ confidence_band <- function(x,
       tmp.colnames     <- c(colnames(result), paste0("FFSCB.t.u.",level), paste0("FFSCB.t.l.",level))
       if(df <= 100){
         FFSCB.t          <- .make_band_FFSCB_t(tau=tau, diag.cov=diag(cov.m), df=df, conf.level=level, n_int=n_int, int.type=int.type, one.sided=one.sided)
-        FFSCB.t          <- FFSCB.t_list$band
+        # FFSCB.t          <- FFSCB.t_list$band
         # matplot(cbind(x.v + FFSCB.t, x.v - FFSCB.t,x.v),type="l",lty=1,col=c(2,2,1))
       }else{
         FFSCB.t          <- .make_band_FFSCB_z(tau=tau, diag.cov=diag(cov.m), conf.level=level, n_int=n_int, n.curves=n.curves, int.type=int.type, one.sided=one.sided)
-        FFSCB.t          <- FFSCB.t_list$band
+        # FFSCB.t          <- FFSCB.t_list$band
       }
       
       if (one.sided) {
