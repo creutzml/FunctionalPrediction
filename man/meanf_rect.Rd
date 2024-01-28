@@ -17,8 +17,12 @@ meanf_rect(x, delta = 1/5, rect = c(0, 0.125))
 Meanfunction with local rectangles (polynomial with simple local rectangles)
 }
 \examples{
-curve(meanf_rect(x, delta=1/5), from=0, to=1,
-main="Meanfct Rect", ylab="",xlab="")
-curve(meanf_rect(x, delta=1/10), from=0, to=1, 
-lty=2, add=TRUE)
+curve(meanf_rect(x, delta = 1 / 5),
+  from = 0, to = 1,
+  main = "Meanfct Rect", ylab = "", xlab = ""
+)
+curve(meanf_rect(x, delta = 1 / 10),
+  from = 0, to = 1,
+  lty = 2, add = TRUE
+)
 }

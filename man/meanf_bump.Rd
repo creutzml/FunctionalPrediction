@@ -17,8 +17,12 @@ meanf_bump(x, quarter = 1, height = 0.1)
 Meanfunction with local bump
 }
 \examples{
-curve(meanf_bump(x, 1), from=0, to=1,
-main="Meanfct Ellipse", ylab="",xlab="")
-curve(meanf_bump(x, 2), from=0, to=1, 
-lty=2, add=TRUE)
+curve(meanf_bump(x, 1),
+  from = 0, to = 1,
+  main = "Meanfct Ellipse", ylab = "", xlab = ""
+)
+curve(meanf_bump(x, 2),
+  from = 0, to = 1,
+  lty = 2, add = TRUE
+)
 }

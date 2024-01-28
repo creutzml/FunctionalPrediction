@@ -22,24 +22,26 @@ p-value (ellipsoid region)
 }
 \examples{
 # Generate a sample
-p <- 200 
-N <- 80 
-grid   <- make_grid(p, rangevals=c(0,1))
-mu0    <- meanf_poly(grid,c(0,1))   ; names(mu0) <- grid
-mu     <- meanf_poly(grid,c(0,1.1)) ; names(mu)  <- grid
-cov.m  <- make_cov_m(cov.f = covf_st_matern, grid=grid, cov.f.params=c(2/2,1,1))
-sample <- make_sample(mu,cov.m,N)
+p <- 200
+N <- 80
+grid <- make_grid(p, rangevals = c(0, 1))
+mu0 <- meanf_poly(grid, c(0, 1))
+names(mu0) <- grid
+mu <- meanf_poly(grid, c(0, 1.1))
+names(mu) <- grid
+cov.m <- make_cov_m(cov.f = covf_st_matern, grid = grid, cov.f.params = c(2 / 2, 1, 1))
+sample <- make_sample(mu, cov.m, N)
 
 # Compute the estimate and its covariance
-hat.mu     <- rowMeans(sample)
-hat.cov    <- crossprod(t(sample - hat.mu)) / N
+hat.mu <- rowMeans(sample)
+hat.cov <- crossprod(t(sample - hat.mu)) / N
 hat.cov.mu <- hat.cov / N
 
 # Eigen decomposition
 e.cov.mu <- eigen(hat.cov.mu)
 
 # pvalue
-pval <- get_pval_Ec(x=hat.mu, x0=mu0, eigen=e.cov.mu)
+pval <- get_pval_Ec(x = hat.mu, x0 = mu0, eigen = e.cov.mu)
 pval
 }
 \references{
