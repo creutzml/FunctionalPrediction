@@ -18,8 +18,7 @@
 #' @param n_int Number of intervals for the piecewise linear confidence bounds.
 #' @param one.sided Should the interval be two or one-sided?
 #' @param int.type One of either "confidence" or "prediction" (only applies to ``FFSCB'' bands)
-#' @param n.curves How many curves are in the original sample used 
-#' to calculate the average? (only applies to ``FFSCB'' bands)
+#' @param n.curves How many curves are in the original sample used to calculate the average? (only applies to ``FFSCB'' bands)
 #' @param upper If one-sided is desired, should it be upper or lower? (only applies to ``FFSCB'' bands)
 
 #' @return confidence_band Either a collection of vector valued bands or `fd' object whose objectname is changed to confidence_band.
