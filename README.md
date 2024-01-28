@@ -9,36 +9,34 @@
 [![pages-build-deployment](https://github.com/lidom/ffscb/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/lidom/ffscb/actions/workflows/pages/pages-build-deployment)
 [![pkgdown](https://github.com/lidom/ffscb/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/lidom/ffscb/actions/workflows/pkgdown.yaml)
 [![test-coverage](https://github.com/lidom/ffscb/actions/workflows/test-coverage.yaml/badge.svg)](https://github.com/lidom/ffscb/actions/workflows/test-coverage.yaml)
-
+[![R-CMD-check](https://github.com/creutzml/ffscb/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/creutzml/ffscb/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 # Description
 
 The R package `ffscb` allows to compute simultaneous confidence bands
 for function-valued parameters (e.g. for mean functions
-*μ* = {*μ*(*t*) : *t* ∈ \[0,1\]}). The band shapes are constructed under
-the fairness constraint of *false positive rate balance* which allows to
-distribute the total false positive rate *α* ∈ (0,1) over partitions
-0 = *a*<sub>0</sub> \< *a*<sub>1</sub> \< … \< *a*<sub>*p*</sub> = 1 of
-the function domain \[0,1\].[^1] This leads to band shapes that are
-interpretable both globally and locally. Globally (i.e. over the total
-domain \[0,1\]) the simultaneous confidence band provides a
-(1−*α*) × 100% coverage probability. Locally (i.e. over sub-intervals
-\[*a*<sub>*j* − 1</sub>,*a*<sub>*j*</sub>\] ⊆ \[0,1\]) the simultaneous
-confidence band provides a
-(1−*α*(*a*<sub>*j*</sub>−*a*<sub>*j* − 1</sub>)) × 100% coverage
-probability.
+$\mu=\{\mu(t):t\in[0,1]\}$). The band shapes are constructed under the
+fairness constraint of *false positive rate balance* which allows to
+distribute the total false positive rate $\alpha\in(0,1)$ over
+partitions $0=a_0<a_1<\dots<a_p=1$ of the function domain $[0,1]$.[^1]
+This leads to band shapes that are interpretable both globally and
+locally. Globally (i.e. over the total domain $[0,1]$) the simultaneous
+confidence band provides a $(1-\alpha)\times 100\%$ coverage
+probability. Locally (i.e. over sub-intervals
+$[a_{j-1},a_j]\subseteq[0,1]$) the simultaneous confidence band provides
+a $(1-\alpha(a_j-a_{j-1}))\times 100\%$ coverage probability.
 
--   The statistical theory and methodology are described in:<br> Fast
-    ‘n’ fair simultaneous confidence bands for functional parameters as
-    introduced in the paper [**Fast and Fair Simultaneous Confidence
-    Bands for Functional Parameters**
-    (arXiv:1910.00131)](https://arxiv.org/abs/1910.00131) by [Dominik
-    Liebl](www.dliebl.com) and [Matthew
-    Reimherr](http://www.personal.psu.edu/mlr36/).
+- The statistical theory and methodology are described in:<br> Fast ‘n’
+  fair simultaneous confidence bands for functional parameters as
+  introduced in the paper [**Fast and Fair Simultaneous Confidence Bands
+  for Functional Parameters**
+  (arXiv:1910.00131)](https://arxiv.org/abs/1910.00131) by [Dominik
+  Liebl](www.dliebl.com) and [Matthew
+  Reimherr](http://www.personal.psu.edu/mlr36/).
 
--   The R-codes of the R package `ffscb` can be found at the GitHub repo
-    <https://github.com/lidom/ffscb>
+- The R-codes of the R package `ffscb` can be found at the GitHub repo
+  <https://github.com/lidom/ffscb>
 
 ## Installation
 
@@ -142,9 +140,10 @@ hat.tau      <- tau_fun(Dff_mat)
 ```
 
 Now, we have everything in place to compute the fair simultaneous 95%
-confidence band that balances the false positive rate *α* = 0.05 by
-allocating the equal shares *α*(1/`n_int`) to each of the here `n_int=8`
-sub-intervalls \[0,12.5%\], \[12.5%,25\], …, \[87.5%,100%\].
+confidence band that balances the false positive rate $\alpha=0.05$ by
+allocating the equal shares $\alpha (1/\texttt{n_int})$ to each of the
+here `n_int=8` sub-intervalls $[0,12.5\%]$, $[12.5\%, 25]$, …,
+$[87.5\%, 100\%]$.
 
 Note: The paper treats also the case of balanced false positive rates
 over arbitrary partitions of the domain, but this feature is not yet
@@ -230,6 +229,7 @@ the data.
 
 ``` r
 suppressPackageStartupMessages(library("tidyverse"))
+#> Warning: package 'ggplot2' was built under R version 4.3.1
 library("ffscb")
 data(Fragments)
 
@@ -359,5 +359,5 @@ More detailes about this real-ata application can be found in our paper
 <script>if(!sessionStorage.getItem("_swa")&&document.referrer.indexOf(location.protocol+"//"+location.host)!== 0){fetch("https://counter.dev/track?"+new URLSearchParams({referrer:document.referrer,screen:screen.width+"x"+screen.height,user:"dliebl",utcoffset:"2"}))};sessionStorage.setItem("_swa","1");
 </script>
 
-[^1]: Using a standardized function domain, \[0,1\] is, of course,
+[^1]: Using a standardized function domain, $[0,1]$ is, of course,
     without loss of generality.
