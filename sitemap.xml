@@ -31,7 +31,7 @@
     <loc>/reference/confidence_band_fragm.html</loc>
   </url>
   <url>
-    <loc>/reference/confint.concurrent.html</loc>
+    <loc>/reference/confint_concurrent.html</loc>
   </url>
   <url>
     <loc>/reference/cov2tau_fun.html</loc>
@@ -118,7 +118,7 @@
     <loc>/reference/plot.confidence_band.html</loc>
   </url>
   <url>
-    <loc>/reference/predict.concurrent.html</loc>
+    <loc>/reference/predict_concurrent.html</loc>
   </url>
   <url>
     <loc>/reference/tau_fragments.html</loc>
