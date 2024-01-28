@@ -101,7 +101,14 @@ make_band_naive_t_fragm <- function(diag.cov, conf.level, df){
 #' @param tau Pointwise standard deviation of the standardized and differentiated sample functions. Can be estimated by tau_fun().
 #' @param conf.level confidence level (default: 0.95)
 #' @param n_int Number of equidistant intervals over which the multiple testing component of the type-I error rate (1-conf.level) is distributed uniformly.
-#' @references Liebl, D. and Reimherr, M. (2022+). Fast and fair simultaneous confidence bands.
+#' @param one.sided Should the interval be two or one-sided?
+#' @param int.type One of either "confidence" or "prediction"
+#' @param n.curves How many curves are in the original sample used to calculate the average?
+#' @param upper If one-sided is desired, should it be upper or lower? (TRUE or 'upper' by default)
+#' @references 
+#' \itemize{
+#'      \item Creutzinger, M., Liebl, D., and Sharp, J. (2024+). Fair Simultaneous Prediction and Confidence Bands for Concurrent Functional Regressions: Comparing Sprinters with Prosthetic versus Biological Legs
+#'      \item Liebl, D. and Reimherr, M. (2022+). Fast and fair simultaneous confidence bands.
 #' @examples 
 #' # Generate a sample
 #' p          <- 200 
@@ -126,19 +133,32 @@ make_band_naive_t_fragm <- function(diag.cov, conf.level, df){
 #' matplot(y=band[,2:3], x=grid, lty=2)
 #' lines(x=grid, y=band[,1], lty=1)
 #' @export
-make_band_FFSCB_z <- function(x, diag.cov.x, tau, conf.level=0.95, n_int=4){
+make_band_FFSCB_z <- function(x, diag.cov.x, tau, conf.level=0.95, n_int=4, one.sided = F, int.type = "confidence", n.curves, upper = T){
+  
+  # Argument check
+  if (!(int.type %in% c("confidence", "prediction"))) {stop("Incorrect argument given to `int.type`.")}
   ##
   if(any(tau < 0.005)){warning("This method may not work if tau(t) is too small.")}
   ##
-  band             <- .make_band_FFSCB_z(tau=tau, diag.cov=diag.cov.x, conf.level=conf.level, n_int=n_int)
-  band_m           <- cbind(x, x + band, x - band)
-  colnames(band_m) <- c("x", paste0("FFSCB.z.u.", conf.level), paste0("FFSCB.z.l.", conf.level))
+  band             <- .make_band_FFSCB_z(tau=tau, diag.cov=diag.cov.x, conf.level=conf.level, n_int=n_int, int.type = int.type, one.sided = one.sided, n.curves = n.curves)
+  if (one.sided) {
+    if (upper) {
+      band_m           <- cbind(x, x + band)
+      colnames(band_m) <- c("x", paste0("FFSCB.z.u.", conf.level))
+    } else {
+      band_m           <- cbind(x, x - band)
+      colnames(band_m) <- c("x", paste0("FFSCB.z.l.", conf.level))
+    }
+  } else {
+    band_m           <- cbind(x, x + band, x - band)
+    colnames(band_m) <- c("x", paste0("FFSCB.z.u.", conf.level), paste0("FFSCB.z.l.", conf.level))
+  }
   ##
   return(band_m)
 }
 
 
-.make_band_FFSCB_z <- function(tau, diag.cov, conf.level=0.95, n_int=4){
+.make_band_FFSCB_z <- function(tau, diag.cov, conf.level=0.95, n_int=4, n.curves, int.type = "confidence", one.sided = F){
   ##
   ## location to check whether process started uncrossed
   ##t0          <- 0 
@@ -161,12 +181,21 @@ make_band_FFSCB_z <- function(x, diag.cov.x, tau, conf.level=0.95, n_int=4){
   if(n_int %% 1 != 0){
     stop("n_int must be a stricitly positive integer value (n_int=1,2,3,...)")
   }
+  
+  # Make alpha two-sided if regular band, o.w. one-sided
+  if (one.sided) {alpha.level.comp <- alpha} else {alpha.level.comp <- alpha/2}
+  
   ##
   if(n_int == 1){# Case n_int=1 == constant band == Kac-Rice Band
     tau01      <- sum(tau_v)*diff(tt)[1] # int_0^1 tau(t) dt
-    myfun1     <- function(c1){stats::pnorm(q=c1, lower.tail=F)+exp(-c1^2/2)*tau01/(2*pi)-(alpha/2)}
+    myfun1     <- function(c1){stats::pnorm(q=c1, lower.tail=F)+exp(-c1^2/2)*tau01/(2*pi)-alpha.level.comp}
     const_band <- stats::uniroot(f = myfun1, interval = c(0,10), extendInt="downX")$root
-    band       <- const_band * sqrt(diag.cov) 
+    
+    # Make the band MOE
+    band <- 0
+    if (int.type == "confidence") {band <- const_band * sqrt(diag.cov)} 
+    else if (int.type == "prediction") {band <- const_band * sqrt(diag.cov*n.curves)*sqrt(1 + 1/n.curves)}
+    
     return(band)
   }
   ##
@@ -184,7 +213,7 @@ make_band_FFSCB_z <- function(x, diag.cov.x, tau, conf.level=0.95, n_int=4){
   tau_init <- sum(tau_v[knots[const_int] <= tt & tt <= knots[const_int+1]])*diff(tt)[1]
   myfun1   <- function(c1){
     stats::pnorm(-c1) +
-      c(exp(-c1^2/2) * tau_init / (2*pi) - (alpha/2)/n_int)
+      c(exp(-c1^2/2) * tau_init / (2*pi) - (alpha.level.comp)/n_int)
   }
   ## curve(myfun1, 0,5); abline(h=0)
   ##
@@ -227,10 +256,10 @@ make_band_FFSCB_z <- function(x, diag.cov.x, tau, conf.level=0.95, n_int=4){
       ##
       ## res    <- c(stats::pnorm(-c_v[1])/n_int + intgr1 - intgr3 - (alpha/2)/n_int)
       if(j %% 2 == 0){# even j
-        res <- c(stats::pnorm(-ufun(knots[j], c_v = c_v, knots = knots)) + intgr1 + intgr2 - intgr3 - (alpha/2)/n_int) # '-ufun' since we need upper-tail and can use symmetriy of normal
+        res <- c(stats::pnorm(-ufun(knots[j], c_v = c_v, knots = knots)) + intgr1 + intgr2 - intgr3 - (alpha.level.comp)/n_int) # '-ufun' since we need upper-tail and can use symmetriy of normal
       }
       if(j %% 2 != 0){# odd j
-        res <- c(stats::pnorm(-ufun_j(t=knots[j+1], cj))                 + intgr1 + intgr2 - intgr3 - (alpha/2)/n_int) # '-ufun' since we need upper-tail and can use symmetriy of normal
+        res <- c(stats::pnorm(-ufun_j(t=knots[j+1], cj))                 + intgr1 + intgr2 - intgr3 - (alpha.level.comp)/n_int) # '-ufun' since we need upper-tail and can use symmetriy of normal
       }
       ##
       return(res)
@@ -240,7 +269,12 @@ make_band_FFSCB_z <- function(x, diag.cov.x, tau, conf.level=0.95, n_int=4){
   }
   ##
   band.eval <- ufun(t=tt, c_v=c_v, knots=knots) # plot(x=tt,y=band.eval, type="l", main="z")
-  band      <- band.eval * sqrt(diag.cov) # plot(x=tt,y=band, type="l", main="z")
+  band      <- 0
+  if (int.type == "confidence") {
+    band      <- band.eval * sqrt(diag.cov)   
+  } else if (int.type == "prediction") {
+    band      <- band.eval*sqrt(diag.cov*n.curves)*sqrt(1 + 1/n.curves)
+  } # plot(x=tt,y=band, type="l", main="z")
   ##
   return(band)
 }
@@ -255,6 +289,10 @@ make_band_FFSCB_z <- function(x, diag.cov.x, tau, conf.level=0.95, n_int=4){
 #' @param df Degrees of freedom 
 #' @param conf.level confidence level (default: 0.95)
 #' @param n_int Number of equidistant intervals over which the multiple testing component of the type-I error rate (1-conf.level) is distributed uniformly.
+#' @param one.sided Should the interval be two or one-sided?
+#' @param int.type One of either "confidence" or "prediction"
+#' @param n.curves How many curves are in the original sample used to calculate the average?
+#' @param upper If one-sided is desired, should it be upper or lower? (TRUE or 'upper' by default)
 #' @references Liebl, D. and Reimherr, M. (2022+). Fast and fair simultaneous confidence bands.
 #' @examples 
 #' # Generate a sample
@@ -281,23 +319,42 @@ make_band_FFSCB_z <- function(x, diag.cov.x, tau, conf.level=0.95, n_int=4){
 #' lines(x=grid, y=band[,1], lty=1)
 #' @export
 make_band_FFSCB_t <- function(x, diag.cov.x, tau, df, conf.level=0.95, n_int=4){
+  
+  # Argument check
+  if (!(int.type %in% c("confidence", "prediction"))) {stop("Incorrect argument given to `int.type`.")}
+  if (is.null(n.curves)) {n.curves = df + 1}
   ##
   if(any(tau < 0.005)){warning("This method may not work if tau(t) is too small.")}
   ##
   if(df <= 101){
-    band       <- .make_band_FFSCB_t(tau=tau, diag.cov=diag.cov.x, df=df, conf.level=conf.level, n_int=n_int)
+    band       <- .make_band_FFSCB_t(tau=tau, diag.cov=diag.cov.x, df=df, conf.level=conf.level, n_int=n_int, int.type = int.type, one.sided = one.sided)
   }else{
-    band       <- .make_band_FFSCB_z(tau=tau, diag.cov=diag.cov.x,        conf.level=conf.level, n_int=n_int)
+    band       <- .make_band_FFSCB_z(tau=tau, diag.cov=diag.cov.x, conf.level=conf.level, n_int=n_int, int.type = int.type, one.sided = one.sided, n.curves = n.curves)
   }
-  band_m       <- cbind(x, x + band, x - band)
-  colnames(band_m) <- c("x", paste0("FFSCB.t.u.", conf.level), paste0("FFSCB.t.l.", conf.level))
+  
+  # Specify the MOE based on one-sided vs two-sided
+  if (one.sided) {
+    if (upper) {
+      band_m           <- cbind(x, x + band)
+      colnames(band_m) <- c("x", paste0("FFSCB.t.u.", conf.level))
+    } else {
+      band_m           <- cbind(x, x - band)
+      colnames(band_m) <- c("x", paste0("FFSCB.t.l.", conf.level))
+    }
+  } else {
+    band_m           <- cbind(x, x + band, x - band)
+    colnames(band_m) <- c("x", 
+                          paste0("FFSCB.t.u.", conf.level), 
+                          paste0("FFSCB.t.l.", conf.level))
+  }
   ##
   return(band_m)
 }
 
 
 
-.make_band_FFSCB_t <- function(tau, diag.cov, df, conf.level=0.95, n_int=4){
+.make_band_FFSCB_t <- function(tau, diag.cov, df, conf.level=0.95, n_int=4, one.sided = F, int.type = "confidence", n.curves = NULL){
+  
   ##
   ## location to check whether process started uncrossed
   #t0          <- 0 
@@ -312,6 +369,10 @@ make_band_FFSCB_t <- function(x, diag.cov.x, tau, df, conf.level=0.95, n_int=4){
   tau_f       <- function(t){stats::approx(x = seq(0,1,len=length(tau)), y = tau, xout=t)$y}
   knots       <- seq(0,1,len=(n_int + 1))
   ##
+  
+  ## Change alpha accordingly, based on one vs two-sided
+  if (one.sided) {alpha.level.comp <- alpha} else {alpha.level.comp <- alpha/2}
+  
   if(!is.numeric(n_int)){
     stop("n_int must be a stricitly positive integer value (n_int=1,2,3,...)")
   }
@@ -324,10 +385,19 @@ make_band_FFSCB_t <- function(x, diag.cov.x, tau, df, conf.level=0.95, n_int=4){
   ##
   if(n_int == 1){# Case n_int=1 == constant band == Kac-Rice Band
     tau01      <- sum(tau_v)*diff(tt)[1] # int_0^1 tau(t) dt
-    myfun1     <- function(c1){c(stats::pt(q=c1, lower.tail=FALSE, df = nu)+(tau01/(2*pi))*(1+c1^2/nu)^(-nu/2)-(alpha/2))}
+    myfun1     <- function(c1){c(stats::pt(q=c1, lower.tail=FALSE, df = nu)+(tau01/(2*pi))*(1+c1^2/nu)^(-nu/2)-(alpha.level.comp))}
     const_band <- stats::uniroot(f = myfun1, interval = c(0,10), extendInt="downX")$root
     const_band <- const_band * sqrt(diag.cov) 
-    return(const_band)
+    
+    # Make the band MOE
+    band       <- 0
+    if (int.type == "confidence") {
+      band      <- const_band * sqrt(diag.cov)   
+    } else if (int.type == "prediction") {
+      band      <- const_band * sqrt(diag.cov*n.curves)*sqrt(1 + 1/n.curves)
+    }
+    # Return the MOE
+    return(band)
   }
   ##
   ## Remainder part considers the case of n_int >1
@@ -344,7 +414,7 @@ make_band_FFSCB_t <- function(x, diag.cov.x, tau, df, conf.level=0.95, n_int=4){
   tau_init <- sum(tau_v[knots[const_int] <= tt & tt <= knots[const_int+1]])*diff(tt)[1]
   myfun1         <- function(c1){
     stats::pt(q=-c1, df = nu) +
-      c((tau_init/(2*pi)) * (1+c1^2/nu)^(-nu/2) - (alpha/2)/n_int)
+      c((tau_init/(2*pi)) * (1+c1^2/nu)^(-nu/2) - (alpha.level.comp)/n_int)
   }
   ## curve(myfun1, 0,1); abline(h=0)
   ##
@@ -389,10 +459,10 @@ make_band_FFSCB_t <- function(x, diag.cov.x, tau, df, conf.level=0.95, n_int=4){
       #res    <- c(stats::pt(q=-c_v[1], df = nu) + intgr1 - intgr3 - (alpha/2)/n_int)
       if(j %% 2 == 0){# even j
         #res <- c(stats::pnorm(-ufun(knots[j], c_v = c_v, knots = knots)) + intgr1 + intgr2 - intgr3 - (alpha/2)/n_int)
-        res <- c(stats::pt(-ufun(knots[j], c_v = c_v, knots = knots), df=df) + intgr1 + intgr2 - intgr3 - (alpha/2)/n_int) # '-ufun' since we need upper-tail and can use symmetriy of normal
+        res <- c(stats::pt(-ufun(knots[j], c_v = c_v, knots = knots), df=df) + intgr1 + intgr2 - intgr3 - (alpha.level.comp)/n_int) # '-ufun' since we need upper-tail and can use symmetriy of normal
       }
       if(j %% 2 != 0){# odd j
-        res <- c(stats::pt(-ufun_j(t=knots[j+1], cj), df=df)                 + intgr1 + intgr2 - intgr3 - (alpha/2)/n_int) # '-ufun' since we need upper-tail and can use symmetriy of normal
+        res <- c(stats::pt(-ufun_j(t=knots[j+1], cj), df=df)                 + intgr1 + intgr2 - intgr3 - (alpha.level.comp)/n_int) # '-ufun' since we need upper-tail and can use symmetriy of normal
       }
       return(res)
     } 
@@ -402,7 +472,13 @@ make_band_FFSCB_t <- function(x, diag.cov.x, tau, df, conf.level=0.95, n_int=4){
   }
   ##
   band.eval <- ufun(t=tt, c_v=c_v, knots=knots) # plot(y=band.eval,x=tt, type="l")
-  band      <- band.eval * sqrt(diag.cov)       # plot(y=band,x=tt, type="l", main="t")
+  # Make the band MOE
+  band      <- 0
+  if (int.type == "confidence") {
+    band      <- band.eval*sqrt(diag.cov)   
+  } else if (int.type == "prediction") {
+    band      <- band.eval*sqrt(diag.cov*n.curves)*sqrt(1 + 1/n.curves)
+  }       # plot(y=band,x=tt, type="l", main="t")
   ##
   return(band)
 }
