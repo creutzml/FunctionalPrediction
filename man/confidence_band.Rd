@@ -13,7 +13,11 @@ confidence_band(
   conf.level = 0.95,
   grid.size = 200,
   Bs.sim.size = 10000,
-  n_int = 4
+  n_int = 4,
+  one.sided = F,
+  int.type = "confidence",
+  n.curves = df + 1,
+  upper = T
 )
 }
 \arguments{
@@ -41,6 +45,14 @@ confidence_band(
 \item{Bs.sim.size}{This determines bootstrap sample size for Bs}
 
 \item{n_int}{Number of intervals for the piecewise linear confidence bounds.}
+
+\item{one.sided}{Should the interval be two or one-sided?}
+
+\item{int.type}{One of either "confidence" or "prediction" (only applies to ``FFSCB'' bands)}
+
+\item{n.curves}{How many curves are in the original sample used to calculate the average? (only applies to ``FFSCB'' bands)}
+
+\item{upper}{If one-sided is desired, should it be upper or lower? (only applies to ``FFSCB'' bands)}
 }
 \value{
 confidence_band Either a collection of vector valued bands or `fd' object whose objectname is changed to confidence_band.
@@ -77,6 +89,7 @@ lines(x=grid, y=mu0, lty=2)
 }
 \references{
 \itemize{
+   \item Creutzinger, M., Liebl, D., and Sharp, J. (2024+). Fair Simultaneous Prediction and Confidence Bands for Concurrent Functional Regressions: Comparing Sprinters with Prosthetic versus Biological Legs
    \item Liebl, D. and Reimherr, M. (2022+). Fast and fair simultaneous confidence bands.
    \item  Choi, H. and Reimherr, M. (2018). A geometric approach to confidence regions and bands for functional parameters. Journal of the Royal Statistical Society: Series B (Statistical Methodology) 80 239-260.
 }

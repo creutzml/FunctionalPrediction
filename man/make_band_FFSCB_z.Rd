@@ -4,7 +4,17 @@
 \alias{make_band_FFSCB_z}
 \title{Fast 'n' fair simultaneous confidence band (Gaussian)}
 \usage{
-make_band_FFSCB_z(x, diag.cov.x, tau, conf.level = 0.95, n_int = 4)
+make_band_FFSCB_z(
+  x,
+  diag.cov.x,
+  tau,
+  conf.level = 0.95,
+  n_int = 4,
+  one.sided = F,
+  int.type = "confidence",
+  n.curves,
+  upper = T
+)
 }
 \arguments{
 \item{x}{Functional parameter estimate.}
@@ -16,6 +26,14 @@ make_band_FFSCB_z(x, diag.cov.x, tau, conf.level = 0.95, n_int = 4)
 \item{conf.level}{confidence level (default: 0.95)}
 
 \item{n_int}{Number of equidistant intervals over which the multiple testing component of the type-I error rate (1-conf.level) is distributed uniformly.}
+
+\item{one.sided}{Should the interval be two or one-sided?}
+
+\item{int.type}{One of either "confidence" or "prediction"}
+
+\item{n.curves}{How many curves are in the original sample used to calculate the average?}
+
+\item{upper}{If one-sided is desired, should it be upper or lower? (TRUE or 'upper' by default)}
 }
 \description{
 Fast 'n' fair simultaneous confidence band (Gaussian)
@@ -45,5 +63,8 @@ matplot(y=band[,2:3], x=grid, lty=2)
 lines(x=grid, y=band[,1], lty=1)
 }
 \references{
-Liebl, D. and Reimherr, M. (2022+). Fast and fair simultaneous confidence bands.
+\itemize{
+     \item Creutzinger, M., Liebl, D., and Sharp, J. (2024+). Fair Simultaneous Prediction and Confidence Bands for Concurrent Functional Regressions: Comparing Sprinters with Prosthetic versus Biological Legs
+     \item Liebl, D. and Reimherr, M. (2022+). Fast and fair simultaneous confidence bands.
+     }
 }

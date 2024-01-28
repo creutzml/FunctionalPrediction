@@ -18,6 +18,14 @@ make_band_FFSCB_t(x, diag.cov.x, tau, df, conf.level = 0.95, n_int = 4)
 \item{conf.level}{confidence level (default: 0.95)}
 
 \item{n_int}{Number of equidistant intervals over which the multiple testing component of the type-I error rate (1-conf.level) is distributed uniformly.}
+
+\item{one.sided}{Should the interval be two or one-sided?}
+
+\item{int.type}{One of either "confidence" or "prediction"}
+
+\item{n.curves}{How many curves are in the original sample used to calculate the average?}
+
+\item{upper}{If one-sided is desired, should it be upper or lower? (TRUE or 'upper' by default)}
 }
 \description{
 Fast 'n' fair simultaneous confidence band (t-distr)
