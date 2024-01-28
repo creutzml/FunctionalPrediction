@@ -14,7 +14,7 @@
 #' @param additional arguments that can be passed to `confidence_band`, which creates the final simultaneous band; of note, argument `conf.level` can be set to the desired confidence level for the simultaneous band
 #' @return a list containing fast n fair simultaneous confidence or prediction band for the marginal mean of a concurrent functional regression ("simultaneous_band") and an estimate of the degrees of freedom for the Student's t error process ("nu0_hat_est"), if applicable
 #' @export
-predict.concurrent <- function(concurrent_list, interval = "prediction", new_dat = NULL, time_vec = NULL, mse_scalar = "ub", err_str = "t", nu0_hat = "singh_df", ...) {
+predict_concurrent <- function(concurrent_list, interval = "prediction", new_dat = NULL, time_vec = NULL, mse_scalar = "ub", err_str = "t", nu0_hat = "singh_df", ...) {
   # concurrent_list (list): object returned from running concurrent
   #    regression
   # interval: (char) return confidence or prediction band?
@@ -288,7 +288,7 @@ predict.concurrent <- function(concurrent_list, interval = "prediction", new_dat
 #' @param ... additional arguments that can be passed to `confidence_band`, which creates the final simultaneous band; of note, argument `conf.level` (default is 0.95) can be set to the desired confidence level for the simultaneous band
 #' @return object `simultaneous_band_list`, which is a list containing a simultaneous confidence/prediction band with `conf.int` confidence for each concurrent regression parameter
 #' @export
-confint.concurrent <- function(concurrent_list, interval = "confidence", mse_scalar = "ub", time_vec = NULL, err_str = "t", nu0_hat = "singh_df", ...) {
+confint_concurrent <- function(concurrent_list, interval = "confidence", mse_scalar = "ub", time_vec = NULL, err_str = "t", nu0_hat = "singh_df", ...) {
   # concurrent_list (list): object returned from running concurrent
   #    regression
   # interval: (char) return confidence or prediction band?
