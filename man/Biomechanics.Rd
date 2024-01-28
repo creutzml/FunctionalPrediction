@@ -19,11 +19,11 @@ Biomechanics
 Paired sample of n=11 subjects.
 }
 \details{
-Each subject performed one running stride with an extra cushioned 
-running shoe and one running stride with a normally cushioned 
-running shoe. 
+Each subject performed one running stride with an extra cushioned
+running shoe and one running stride with a normally cushioned
+running shoe.
 
-Measured outcome: 
+Measured outcome:
 Torque (N m / kg) at ankle joint in sagittal pane during the stance phase
 standardized with respect to the bodyweight of the subjects.
 }

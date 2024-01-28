@@ -26,8 +26,8 @@ taken on two consecutive visits, divided by the average. The age is
 the average age over the two visits.
 }
 \references{
-Bachrach LK, Hastie T, Wang M-C, Narasimhan B, Marcus R. Bone Mineral 
-Acquisition in Healthy Asian, Hispanic, Black and Caucasian Youth. A 
+Bachrach LK, Hastie T, Wang M-C, Narasimhan B, Marcus R. Bone Mineral
+Acquisition in Healthy Asian, Hispanic, Black and Caucasian Youth. A
 Longitudinal Study. J Clin Endocrinol Metab (1999) 84, 4702-12.
 }
 \keyword{datasets}
