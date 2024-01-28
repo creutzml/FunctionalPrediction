@@ -109,6 +109,7 @@ make_band_naive_t_fragm <- function(diag.cov, conf.level, df){
 #' \itemize{
 #'      \item Creutzinger, M., Liebl, D., and Sharp, J. (2024+). Fair Simultaneous Prediction and Confidence Bands for Concurrent Functional Regressions: Comparing Sprinters with Prosthetic versus Biological Legs
 #'      \item Liebl, D. and Reimherr, M. (2022+). Fast and fair simultaneous confidence bands.
+#'      }
 #' @examples 
 #' # Generate a sample
 #' p          <- 200 
