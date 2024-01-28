@@ -90,14 +90,14 @@ fRegress_concurrent <- function(y_mat, x_array, intercept = FALSE) {
       }
 
       # SLR
-      slr_out <- lm(formula = mod_form_temp)
+      slr_out <- stats::lm(formula = mod_form_temp)
 
       # Save the values
       y_hat_mat[i, ] <- slr_out$fitted.values
       beta_hat_mat[i, ] <- slr_out$coefficients
       y_resid_mat[i, ] <- slr_out$residuals
       dffits_mat[i, ] <- stats::dffits(slr_out)
-      ext_stu_res_mat[i, ] <- stats::studres(slr_out)
+      ext_stu_res_mat[i, ] <- MASS::studres(slr_out)
     }
 
     # Add a matrix of ones for the intercept to the x_array

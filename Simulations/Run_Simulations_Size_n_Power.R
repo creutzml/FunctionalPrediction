@@ -60,7 +60,9 @@ if(run_bechmark){
       hat.tau     <- tau_fun(dat)
       
       try(confidence_band(x=hat_mu, cov=hat.cov.mu, tau=hat.tau, df=N-1, 
-                          type="FFSCB.z", conf.level=(1-alpha.level), n_int=1))
+                          type="FFSCB.z", conf.level=(1-alpha.level), n_int=1, 
+                          one.sided = F, int.type = "confidence", n.curves = df + 1,
+                          upper = T))
     },
     "FF2.z"={
       ## Generate data
@@ -72,7 +74,9 @@ if(run_bechmark){
       hat.tau     <- tau_fun(dat)
       
       try(confidence_band(x=hat_mu, cov=hat.cov.mu, tau=hat.tau, df=N-1, 
-                          type="FFSCB.z", conf.level=(1-alpha.level), n_int=2))
+                          type="FFSCB.z", conf.level=(1-alpha.level), n_int=2,
+                          one.sided = F, int.type = "confidence", n.curves = df + 1,
+                          upper = T))
     },
     "FF4.z"={
       ## Generate data
@@ -84,7 +88,9 @@ if(run_bechmark){
       hat.tau     <- tau_fun(dat)
       
       try(confidence_band(x=hat_mu, cov=hat.cov.mu, tau=hat.tau, df=N-1, 
-                          type="FFSCB.z", conf.level=(1-alpha.level), n_int=4))
+                          type="FFSCB.z", conf.level=(1-alpha.level), n_int=4,
+                          one.sided = F, int.type = "confidence", n.curves = df + 1,
+                          upper = T))
     },
     "FF1.t"={
       ## Generate data
@@ -96,7 +102,9 @@ if(run_bechmark){
       hat.tau     <- tau_fun(dat) 
       
       try(confidence_band(x=hat_mu, cov=hat.cov.mu, tau=hat.tau, df=N-1, 
-                          type="FFSCB.t", conf.level=(1-alpha.level), n_int=1))
+                          type="FFSCB.t", conf.level=(1-alpha.level), n_int=1, 
+                          one.sided = F, int.type = "confidence", n.curves = df + 1,
+                          upper = T))
     },
     "FF2.t"={
       ## Generate data
@@ -108,7 +116,9 @@ if(run_bechmark){
       hat.tau     <- tau_fun(dat)
       
       try(confidence_band(x=hat_mu, cov=hat.cov.mu, tau=hat.tau, df=N-1, 
-                          type="FFSCB.t", conf.level=(1-alpha.level), n_int=2))
+                          type="FFSCB.t", conf.level=(1-alpha.level), n_int=2, 
+                          one.sided = F, int.type = "confidence", n.curves = df + 1,
+                          upper = T))
     },
     "FF4.t"={
       ## Generate data
@@ -120,7 +130,9 @@ if(run_bechmark){
       hat.tau     <- tau_fun(dat)
       
       try(confidence_band(x=hat_mu, cov=hat.cov.mu, tau=hat.tau, df=N-1, 
-                          type="FFSCB.t", conf.level=(1-alpha.level), n_int=4))
+                          type="FFSCB.t", conf.level=(1-alpha.level), n_int=4, 
+                          one.sided = F, int.type = "confidence", n.curves = df + 1,
+                          upper = T))
     },
     "BEc"={
       ## Generate data
@@ -131,7 +143,9 @@ if(run_bechmark){
       hat.cov.mu  <- hat.cov / N
       hat.tau     <- tau_fun(dat)
       try(confidence_band(x=hat_mu, cov=hat.cov.mu, tau=hat.tau, df=N-1, 
-                          type="BEc", conf.level=(1-alpha.level), n_int=n_int))
+                          type="BEc", conf.level=(1-alpha.level), n_int=n_int, 
+                          one.sided = F, int.type = "confidence", n.curves = df + 1,
+                          upper = T))
     },
     "Bs"={
       ## Generate data
@@ -142,7 +156,9 @@ if(run_bechmark){
       hat.cov.mu  <- hat.cov / N
       hat.tau     <- tau_fun(dat)
       try(confidence_band(x=hat_mu, cov=hat.cov.mu, tau=hat.tau, df=N-1, 
-                          type="Bs", conf.level=(1-alpha.level), n_int=n_int))
+                          type="Bs", conf.level=(1-alpha.level), n_int=n_int, 
+                          one.sided = F, int.type = "confidence", n.curves = df + 1,
+                          upper = T))
     },
     "GKF.t"={
       ## Generate data
@@ -254,10 +270,14 @@ for(DGP in DGP_seq) {
         
         ## 4 intervals
         b <- confidence_band(x=hat_mu, cov=hat.cov.mu, tau=hat.tau, df=N-1, 
-                             type=type, conf.level=(1-alpha.level), n_int=4)
+                             type=type, conf.level=(1-alpha.level), n_int=4, 
+                             one.sided = F, int.type = "confidence", n.curves = df + 1,
+                             upper = T)
         ## 2 intervals
         b2 <- confidence_band(x=hat_mu, cov=hat.cov.mu, tau=hat.tau, df=N-1, 
-                              type=c("FFSCB.z", "FFSCB.t"), conf.level=(1-alpha.level), n_int=2)
+                              type=c("FFSCB.z", "FFSCB.t"), conf.level=(1-alpha.level), n_int=2, 
+                              one.sided = F, int.type = "confidence", n.curves = df + 1,
+                              upper = T)
         
         ## plot(b); lines(x=grid, y=mu, col="blue"); lines(x=grid, y=mu0, lty=2, col="blue")
         ##
