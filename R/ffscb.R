@@ -28,8 +28,8 @@
 #' b <- confidence_band(
 #'   x = hat.mu, cov.x = hat.cov.mu, tau = hat.tau, df = N - 1,
 #'   type = c("FFSCB.t", "Bs", "BEc", "naive.t"),
-#'   conf.level = 0.95, one.sided = F, int.type = "confidence",
-#'   n.curves = df + 1, upper = T
+#'   conf.level = 0.95, one.sided = FALSE, int.type = "confidence",
+#'   n.curves = df + 1, upper = TRUE
 #' )
 #'
 #' plot(b)
