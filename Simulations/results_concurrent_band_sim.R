@@ -26,13 +26,14 @@ library(conformalInference.fd)
 
 ### Analyze the results:
 #####################################################################
+## Data Directory
+dir_path <- file.path(here::here(), "Simulations/data")
+
 ## Load in the simulation results
-load(
-  paste0("/Users/creutzml/Library/Mobile Documents/com~apple~",
-         "CloudDocs/Documents/Dissertation/functional_data_",
-         "analysis/sim_results/fast_and_fair/concurrent_sim_nonst_10_",
-         "30_23.RData")
-)
+# Stationary Matern covariance results
+load(file.path(dir_path, "concurrent_sim_st.RData"))
+# Non-stationary Matern covariance results
+# load(file.path(dir_path, "concurrent_sim_nonst.RData"))
 
 # Recreates results for Tables 1 and 3 (if stationary results are 
 # loaded), and Tables 2 and 4 (if non-stationary results are loaded)
