@@ -14,6 +14,10 @@
 
 ## Starting steps
 #####################################################################
+# Install Creutzml fork
+require(devtools)
+install_github("creutzml/ffscb", force = T)
+
 # Packages
 library(mvtnorm)
 library(tidyverse)
@@ -62,7 +66,7 @@ band_score <- function(new_obs, band_lower, band_upper, sig_level) {
 # set.seed(101911)
 
 ## Parameters to loop over:
-n_iters <- 5000
+n_iters <- 1
 err_dist <- "t"
 n <- c(30, 100)
 dfs <- c(5, 15)
@@ -305,7 +309,7 @@ for (p in 1:nrow(sim_parms)) {
                                      x_array = x_array_temp[,,-1])
     
     # First prediction: c(1,0)
-    fBands <- predict.concurrent(
+    fBands <- predict_concurrent(
       concurrent_list = fReg_list,
       interval = "prediction", 
       err_str = "t",
@@ -318,8 +322,8 @@ for (p in 1:nrow(sim_parms)) {
     
     # Check coverage
     ff_10_out_temp <- (sum(
-      y_vals_mat_ho[,1] < fBands[[1]][[1]][,3] |
-        y_vals_mat_ho[,1] > fBands[[1]][[1]][,2]
+      y_vals_mat_ho[,1] < fBands[[1]][,3] |
+        y_vals_mat_ho[,1] > fBands[[1]][,2]
     ) > 0)
     
     # Check subinterval coverage
@@ -330,26 +334,26 @@ for (p in 1:nrow(sim_parms)) {
       
       ff_10_out_temp_by_int[c] <- (sum(
         y_vals_mat_ho[start_id:end_id,1] < 
-          fBands[[1]][[1]][start_id:end_id,3] |
+          fBands[[1]][start_id:end_id,3] |
           y_vals_mat_ho[start_id:end_id,1] > 
-          fBands[[1]][[1]][start_id:end_id,2]
+          fBands[[1]][start_id:end_id,2]
       ) > 0)
     }
     
     # Calculate band score
     ff_10_bscore_temp <- band_score(
       new_obs = y_vals_mat_ho[,1], 
-      band_lower = fBands[[1]][[1]][,3],
-      band_upper = fBands[[1]][[1]][,2], 
+      band_lower = fBands[[1]][,3],
+      band_upper = fBands[[1]][,2], 
       sig_level = 0.1
     )
     
     # Calculate mean band width
-    ff_10_bwidth_temp <- max(fBands[[1]][[1]][,2] - fBands[[1]][[1]][,3], 
+    ff_10_bwidth_temp <- max(fBands[[1]][,2] - fBands[[1]][,3], 
                              na.rm = T)
     
     # Second prediction: c(1,1)
-    fBands2 <- predict.concurrent(
+    fBands2 <- predict_concurrent(
       concurrent_list = fReg_list,
       interval = "prediction", 
       err_str = "t",
@@ -362,8 +366,8 @@ for (p in 1:nrow(sim_parms)) {
     
     # Check coverage
     ff_11_out_temp <- (sum(
-      y_vals_mat_ho[,2] < fBands2[[1]][[1]][,3] |
-        y_vals_mat_ho[,2] > fBands2[[1]][[1]][,2]
+      y_vals_mat_ho[,2] < fBands2[[1]][,3] |
+        y_vals_mat_ho[,2] > fBands2[[1]][,2]
     ) > 0)
     
     # Check subinterval coverage
@@ -374,22 +378,22 @@ for (p in 1:nrow(sim_parms)) {
       
       ff_11_out_temp_by_int[c] <- (sum(
         y_vals_mat_ho[start_id:end_id,2] < 
-          fBands2[[1]][[1]][start_id:end_id,3] |
+          fBands2[[1]][start_id:end_id,3] |
           y_vals_mat_ho[start_id:end_id,2] > 
-          fBands2[[1]][[1]][start_id:end_id,2]
+          fBands2[[1]][start_id:end_id,2]
       ) > 0)
     }
     
     # Calculate band score
     ff_11_bscore_temp <- band_score(
       new_obs = y_vals_mat_ho[,2], 
-      band_lower = fBands2[[1]][[1]][,3],
-      band_upper = fBands2[[1]][[1]][,2], 
+      band_lower = fBands2[[1]][,3],
+      band_upper = fBands2[[1]][,2], 
       sig_level = 0.1
     )
     
     # Calculate mean band width
-    ff_11_bwidth_temp <- max(fBands2[[1]][[1]][,2] - fBands2[[1]][[1]][,3], 
+    ff_11_bwidth_temp <- max(fBands2[[1]][,2] - fBands2[[1]][,3], 
                              na.rm = T)
     #################################################################
     
