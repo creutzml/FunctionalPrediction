@@ -509,7 +509,7 @@ matplot(nonamp_model$y_resid_mat, nonamp_model$y_hat_mat,
         ylab = "Fitted Values")
 
 ## How do the confidence bands for the beta parameters look?
-beta_bands <- confint.concurrent(nonamp_model, 
+beta_bands <- confint_concurrent(nonamp_model, 
                                  n_int = 3, 
                                  conf.level = .90)
 ## Notes: 
@@ -585,7 +585,7 @@ new_dat_mat1 <- matrix(
       each = n_sp), 
   nrow = n_sp
 )
-non_amp_pred_band1 <- predict.concurrent(
+non_amp_pred_band1 <- predict_concurrent(
   concurrent_list = nonamp_model, 
   interval = "prediction", 
   new_dat = new_dat_mat1, 
@@ -768,7 +768,7 @@ new_dat_mat2 <- matrix(
       each = n_sp), 
   nrow = n_sp
 )
-non_amp_pred_band2 <- predict.concurrent(
+non_amp_pred_band2 <- predict_concurrent(
   concurrent_list = nonamp_model, 
   interval = "prediction", 
   new_dat = new_dat_mat2, 
@@ -935,7 +935,7 @@ new_dat_mat3 <- matrix(
       each = n_sp), 
   nrow = n_sp
 )
-non_amp_pred_band3 <- predict.concurrent(
+non_amp_pred_band3 <- predict_concurrent(
   concurrent_list = nonamp_model, 
   interval = "prediction", 
   new_dat = new_dat_mat3, 
@@ -1087,7 +1087,7 @@ new_dat_mat4 <- matrix(
       each = n_sp), 
   nrow = n_sp
 )
-non_amp_pred_band4 <- predict.concurrent(
+non_amp_pred_band4 <- predict_concurrent(
   concurrent_list = nonamp_model, 
   interval = "prediction", 
   new_dat = new_dat_mat4, 
@@ -1239,7 +1239,7 @@ new_dat_mat5 <- matrix(
       each = n_sp), 
   nrow = n_sp
 )
-non_amp_pred_band5 <- predict.concurrent(
+non_amp_pred_band5 <- predict_concurrent(
   concurrent_list = nonamp_model, 
   interval = "prediction", 
   new_dat = new_dat_mat5, 
@@ -1392,7 +1392,7 @@ new_dat_mat6 <- matrix(
       each = n_sp), 
   nrow = n_sp
 )
-non_amp_pred_band6 <- predict.concurrent(
+non_amp_pred_band6 <- predict_concurrent(
   concurrent_list = nonamp_model, 
   interval = "prediction", 
   new_dat = new_dat_mat6, 
@@ -1544,7 +1544,7 @@ new_dat_mat7 <- matrix(
       each = n_sp), 
   nrow = n_sp
 )
-non_amp_pred_band7 <- predict.concurrent(
+non_amp_pred_band7 <- predict_concurrent(
   concurrent_list = nonamp_model, 
   interval = "prediction", 
   new_dat = new_dat_mat7, 
