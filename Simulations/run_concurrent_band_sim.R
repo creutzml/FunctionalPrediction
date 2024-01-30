@@ -440,10 +440,17 @@ for (p in 1:nrow(sim_parms)) {
   ###################################################################
 }
 
+# Create and save data frame from list
+sim_results_df <- do.call(rbind, sim_results_list)
+#####################################################################
 
 
-### This code will reproduce Figure 2 in Creutzinger, Liebl, and Sharp (2024+)
-library(cowplot)
+
+
+
+### This code will reproduce Figure 2 in Creutzinger, Liebl, and 
+### Sharp (2024+)
+#####################################################################
 # Number of observations and sampling points, 
 n_obs <- 100
 n_sp <- 101
@@ -491,6 +498,12 @@ y_vals_mat_nonst <- t(x_array[1,,]%*%
                         t(cbind(true_int_mean, true_slope_mean))) + 
   eps_mat
 
+# Next, remove the last two columns for hold out prediction
+y_vals_mat_temp_nonst <- y_vals_mat_nonst[,-c(n_obs + 1, n_obs + 2)]
+x_array_temp_nonst <- x_array[,-c(n_obs + 1, n_obs + 2),]
+y_vals_mat_ho_nonst <- y_vals_mat_nonst[,c(n_obs + 1, n_obs + 2)]
+x_array_ho_nonst <- x_array[,c(n_obs + 1, n_obs + 2),]
+
 # Random error covariance
 cov.m <- make_cov_m(
   cov.f = ffscb::covf_st_matern,
@@ -511,6 +524,12 @@ eps_mat <- make_sample(
 y_vals_mat_st <- t(x_array[1,,]%*%
                         t(cbind(true_int_mean, true_slope_mean))) + 
   eps_mat
+
+# Next, remove the last two columns for hold out prediction
+y_vals_mat_temp_st <- y_vals_mat_st[,-c(n_obs + 1, n_obs + 2)]
+x_array_temp_st <- x_array[,-c(n_obs + 1, n_obs + 2),]
+y_vals_mat_ho_st <- y_vals_mat_st[,c(n_obs + 1, n_obs + 2)]
+x_array_ho_st <- x_array[,c(n_obs + 1, n_obs + 2),]
 
 
 # Quick plot of the curves
@@ -547,121 +566,291 @@ ggplot() +
              strip.position = "right") +
   scale_color_manual(values = c("#D55E00", "#56B4E9")) +
   scale_linetype_manual(values = c("dashed", "solid")) +
-  theme_bw() +
+  theme_bw(base_size = 20) +
   labs(color = "Predictor:", linetype = "Predictor:") +
   theme(legend.position = c(.5, .95),
         legend.direction = "horizontal",
         legend.background = element_rect(colour = 'black',
                                          fill = 'white',
                                          linetype='solid'),
-        text = element_text(size = 16),
-        plot.margin = unit(c(1, 1, 1, 1), "cm"),
+        # text = element_text(size = 16),
+        plot.margin = unit(c(1, 1, 0.1, 1), "cm"),
         panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank()) +
+        panel.grid.minor = element_blank(), 
+        strip.text.y = element_text(size = 20)) +
   scale_x_continuous(expand = c(0, 0),
                      breaks = round(c(0, 1/3, 2/3, 1), 2)) +
   coord_cartesian(ylim = c(0, 3))
+#####################################################################
 
 
 
-# 
-# ### This code will repdroduce Figure 3
-# # Quick comparison plot of bands created by conformal vs fast and fair
-# band_plot_df_y <- data.frame(
-#   t = seq(0,1, length.out = 101),
-#   y_true = y_vals_mat_ho[,2]
-# )
-# band_plot_df_ci <- data.frame(
-#   t = seq(0,1, length.out = 101),
-#   # y_true = y_vals_mat_ho[,2],
-#   ci_pred = unlist(final.mfData$pred),
-#   ci_lower = unlist(final.mfData$lo[[1]]),
-#   ci_upper = unlist(final.mfData$up[[1]]) #,
-#   # ff_pred = fBands2[[1]][[1]][,1],
-#   # ff_lower = fBands2[[1]][[1]][,3],
-#   # ff_upper = fBands2[[1]][[1]][,2]
-# ) %>%
-# mutate(band_type = "Conformal \n Inference")
-# 
-# band_plot_df_ff <- data.frame(
-#   t = seq(0,1, length.out = 101),
-#   # y_true = y_vals_mat_ho[,2],
-#   # pred = unlist(final.mfData$pred),
-#   # lower = unlist(final.mfData$lo[[1]]),
-#   # upper = unlist(final.mfData$up[[1]]) #,
-#   ff_pred = fBands2[[1]][[1]][,1],
-#   ff_lower = fBands2[[1]][[1]][,3],
-#   ff_upper = fBands2[[1]][[1]][,2]
-# ) %>%
-#   mutate(band_type = "Fast and \n Fair")
-# 
+
+### This code will repdroduce Figure 3
+### Note: code chunk for Figure 2 needs to be run before this one
+#####################################################################
+# Quick comparison plot of bands created by conformal vs fast and fair
+band_plot_df_y_nonst <- data.frame(
+  t = seq(0,1, length.out = 101),
+  y_true = y_vals_mat_ho_nonst[,2], 
+  cov_st = "Non-Stationary"
+)
+
+# Before using conformal, we need to convert the forms of data
+grid_list <- list(as.list(grid))
+x_list_temp_nonst <- vector("list", length = n_obs)
+y_list_temp_nonst <- vector("list", length = n_obs)
+x_list_ho_nonst <- vector("list", length = 2)
+
+for (i in 1:n_obs) {
+  for (j in 1:n_sp) {
+    x_list_temp_nonst[[i]][[j]] <- c(x_array_temp_nonst[j,i,])
+    y_list_temp_nonst[[i]][[j]] <- y_vals_mat_temp_nonst[j,i]
+  }
+}
+
+for (i in 1:2) {
+  for (j in 1:n_sp) {
+    x_list_ho_nonst[[i]][[j]] <- c(x_array_ho_nonst[j,i,])
+  }
+}
+
+x_list_ho1_nonst <- list(x_list_ho_nonst[[1]])
+x_list_ho2_nonst <- list(x_list_ho_nonst[[2]])
+
+# Function needed for arguments in conformal
+fun=mean_lists()
+
+# Conformal prediction of c(1,1)
+final.mfData_nonst = conformal.fun.split(
+  x = x_list_temp_nonst, 
+  t_x = grid_list,
+  y = y_list_temp_nonst, 
+  t_y = grid_list,
+  x0 = x_list_ho2_nonst,
+  train.fun = fun$train.fun, 
+  predict.fun = fun$predict.fun,
+  alpha = 0.1,
+  split = NULL, 
+  seed = FALSE, 
+  randomized = FALSE,
+  seed.rand = FALSE,
+  verbose = FALSE, 
+  rho = 0.5,
+  s.type = "identity")
+
+band_plot_df_ci_nonst <- data.frame(
+  t = seq(0,1, length.out = 101),
+  # y_true = y_vals_mat_ho[,2],
+  ci_pred = unlist(final.mfData_nonst$pred),
+  ci_lower = unlist(final.mfData_nonst$lo[[1]]),
+  ci_upper = unlist(final.mfData_nonst$up[[1]]) #,
+  # ff_pred = fBands2[[1]][[1]][,1],
+  # ff_lower = fBands2[[1]][[1]][,3],
+  # ff_upper = fBands2[[1]][[1]][,2]
+) %>%
+mutate(band_type = "Conformal \n Inference", 
+       cov_st = "Non-Stationary")
+
+## And now, if we fit with concurrent regression I made and our bands
+fReg_list_nonst <- fRegress_concurrent(y_mat = y_vals_mat_temp_nonst, 
+                                       x_array = x_array_temp_nonst[,,-1])
+
+# prediction: c(1,1)
+fBands_nonst <- predict_concurrent(
+  concurrent_list = fReg_list_nonst,
+  interval = "prediction", 
+  err_str = "t",
+  new_dat = c(1), 
+  conf.level = 0.90, 
+  n_int = 3,
+  nu0_hat = "singh_df",
+  mse_scalar = "ub"
+)
+
+band_plot_df_ff_nonst <- data.frame(
+  t = seq(0,1, length.out = 101),
+  # y_true = y_vals_mat_ho[,2],
+  # pred = unlist(final.mfData$pred),
+  # lower = unlist(final.mfData$lo[[1]]),
+  # upper = unlist(final.mfData$up[[1]]) #,
+  ff_pred = fBands_nonst[[1]][,1],
+  ff_lower = fBands_nonst[[1]][,3],
+  ff_upper = fBands_nonst[[1]][,2]
+) %>%
+  mutate(band_type = "Fast and \n Fair", 
+         cov_st = "Non-Stationary")
+
+# Quick comparison plot of bands created by conformal vs fast and fair
+band_plot_df_y_st <- data.frame(
+  t = seq(0,1, length.out = 101),
+  y_true = y_vals_mat_ho_st[,2], 
+  cov_st = "Stationary"
+)
+
+# Before using conformal, we need to convert the forms of data
+grid_list <- list(as.list(grid))
+x_list_temp_st <- vector("list", length = n_obs)
+y_list_temp_st <- vector("list", length = n_obs)
+x_list_ho_st <- vector("list", length = 2)
+
+for (i in 1:n_obs) {
+  for (j in 1:n_sp) {
+    x_list_temp_st[[i]][[j]] <- c(x_array_temp_st[j,i,])
+    y_list_temp_st[[i]][[j]] <- y_vals_mat_temp_st[j,i]
+  }
+}
+
+for (i in 1:2) {
+  for (j in 1:n_sp) {
+    x_list_ho_st[[i]][[j]] <- c(x_array_ho_st[j,i,])
+  }
+}
+
+x_list_ho1_st <- list(x_list_ho_st[[1]])
+x_list_ho2_st <- list(x_list_ho_st[[2]])
+
+# Function needed for arguments in conformal
+fun=mean_lists()
+
+# Conformal prediction of c(1,1)
+final.mfData_st = conformal.fun.split(
+  x = x_list_temp_st, 
+  t_x = grid_list,
+  y = y_list_temp_st, 
+  t_y = grid_list,
+  x0 = x_list_ho2_st,
+  train.fun = fun$train.fun, 
+  predict.fun = fun$predict.fun,
+  alpha = 0.1,
+  split = NULL, 
+  seed = FALSE, 
+  randomized = FALSE,
+  seed.rand = FALSE,
+  verbose = FALSE, 
+  rho = 0.5,
+  s.type = "identity")
+
+band_plot_df_ci_st <- data.frame(
+  t = seq(0,1, length.out = 101),
+  # y_true = y_vals_mat_ho[,2],
+  ci_pred = unlist(final.mfData_st$pred),
+  ci_lower = unlist(final.mfData_st$lo[[1]]),
+  ci_upper = unlist(final.mfData_st$up[[1]]) #,
+  # ff_pred = fBands2[[1]][[1]][,1],
+  # ff_lower = fBands2[[1]][[1]][,3],
+  # ff_upper = fBands2[[1]][[1]][,2]
+) %>%
+  mutate(band_type = "Conformal \n Inference", 
+         cov_st = "Stationary")
+
+## And now, if we fit with concurrent regression I made and our bands
+fReg_list_st <- fRegress_concurrent(y_mat = y_vals_mat_temp_st, 
+                                       x_array = x_array_temp_st[,,-1])
+
+# prediction: c(1,1)
+fBands_st <- predict_concurrent(
+  concurrent_list = fReg_list_st,
+  interval = "prediction", 
+  err_str = "t",
+  new_dat = c(1), 
+  conf.level = 0.90, 
+  n_int = 3,
+  nu0_hat = "singh_df",
+  mse_scalar = "ub"
+)
+
+band_plot_df_ff_st <- data.frame(
+  t = seq(0,1, length.out = 101),
+  # y_true = y_vals_mat_ho[,2],
+  # pred = unlist(final.mfData$pred),
+  # lower = unlist(final.mfData$lo[[1]]),
+  # upper = unlist(final.mfData$up[[1]]) #,
+  ff_pred = fBands_st[[1]][,1],
+  ff_lower = fBands_st[[1]][,3],
+  ff_upper = fBands_st[[1]][,2]
+) %>%
+  mutate(band_type = "Fast and \n Fair", 
+         cov_st = "Stationary")
+
+## Combine data frames
+band_plot_df_ci <- dplyr::bind_rows(band_plot_df_ci_nonst,
+                                    band_plot_df_ci_st) %>%
+  mutate(cov_st = factor(cov_st, 
+                         levels = c("Stationary", "Non-Stationary")))
+band_plot_df_ff <- dplyr::bind_rows(band_plot_df_ff_nonst, 
+                                    band_plot_df_ff_st) %>%
+  mutate(cov_st = factor(cov_st, 
+                         levels = c("Stationary", "Non-Stationary")))
+band_plot_df_y <- dplyr::bind_rows(band_plot_df_y_nonst, 
+                                   band_plot_df_y_st) %>%
+  mutate(cov_st = factor(cov_st, 
+                         levels = c("Stationary", "Non-Stationary")))
+
 # # Plot the comparison
-# fct_color <- c("black", "#D55E00", "#56B4E9")
-# fct_linetype <- c(1, 2, 4)
-# (band_ex_st <- ggplot() +
-#     geom_vline(xintercept = c(1/3, 2/3), 
-#                color = "lightgrey") +
-#     geom_ribbon(aes(x = t, ymin = ff_lower, ymax = ff_upper,
-#                     fill = band_type, linetype = band_type),
-#                 alpha = 0.5, linewidth = 1.25, #linetype = "solid",
-#                 data = band_plot_df_ff) +
-#     geom_ribbon(aes(x = t, ymin = ci_lower, ymax = ci_upper,
-#                     color = band_type, linetype = band_type),
-#                 # linetype = "dotdash",
-#                 fill = NA,
-#                 alpha = 0.5,
-#                 # linetype = "dotdash",
-#                 linewidth = 1.25,
-#                 data = band_plot_df_ci) +
-#     geom_line(aes(x = t, y = y_true),
-#               color = "black", linewidth = 1.25,
-#               data = band_plot_df_y) +
-#     geom_line(aes(x = t, y = ff_pred, color = band_type),
-#               linewidth = 1.25,
-#               data = band_plot_df_ff) +
-#     theme_bw() +
-#     theme(text = element_text(size = 16)) +
-#     labs(#color = "Prediction Band: ",
-#       # linetype = "Prediction Band: ",
-#       # fill = "Prediction Band: ",
-#       y = "Y(t)") +
-#     scale_color_manual(name = "Prediction Band: ",
-#                        breaks = c("Conformal \n Inference",
-#                                   "Fast and \n Fair"),
-#                        values = c("Conformal \n Inference" = "#D55E00",
-#                                   "Fast and \n Fair" = "#56B4E9")) +
-#     scale_fill_manual(name = "Prediction Band: ",
-#                       breaks = c("Conformal \n Inference",
-#                                  "Fast and \n Fair"),
-#                       values = c("Conformal \n Inference" = NA,
-#                                  "Fast and \n Fair" = "#56B4E9")) +
-#     scale_linetype_manual(name = "Prediction Band: ",
-#                           breaks = c("Conformal \n Inference",
-#                                      "Fast and \n Fair"),
-#                           values = c("Conformal \n Inference" = "dotdash",
-#                                      "Fast and \n Fair" = "solid")) +
-#     guides(fill = "none",
-#            color = guide_legend(override.aes = list(fill = NA))) +
-#     # title = "Comparison of 90% Prediction Bands for x(t) = 1",
-#     # subtitle = expression(nu[0]*" = 30, n = 100")) +
-#     theme(legend.position = c(.5, .9),
-#           legend.direction = "horizontal",
-#           legend.background = element_rect(colour = 'black',
-#                                            fill = 'white',
-#                                            linetype='solid'),
-#           text = element_text(size = 16),
-#           plot.margin = unit(c(1, 1, 1, 1), "cm"), 
-#           panel.grid.major = element_blank(),
-#           panel.grid.minor = element_blank()) +
-#     scale_x_continuous(expand = c(0, 0),
-#                        breaks = round(c(0, 1/3, 2/3, 1), 2)) +
-#     coord_cartesian(ylim = c(-0.25, 3)))
-# 
-# plot_grid(band_ex_st,
-#           band_ex_nonst,
-#           align = "v", nrow = 2, labels = c("(a)", "(b)"))
-
-
-# Create and save data frame from list
-sim_results_df <- do.call(rbind, sim_results_list)
+fct_color <- c("black", "#D55E00", "#56B4E9")
+fct_linetype <- c(1, 2, 4)
+ggplot() +
+  geom_vline(xintercept = c(1/3, 2/3),
+             color = "lightgrey") +
+  geom_ribbon(aes(x = t, ymin = ff_lower, ymax = ff_upper,
+                  fill = band_type, linetype = band_type),
+              alpha = 0.5, linewidth = 1.25, #linetype = "solid",
+              data = band_plot_df_ff, key_glyph = "blank") +
+  geom_ribbon(aes(x = t, ymin = ci_lower, ymax = ci_upper,
+                  color = band_type, linetype = band_type),
+              # linetype = "dotdash",
+              fill = NA,
+              alpha = 0.5,
+              # linetype = "dotdash",
+              linewidth = 1.25,
+              data = band_plot_df_ci, key_glyph = "blank") +
+  geom_line(aes(x = t, y = y_true, group = cov_st),
+            color = "black", linewidth = 1.25,
+            data = band_plot_df_y) +
+  geom_line(aes(x = t, y = ff_pred, color = band_type, 
+                linetype = band_type),
+            linewidth = 1.25,
+            data = band_plot_df_ff) +
+  facet_wrap(vars(cov_st), nrow = 2, 
+             strip.position = "right") +
+  theme_bw(base_size = 20) +
+  # theme(text = element_text(size = 16)) +
+  labs(#color = "Prediction Band: ",
+    # linetype = "Prediction Band: ",
+    # fill = "Prediction Band: ",
+    y = "Y(t)") +
+  scale_color_manual(name = "Prediction Band: ",
+                     breaks = c("Conformal \n Inference",
+                                "Fast and \n Fair"),
+                     values = c("Conformal \n Inference" = "#D55E00",
+                                "Fast and \n Fair" = "#56B4E9")) +
+  scale_fill_manual(name = "Prediction Band: ",
+                    breaks = c("Conformal \n Inference",
+                               "Fast and \n Fair"),
+                    values = c("Conformal \n Inference" = NA,
+                               "Fast and \n Fair" = "#56B4E9")) +
+  scale_linetype_manual(name = "Prediction Band: ",
+                        breaks = c("Conformal \n Inference",
+                                   "Fast and \n Fair"),
+                        values = c("Conformal \n Inference" = "dotdash",
+                                   "Fast and \n Fair" = "solid")) +
+  guides(fill = "none",
+         color = guide_legend(override.aes = list(fill = NA))) +
+  # title = "Comparison of 90% Prediction Bands for x(t) = 1",
+  # subtitle = expression(nu[0]*" = 30, n = 100")) +
+  theme(legend.position = c(.5, .95),
+        legend.direction = "horizontal",
+        legend.background = element_rect(colour = 'black',
+                                         fill = 'white',
+                                         linetype='solid'),
+        # text = element_text(size = 16),
+        plot.margin = unit(c(1, 1, 0.1, 1), "cm"),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), 
+        strip.text.y = element_text(size = 20)) +
+  scale_x_continuous(expand = c(0, 0),
+                     breaks = round(c(0, 1/3, 2/3, 1), 2)) +
+  coord_cartesian(ylim = c(-0.25, 3))
+#####################################################################
 
