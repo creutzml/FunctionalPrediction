@@ -442,44 +442,128 @@ for (p in 1:nrow(sim_parms)) {
 
 
 
-# ### This code will reproduce Figure 2 in Creutzinger, Liebl, and Sharp (2024+)
-# library(cowplot)
-# # Quick plot of the curves
-# y_vals_df <- y_vals_mat %>%
-#   as.data.frame() %>%
-#   mutate(t = seq(0, 1, length.out = 101)) %>%
-#   pivot_longer(-t, names_to = "Obs", values_to = "Y(t)") %>%
-#   mutate(`x(t)` = case_when(
-#     parse_number(Obs) < 51 | parse_number(Obs) == 101 ~ "x(t) = 0",
-#     parse_number(Obs) > 50 & parse_number(Obs) != 101 ~ "x(t) = 1"
-#   ))
-# 
-# sample_plot_nonst <- ggplot() +
-#   geom_vline(xintercept = c(1/3, 2/3), 
-#              color = "lightgrey") +
-#   geom_line(aes(x = t, y = `Y(t)`,
-#                 color = `x(t)`, linetype = `x(t)`, group = Obs),
-#             data = y_vals_df) +
-#   scale_color_manual(values = c("#D55E00", "#56B4E9")) +
-#   scale_linetype_manual(values = c("dashed", "solid")) +
-#   theme_bw() +
-#   labs(color = "Predictor:", linetype = "Predictor:") +
-#   theme(legend.position = c(.5, .9),
-#         legend.direction = "horizontal",
-#         legend.background = element_rect(colour = 'black',
-#                                          fill = 'white',
-#                                          linetype='solid'),
-#         text = element_text(size = 16),
-#         plot.margin = unit(c(1, 1, 1, 1), "cm"), 
-#         panel.grid.major = element_blank(), 
-#         panel.grid.minor = element_blank()) +
-#   scale_x_continuous(expand = c(0, 0),
-#                      breaks = round(c(0, 1/3, 2/3, 1), 2)) +
-#   coord_cartesian(ylim = c(0, 3))
-# 
-# plot_grid(sample_plot_st, sample_plot_nonst,
-#           align = "v", nrow = 2, labels = c("(a)", "(b)"))
-# 
+### This code will reproduce Figure 2 in Creutzinger, Liebl, and Sharp (2024+)
+library(cowplot)
+# Number of observations and sampling points, 
+n_obs <- 100
+n_sp <- 101
+grid <- make_grid(n_sp, rangevals = c(0, 1))
+y_vals_mat <- matrix(0, nrow = n_sp, ncol = n_obs + 2)
+
+# Need an array for the predictor matrix
+x_array <- array(c(matrix(1, nrow = n_sp, ncol = n_obs + 2), 
+                   matrix(c(rep(0, n_sp*n_obs/2),
+                            rep(1, n_sp*n_obs/2), 
+                            rep(0, n_sp), rep(1, n_sp)), 
+                          nrow = n_sp, ncol = n_obs + 2)), 
+                 dim = c(length(grid), n_obs + 2, 2))
+
+# Beta functions
+b0 <- 1
+b1 <- function(i, t_mat) {
+  sin(8*pi*t_mat[i])*exp(-3*t_mat[i]) + t_mat[i]
+}
+
+# True mean functionals
+true_int_mean <- rep(b0, length(grid))
+true_int_beta_mean <- true_int_mean + b1(1:length(grid), grid)
+true_slope_mean <- b1(1:length(grid), grid)
+
+## Generating response values
+# Random error covariance
+cov.m <- make_cov_m(
+  cov.f = ffscb::covf_nonst_matern, #covf_st_matern,
+  grid = grid, 
+  cov.f.params=c(2, 1/4, 1/4) #c(3/2, 1/4)
+)
+
+# t-distributed errors
+eps_mat <- make_sample(
+  mean.v = rep(0, n_sp),
+  cov.m = cov.m,
+  N = n_obs + 2,
+  dist = "rnorm"
+)*sqrt(15/rchisq(1, df = 15))
+
+
+# Generate the random data
+y_vals_mat_nonst <- t(x_array[1,,]%*%
+                        t(cbind(true_int_mean, true_slope_mean))) + 
+  eps_mat
+
+# Random error covariance
+cov.m <- make_cov_m(
+  cov.f = ffscb::covf_st_matern,
+  grid = grid, 
+  cov.f.params=c(3/2, 1/4)
+)
+
+# t-distributed errors
+eps_mat <- make_sample(
+  mean.v = rep(0, n_sp),
+  cov.m = cov.m,
+  N = n_obs + 2,
+  dist = "rnorm"
+)*sqrt(15/rchisq(1, df = 15))
+
+
+# Generate the random data
+y_vals_mat_st <- t(x_array[1,,]%*%
+                        t(cbind(true_int_mean, true_slope_mean))) + 
+  eps_mat
+
+
+# Quick plot of the curves
+y_vals_df_nonst <- y_vals_mat_nonst %>%
+  as.data.frame() %>%
+  mutate(t = seq(0, 1, length.out = 101), 
+         cov_st = "Non-Stationary") %>%
+  pivot_longer(-c(t, cov_st), names_to = "Obs", values_to = "Y(t)") %>%
+  mutate(`x(t)` = case_when(
+    parse_number(Obs) < 51 | parse_number(Obs) == 101 ~ "x(t) = 0",
+    parse_number(Obs) > 50 & parse_number(Obs) != 101 ~ "x(t) = 1"
+  ))
+
+y_vals_df_st <- y_vals_mat_st %>%
+  as.data.frame() %>%
+  mutate(t = seq(0, 1, length.out = 101), 
+         cov_st = "Stationary") %>%
+  pivot_longer(-c(t, cov_st), names_to = "Obs", values_to = "Y(t)") %>%
+  mutate(`x(t)` = case_when(
+    parse_number(Obs) < 51 | parse_number(Obs) == 101 ~ "x(t) = 0",
+    parse_number(Obs) > 50 & parse_number(Obs) != 101 ~ "x(t) = 1"
+  ))
+y_vals_df <- dplyr::bind_rows(y_vals_df_nonst, y_vals_df_st) %>%
+  mutate(cov_st = factor(cov_st, 
+                         levels = c("Stationary", "Non-Stationary")))
+
+ggplot() +
+  geom_vline(xintercept = c(1/3, 2/3),
+             color = "lightgrey") +
+  geom_line(aes(x = t, y = `Y(t)`,
+                color = `x(t)`, linetype = `x(t)`, group = Obs),
+            data = y_vals_df) +
+  facet_wrap(vars(cov_st), nrow = 2, 
+             strip.position = "right") +
+  scale_color_manual(values = c("#D55E00", "#56B4E9")) +
+  scale_linetype_manual(values = c("dashed", "solid")) +
+  theme_bw() +
+  labs(color = "Predictor:", linetype = "Predictor:") +
+  theme(legend.position = c(.5, .95),
+        legend.direction = "horizontal",
+        legend.background = element_rect(colour = 'black',
+                                         fill = 'white',
+                                         linetype='solid'),
+        text = element_text(size = 16),
+        plot.margin = unit(c(1, 1, 1, 1), "cm"),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank()) +
+  scale_x_continuous(expand = c(0, 0),
+                     breaks = round(c(0, 1/3, 2/3, 1), 2)) +
+  coord_cartesian(ylim = c(0, 3))
+
+
+
 # 
 # ### This code will repdroduce Figure 3
 # # Quick comparison plot of bands created by conformal vs fast and fair
