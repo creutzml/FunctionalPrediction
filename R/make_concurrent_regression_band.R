@@ -11,7 +11,7 @@
 #' @param mse_scalar should the variance estimator be unbiased ("ub") or maximum likelihood ("mle")?
 #' @param err_str do the functional errors follow a Gaussian process ("normal") or Student's t process ("t")? "t" is default
 #' @param nu0_hat either "singh_df" (default) or a numerical value specifying the degrees of freedom of the Student's t error process
-#' @param additional arguments that can be passed to `confidence_band`, which creates the final simultaneous band; of note, argument `conf.level` can be set to the desired confidence level for the simultaneous band
+#' @param ... additional arguments that can be passed to `confidence_band`, which creates the final simultaneous band; of note, argument `conf.level` can be set to the desired confidence level for the simultaneous band
 #' @return a list containing fast n fair simultaneous confidence or prediction band for the marginal mean of a concurrent functional regression ("simultaneous_band") and an estimate of the degrees of freedom for the Student's t error process ("nu0_hat_est"), if applicable
 #' @export
 predict_concurrent <- function(concurrent_list, interval = "prediction", new_dat = NULL, time_vec = NULL, mse_scalar = "ub", err_str = "t", nu0_hat = "singh_df", ...) {
