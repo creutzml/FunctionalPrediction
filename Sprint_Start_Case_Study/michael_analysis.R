@@ -622,7 +622,7 @@ est_lines <- c("upper" = "dashed",
                "mean" = "solid", 
                "amp" = "solid", 
                "nonamp" = "solid")
-                
+
 amp_plot1 <- ggplot() +
   geom_line(aes(x = 100*t_pts, y = Front_V, 
                 color = Estimate, linetype = Estimate), 
@@ -632,17 +632,17 @@ amp_plot1 <- ggplot() +
   scale_x_continuous(breaks = seq(0,100,20)) +
   theme_bw() +
   theme(legend.position = "none", 
-        text = element_text(size = 16)) +
+        text = element_text(size = 20)) +
   labs(x = "% Push-Off Phase (realigned)", 
        y = "Front Vertical Force (N/kg)", 
        title = "First Amputee") +
   coord_cartesian(ylim = c(0, 1250))
-       # title = paste0("95% Simultaneous Prediction Band to Predict ",
-       #                "1st Amputee"),
-       # subtitle = paste0("Estimated for a ",
-       #                   "sprinter with Mass = 85.7kg, Age = 35 ", 
-       #                   "years, Height = 2m, Sex = Male, and ",
-       #                   "TPush_V = 0.441"))
+# title = paste0("95% Simultaneous Prediction Band to Predict ",
+#                "1st Amputee"),
+# subtitle = paste0("Estimated for a ",
+#                   "sprinter with Mass = 85.7kg, Age = 35 ", 
+#                   "years, Height = 2m, Sex = Male, and ",
+#                   "TPush_V = 0.441"))
 
 # Plot of "fair" critical value
 non_amp_pred_band_crit1 <- non_amp_pred_band1[[1]][[2]] %>%
@@ -665,7 +665,6 @@ uhat_plot1 <- ggplot() +
   labs(x = "% Push-Off Phase",
        y = expression("Critical value "*hat(u)[t[nu[0]]*", "*alpha/2]^"*"))
 
-# Recreates Figure 5
 library(cowplot)
 plot_grid(tau_realigned_plot, uhat_plot1, 
           align = "v", nrow = 2, labels = c("(a)", "(b)"))
@@ -716,10 +715,10 @@ conf_ff_comp1 <- ggplot() +
   theme_bw() +
   labs(x = "% Push-Off Phase", 
        y = "Force (N/kg)") + #, 
-       # title = "First Amputee") +
+  # title = "First Amputee") +
   theme( #legend.position = "none", 
-    text = element_text(size = 16), 
-    plot.margin = unit(c(1, 1, 1, 1), "cm"), 
+    text = element_text(size = 20), 
+    plot.margin = unit(c(.5, .9, .5, .5), "cm"), 
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank()) +
   annotate("label", 
@@ -803,17 +802,17 @@ amp_plot2 <- ggplot() +
   scale_x_continuous(breaks = seq(0,100,20)) +
   theme_bw() +
   theme(legend.position = "none", 
-        text = element_text(size = 16)) +
+        text = element_text(size = 20)) +
   labs(x = "% Push-Off Phase (realigned)", 
        y = "Front Vertical Force (N/kg)",
        title = "Second Amputee") +
   coord_cartesian(ylim = c(0, 1250))
-       # title = paste0("95% Simultaneous Prediction Band to Predict ",
-       #                "2nd Amputee"),
-       # subtitle = paste0("Estimated for a ",
-       #                   "sprinter with Mass = 73.8 kg, Age = 32 ", 
-       #                   "years, Height = 1.89 m, Sex = Male, and ",
-       #                   "TPush_V = 0.475"))
+# title = paste0("95% Simultaneous Prediction Band to Predict ",
+#                "2nd Amputee"),
+# subtitle = paste0("Estimated for a ",
+#                   "sprinter with Mass = 73.8 kg, Age = 32 ", 
+#                   "years, Height = 1.89 m, Sex = Male, and ",
+#                   "TPush_V = 0.475"))
 
 # Plot of "fair" critical value
 non_amp_pred_band_crit2 <- non_amp_pred_band2[[1]][[2]] %>%
@@ -874,10 +873,10 @@ conf_ff_comp2 <- ggplot() +
   theme_bw() +
   labs(x = "% Push-Off Phase", 
        y = "Force (N/kg)") + #, 
-       # title = "Second Amputee") +
+  # title = "Second Amputee") +
   theme( #legend.position = "none", 
-    text = element_text(size = 16), 
-    plot.margin = unit(c(1, 1, 1, 1), "cm"), 
+    text = element_text(size = 20), 
+    plot.margin = unit(c(.5, .9, .5, .5), "cm"),
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank()) +
   annotate("label", 
@@ -970,17 +969,17 @@ amp_plot3 <- ggplot() +
   scale_x_continuous(breaks = seq(0,100,20)) +
   theme_bw() +
   theme(legend.position = "none", 
-        text = element_text(size = 16)) +
+        text = element_text(size = 20)) +
   labs(x = "% Push-Off Phase (realigned)", 
        y = "Front Vertical Force (N/kg)", 
        title = "Third Amputee") +
   coord_cartesian(ylim = c(0, 1250))
-       # title = paste0("95% Simultaneous Prediction Band to Predict ",
-       #                "3rd Amputee"),
-       # subtitle = paste0("Estimated for a ",
-       #                   "sprinter with Mass = 74.7 kg, Age = 25 ", 
-       #                   "years, Height = 1.91 m, Sex = Male, and ",
-       #                   "TPush_V = 0.388"))
+# title = paste0("95% Simultaneous Prediction Band to Predict ",
+#                "3rd Amputee"),
+# subtitle = paste0("Estimated for a ",
+#                   "sprinter with Mass = 74.7 kg, Age = 25 ", 
+#                   "years, Height = 1.91 m, Sex = Male, and ",
+#                   "TPush_V = 0.388"))
 
 ### September 12th, 2023
 ## Creating a comparison plot of Conformal Inference vs Fast and Fair
@@ -1028,10 +1027,10 @@ conf_ff_comp3 <- ggplot() +
   theme_bw() +
   labs(x = "% Push-Off Phase", 
        y = "Force (N/kg)") + #, 
-       # title = "Third Amputee") +
+  # title = "Third Amputee") +
   theme( #legend.position = "none", 
-    text = element_text(size = 16), 
-    plot.margin = unit(c(1, 1, 1, 1), "cm"), 
+    text = element_text(size = 20), 
+    plot.margin = unit(c(.5, .9, .5, .5), "cm"), 
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank()) +
   annotate("label", 
@@ -1122,17 +1121,17 @@ amp_plot4 <- ggplot() +
   scale_x_continuous(breaks = seq(0,100,20)) +
   theme_bw() +
   theme(legend.position = "none", 
-        text = element_text(size = 16)) +
+        text = element_text(size = 20)) +
   labs(x = "% Push-Off Phase (realigned)", 
        y = "Front Vertical Force (N/kg)", 
        title = "Fourth Amputee") +
   coord_cartesian(ylim = c(0, 1250))
-       # title = paste0("95% Simultaneous Prediction Band to Predict ",
-       #                "4th Amputee"),
-       # subtitle = paste0("Estimated for a ",
-       #                   "sprinter with Mass = 69.7 kg, Age = 27 ", 
-       #                   "years, Height = 1.87 m, Sex = Male, and ",
-       #                   "TPush_V = 0.466"))
+# title = paste0("95% Simultaneous Prediction Band to Predict ",
+#                "4th Amputee"),
+# subtitle = paste0("Estimated for a ",
+#                   "sprinter with Mass = 69.7 kg, Age = 27 ", 
+#                   "years, Height = 1.87 m, Sex = Male, and ",
+#                   "TPush_V = 0.466"))
 
 ### September 12th, 2023
 ## Creating a comparison plot of Conformal Inference vs Fast and Fair
@@ -1180,10 +1179,10 @@ conf_ff_comp4 <- ggplot() +
   theme_bw() +
   labs(x = "% Push-Off Phase", 
        y = "Force (N/kg)") + #, 
-       # title = "Fourth Amputee") +
+  # title = "Fourth Amputee") +
   theme( #legend.position = "none", 
-    text = element_text(size = 16), 
-    plot.margin = unit(c(1, 1, 1, 1), "cm"), 
+    text = element_text(size = 20), 
+    plot.margin = unit(c(.5, .9, .5, .5), "cm"),
     panel.grid.major = element_blank(), 
     panel.grid.minor = element_blank()) +
   annotate("label", 
@@ -1274,17 +1273,17 @@ amp_plot5 <- ggplot() +
   scale_x_continuous(breaks = seq(0,100,20)) +
   theme_bw() +
   theme(legend.position = "none", 
-        text = element_text(size = 16)) +
+        text = element_text(size = 20)) +
   labs(x = "% Push-Off Phase (realigned)", 
        y = "Front Vertical Force (N/kg)", 
        title = "Fifth Amputee") +
   coord_cartesian(ylim = c(0, 1250))
-       # title = paste0("95% Simultaneous Prediction Band to Predict ",
-       #                "5th Amputee"),
-       # subtitle = paste0("Estimated for a ",
-       #                   "sprinter with Mass = 80.2 kg, Age = 30 ", 
-       #                   "years, Height = 1.81 m, Sex = Male, and ",
-       #                   "TPush_V = 0.441"))
+# title = paste0("95% Simultaneous Prediction Band to Predict ",
+#                "5th Amputee"),
+# subtitle = paste0("Estimated for a ",
+#                   "sprinter with Mass = 80.2 kg, Age = 30 ", 
+#                   "years, Height = 1.81 m, Sex = Male, and ",
+#                   "TPush_V = 0.441"))
 
 ### September 12th, 2023
 ## Creating a comparison plot of Conformal Inference vs Fast and Fair
@@ -1332,10 +1331,10 @@ conf_ff_comp5 <- ggplot() +
   theme_bw() +
   labs(x = "% Push-Off Phase", 
        y = "Force (N/kg)") + #, 
-       # title = "Fifth Amputee") +
+  # title = "Fifth Amputee") +
   theme( #legend.position = "none", 
-    text = element_text(size = 16), 
-    plot.margin = unit(c(1, 1, 1, 1), "cm"),
+    text = element_text(size = 20), 
+    plot.margin = unit(c(.5, .9, .5, .5), "cm"),
     panel.grid.major = element_blank(), 
     panel.grid.minor = element_blank()) +
   annotate("label", 
@@ -1427,17 +1426,17 @@ amp_plot6 <- ggplot() +
   scale_x_continuous(breaks = seq(0,100,20)) +
   theme_bw() +
   theme(legend.position = "none", 
-        text = element_text(size = 16)) +
+        text = element_text(size = 20)) +
   labs(x = "% Push-Off Phase (realigned)", 
        y = "Front Vertical Force (N/kg)", 
        title = "Sixth Amputee") +
   coord_cartesian(ylim = c(0, 1250))
-       # title = paste0("95% Simultaneous Prediction Band to Predict ",
-       #                "6th Amputee"),
-       # subtitle = paste0("Estimated for a ",
-       #                   "sprinter with Mass = 89.1 kg, Age = 25 ", 
-       #                   "years, Height = 1.97 m, Sex = Male, and ",
-       #                   "TPush_V = 0.373"))
+# title = paste0("95% Simultaneous Prediction Band to Predict ",
+#                "6th Amputee"),
+# subtitle = paste0("Estimated for a ",
+#                   "sprinter with Mass = 89.1 kg, Age = 25 ", 
+#                   "years, Height = 1.97 m, Sex = Male, and ",
+#                   "TPush_V = 0.373"))
 
 ### September 12th, 2023
 ## Creating a comparison plot of Conformal Inference vs Fast and Fair
@@ -1485,10 +1484,10 @@ conf_ff_comp6 <- ggplot() +
   theme_bw() +
   labs(x = "% Push-Off Phase", 
        y = "Force (N/kg)") + #, 
-       # title = "Sixth Amputee") +
+  # title = "Sixth Amputee") +
   theme( #legend.position = "none", 
-    text = element_text(size = 16), 
-    plot.margin = unit(c(1, 1, 1, 1), "cm"), 
+    text = element_text(size = 20), 
+    plot.margin = unit(c(.5, .9, .5, .5), "cm"), 
     panel.grid.major = element_blank(), 
     panel.grid.minor = element_blank()) +
   annotate("label", 
@@ -1532,7 +1531,7 @@ X_pred_amp7 <- X_pred_amp[7, c(2,3,4,6,10)]
 # The fourth runner of that^ list is the closest counterpart
 nonamp_idx7 <- which(X_pred_nonamp$Sex == "male" &
                        (X_pred_nonamp$Mass < 72 &
-                       X_pred_nonamp$Mass > 70) &
+                          X_pred_nonamp$Mass > 70) &
                        X_pred_nonamp$TPush_V > 0.391)
 # First amputee
 new_dat_mat7 <- matrix(
@@ -1580,17 +1579,17 @@ amp_plot7 <- ggplot() +
   scale_x_continuous(breaks = seq(0,100,(33 + 1/3))) +
   theme_bw() +
   theme(legend.position = "none", 
-        text = element_text(size = 16)) +
+        text = element_text(size = 20)) +
   labs(x = "% Push-Off Phase (realigned)", 
        y = "Force (N/kg)", 
        title = "Seventh Amputee") +
   coord_cartesian(ylim = c(0, 1250))
-       # title = paste0("95% Simultaneous Prediction Band to Predict ",
-       #                "7th Amputee"),
-       # subtitle = paste0("Estimated for a ",
-       #                   "sprinter with Mass = 71.0 kg, Age = 31 ", 
-       #                   "years, Height = 1.78 m, Sex = Male, and ",
-       #                   "TPush_V = 0.416"))
+# title = paste0("95% Simultaneous Prediction Band to Predict ",
+#                "7th Amputee"),
+# subtitle = paste0("Estimated for a ",
+#                   "sprinter with Mass = 71.0 kg, Age = 31 ", 
+#                   "years, Height = 1.78 m, Sex = Male, and ",
+#                   "TPush_V = 0.416"))
 
 
 ### September 12th, 2023
@@ -1615,7 +1614,6 @@ ci_out_vec[7] <- with(non_amp_pred_band_data7_comp_plot, {
   sum(amp < ci_lower | amp > ci_upper)
 })
 
-## Recreates Figure 1 in Creutzinger, Liebl, and Sharp (2024+)
 # Elements for manual legend
 colors <- c("Fast n Fair" = "#56B4E9", 
             "Conformal Inference" = "#D55E00", 
@@ -1624,18 +1622,21 @@ linetypes <- c("Fast n Fair" = "solid",
                "Conformal Inference" = "dotdash", 
                "Seventh Amputee" = "dashed")
 
+## Recreates Figure 1 in Creutzinger, Liebl, and Sharp (2024+)
 # Comparison plot
 conf_ff_comp7_fig1 <- ggplot() +
   geom_vline(xintercept = c(33 + 1/3, 66 + 2/3), color = "lightgray") +
   geom_ribbon(aes(x = 100*t_pts, ymin = ff_lower, ymax = ff_upper), 
               fill = "#56B4E9", alpha = 0.5, linewidth = 1.25,
-              data = non_amp_pred_band_data7_comp_plot) +
+              data = non_amp_pred_band_data7_comp_plot, 
+              key_glyph = "blank") +
   geom_ribbon(aes(x = 100*t_pts, ymin = ci_lower, ymax = ci_upper, 
                   color = "Conformal Inference",
                   linetype = "Conformal Inference"),
               fill = NA, alpha = 0.5,  
               linewidth = 1.25, 
-              data = non_amp_pred_band_data7_comp_plot) +
+              data = non_amp_pred_band_data7_comp_plot, 
+              key_glyph = "blank") +
   # geom_line(aes(x = 100*t_pts, y = nonamp), 
   #               color = "black", linetype = "solid", linewidth = 1.25,
   #           data = non_amp_pred_band_data7_comp_plot) +
@@ -1643,7 +1644,8 @@ conf_ff_comp7_fig1 <- ggplot() +
                 color = "Seventh Amputee", 
                 linetype = "Seventh Amputee"), 
             linewidth = 1.25,
-            data = non_amp_pred_band_data7_comp_plot) +
+            data = non_amp_pred_band_data7_comp_plot, 
+            key_glyph = "blank") +
   geom_line(aes(x = 100*t_pts, y = ff_mean, 
                 color = "Fast n Fair", linetype = "Fast n Fair"), 
             linewidth = 1.25,
@@ -1658,7 +1660,7 @@ conf_ff_comp7_fig1 <- ggplot() +
        color = "", 
        linetype = "") +  
   # title = "Seventh Amputee") +
-  theme(text = element_text(size = 16), 
+  theme(text = element_text(size = 20), 
         plot.margin = unit(c(1, 1, 1, 1), "cm"), 
         panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank(), 
@@ -1671,19 +1673,17 @@ conf_ff_comp7_fig1 <- ggplot() +
 #          label = "Seventh Amputee", 
 #          size = 6)
 
-
-# Comparison plot
 conf_ff_comp7 <- ggplot() +
   geom_vline(xintercept = c(33 + 1/3, 66 + 2/3), color = "lightgray") +
   geom_ribbon(aes(x = 100*t_pts, ymin = ff_lower, ymax = ff_upper), 
               fill = "#56B4E9", alpha = 0.5, linewidth = 1.25,
               data = non_amp_pred_band_data7_comp_plot) +
   geom_ribbon(aes(x = 100*t_pts, ymin = ci_lower, ymax = ci_upper), 
-              fill = NA, alpha = 0.5, color = "#D55E00", 
+              fill = NA, alpha = 0.5, color = "#D55E00",
               linewidth = 1.25, linetype = "dotdash",
               data = non_amp_pred_band_data7_comp_plot) +
   geom_line(aes(x = 100*t_pts, y = nonamp), 
-                color = "black", linetype = "solid", linewidth = 1.25,
+            color = "black", linetype = "solid", linewidth = 1.25,
             data = non_amp_pred_band_data7_comp_plot) +
   geom_line(aes(x = 100*t_pts, y = amp), 
             color = "black", linetype = "dashed", linewidth = 1.25,
@@ -1695,16 +1695,17 @@ conf_ff_comp7 <- ggplot() +
   coord_cartesian(ylim = c(0, 1200), expand = FALSE) +
   theme_bw() +
   labs(x = "% Push-Off Phase", 
-       y = "Force (N/kg)") +  
-       # title = "Seventh Amputee") +
-  theme(text = element_text(size = 16), 
-        plot.margin = unit(c(1, 1, 1, 1), "cm"), 
-        panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank()) +
+       y = "Force (N/kg)") + #, 
+  # title = "Sixth Amputee") +
+  theme( #legend.position = "none", 
+    text = element_text(size = 20), 
+    plot.margin = unit(c(.5, .9, .5, .5), "cm"), 
+    panel.grid.major = element_blank(), 
+    panel.grid.minor = element_blank()) +
   annotate("label", 
            x = 35, y = 1100, 
            label = "Seventh Amputee", 
-           size = 6)
+           size = 6) 
 
 
 # ### Plot of the mean and band
@@ -1746,23 +1747,22 @@ demo_fig <- ggplot() +
   annotation_custom(tableGrob(X_mod_amp,
                               theme = ttheme_default(base_size = 16)),
                     xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf) +
-  labs(title = "\n Amputee Demographic Characteristics   ") +
+  labs(title = "Amputee Demographics \n") +
   theme_bw() +
   theme(
-    title = element_text(hjust = 1),
-    text = element_text(size = 16),
+    title = element_text(hjust = 1, vjust = -0.5),
+    text = element_text(size = 20),
     panel.spacing = unit(1, "cm"),
     plot.background = element_blank(),
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank(),
     panel.border = element_blank(),
-    plot.margin = unit(c(0, 1.5, 3, 1), "cm")
+    plot.margin = unit(c(0.5, 0.9, 1, 2), "cm")
   )
 
 grid.arrange(amp_plot1, amp_plot2, amp_plot3, amp_plot4, amp_plot5, 
              amp_plot6, amp_plot7, demo_fig, ncol = 2)
 
-# Recreates Figure 6 in Creutzinger, Liebl, and Sharp (2024+)
 grid.arrange(conf_ff_comp1, conf_ff_comp2, conf_ff_comp3, 
              conf_ff_comp4, conf_ff_comp5, conf_ff_comp6, 
              conf_ff_comp7, demo_fig, ncol = 2)
