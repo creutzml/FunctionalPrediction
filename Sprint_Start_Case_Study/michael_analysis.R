@@ -1616,6 +1616,62 @@ ci_out_vec[7] <- with(non_amp_pred_band_data7_comp_plot, {
 })
 
 ## Recreates Figure 1 in Creutzinger, Liebl, and Sharp (2024+)
+# Elements for manual legend
+colors <- c("Fast n Fair" = "#56B4E9", 
+            "Conformal Inference" = "#D55E00", 
+            "Seventh Amputee" = "black")
+linetypes <- c("Fast n Fair" = "solid", 
+               "Conformal Inference" = "dotdash", 
+               "Seventh Amputee" = "dashed")
+
+# Comparison plot
+conf_ff_comp7_fig1 <- ggplot() +
+  geom_vline(xintercept = c(33 + 1/3, 66 + 2/3), color = "lightgray") +
+  geom_ribbon(aes(x = 100*t_pts, ymin = ff_lower, ymax = ff_upper), 
+              fill = "#56B4E9", alpha = 0.5, linewidth = 1.25,
+              data = non_amp_pred_band_data7_comp_plot) +
+  geom_ribbon(aes(x = 100*t_pts, ymin = ci_lower, ymax = ci_upper, 
+                  color = "Conformal Inference",
+                  linetype = "Conformal Inference"),
+              fill = NA, alpha = 0.5,  
+              linewidth = 1.25, 
+              data = non_amp_pred_band_data7_comp_plot) +
+  # geom_line(aes(x = 100*t_pts, y = nonamp), 
+  #               color = "black", linetype = "solid", linewidth = 1.25,
+  #           data = non_amp_pred_band_data7_comp_plot) +
+  geom_line(aes(x = 100*t_pts, y = amp, 
+                color = "Seventh Amputee", 
+                linetype = "Seventh Amputee"), 
+            linewidth = 1.25,
+            data = non_amp_pred_band_data7_comp_plot) +
+  geom_line(aes(x = 100*t_pts, y = ff_mean, 
+                color = "Fast n Fair", linetype = "Fast n Fair"), 
+            linewidth = 1.25,
+            data = non_amp_pred_band_data7_comp_plot) +
+  scale_x_continuous(breaks = round(seq(0,100,(33 + 1/3)), 2)) +
+  coord_cartesian(ylim = c(0, 1200), expand = FALSE) +
+  theme_bw() +
+  scale_color_manual(values = colors) + 
+  scale_linetype_manual(values = linetypes) +
+  labs(x = "% Push-Off Phase", 
+       y = "Force (N/kg)", 
+       color = "", 
+       linetype = "") +  
+  # title = "Seventh Amputee") +
+  theme(text = element_text(size = 16), 
+        plot.margin = unit(c(1, 1, 1, 1), "cm"), 
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(), 
+        legend.position = c(0.25, 0.8), 
+        legend.title = element_blank(), 
+        legend.box.background = element_rect(color = "black"), 
+        legend.spacing.y = unit(0, "mm"))
+# annotate("label", 
+#          x = 35, y = 1100, 
+#          label = "Seventh Amputee", 
+#          size = 6)
+
+
 # Comparison plot
 conf_ff_comp7 <- ggplot() +
   geom_vline(xintercept = c(33 + 1/3, 66 + 2/3), color = "lightgray") +
@@ -1706,7 +1762,7 @@ demo_fig <- ggplot() +
 grid.arrange(amp_plot1, amp_plot2, amp_plot3, amp_plot4, amp_plot5, 
              amp_plot6, amp_plot7, demo_fig, ncol = 2)
 
-# Recreates Figure 6
+# Recreates Figure 6 in Creutzinger, Liebl, and Sharp (2024+)
 grid.arrange(conf_ff_comp1, conf_ff_comp2, conf_ff_comp3, 
              conf_ff_comp4, conf_ff_comp5, conf_ff_comp6, 
              conf_ff_comp7, demo_fig, ncol = 2)
