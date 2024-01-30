@@ -12,7 +12,7 @@
 #####################################################################
 # Install ffscb from forked package
 require(devtools)
-install_github("creutzml/ffscb")
+install_github("creutzml/ffscbExtra")
 
 # Packages
 library(mvtnorm)

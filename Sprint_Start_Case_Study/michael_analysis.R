@@ -14,7 +14,7 @@
 
 ## Creutzinger version of package
 require(devtools)
-install_github("creutzml/ffscb")
+install_github("creutzml/ffscbExtra")
 
 ## Packages
 library("tidyverse")
