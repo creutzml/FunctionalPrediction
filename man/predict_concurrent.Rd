@@ -34,7 +34,7 @@ predict_concurrent(
 
 \item{nu0_hat}{either "singh_df" (default) or a numerical value specifying the degrees of freedom of the Student's t error process}
 
-\item{additional}{arguments that can be passed to `confidence_band`, which creates the final simultaneous band; of note, argument `conf.level` can be set to the desired confidence level for the simultaneous band}
+\item{...}{additional arguments that can be passed to `confidence_band`, which creates the final simultaneous band; of note, argument `conf.level` can be set to the desired confidence level for the simultaneous band}
 }
 \value{
 a list containing fast n fair simultaneous confidence or prediction band for the marginal mean of a concurrent functional regression ("simultaneous_band") and an estimate of the degrees of freedom for the Student's t error process ("nu0_hat_est"), if applicable
