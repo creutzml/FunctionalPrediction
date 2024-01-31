@@ -27,7 +27,7 @@ citEntry(
                        family = "Liebl"),
                 person(given  = "Julia",  
                        family = "Sharp")),
-   journal  = "",
+   journal  = "will be submitted to Journal of American Statistical Association: Case Studies",
    year     = "2024{+}",
    volume   = "",
    number   = "",
