@@ -1,4 +1,4 @@
 library("testthat")
-library("ffscb")
+library("ffscbExtra")
 
 # test_check("ffscb")
