@@ -18,7 +18,7 @@ install_github("creutzml/ffscbExtra")
 library(mvtnorm)
 library(tidyverse)
 library(fda)
-library(ffscb)
+# library(ffscb)
 library(ffscbExtra)
 library(conformalInference.fd)
 #####################################################################
