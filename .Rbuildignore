@@ -8,6 +8,7 @@
 ^LICENSE$
 ^Make_package\.R$
 ^Simulations$
+^Sprint_Start_Case_Study$
 ^\.github$
 ^_pkgdown\.yml$
 ^docs$
