@@ -2,6 +2,7 @@
 % Please edit documentation in R/ffscbExtra-package.R
 \docType{package}
 \name{ffscbExtra-package}
+\alias{ffscbExtra}
 \alias{ffscbExtra-package}
 \title{ffscbExtra: Fast 'n' Fair Simultaneous Confidence and Prediction Bands for Functional Parameters including Concurrent Regression}
 \description{
