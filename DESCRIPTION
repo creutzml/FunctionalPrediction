@@ -17,9 +17,11 @@ Suggests:
 Depends: 
     R (>= 3.5.0)
 Imports:
-     CompQuadForm,
-     fda,
-     pracma,
-     rmutil
+    CompQuadForm,
+    fda,
+    ffscb,
+    MASS,
+    pracma,
+    rmutil
 LazyData: TRUE
 RoxygenNote: 7.3.1
