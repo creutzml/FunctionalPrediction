@@ -21,7 +21,7 @@ prediction bands, and simultaneous bands for the conditional mean of a
 functional concurrent regression model. The band shapes are constructed under
 the fairness constraint of *false positive rate balance* which allows to
 distribute the total false positive rate $\alpha\in(0,1)$ over
-partitions $0=a_0<a_1<\ldots<a_p=1$ of the function domain $[0,1]$.[^1]
+partitions $0 = a_0 < a_1 < \ldots < a_p = 1$ of the function domain $[0,1]$.[^1]
 This leads to band shapes that are interpretable both globally and
 locally. Globally (i.e. over the total domain $[0,1]$) the simultaneous
 confidence band provides a $(1-\alpha)\times 100\%$ coverage
