@@ -4,7 +4,7 @@
 \name{ffscbExtra-package}
 \alias{ffscbExtra}
 \alias{ffscbExtra-package}
-\title{ffscbExtra: Fast 'n' Fair Simultaneous Confidence and Prediction Bands for Functional Parameters including Concurrent Regression}
+\title{ffscbExtra: Fast 'n' Fair Simultaneous Confidence and Prediction Bands for Functional Parameters Including Concurrent Regression}
 \description{
 Simultaneous confidence and prediction bands for functional parameters including those in concurrent regression.
 }
