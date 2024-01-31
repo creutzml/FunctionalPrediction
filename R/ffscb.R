@@ -1,9 +1,11 @@
-#' ffscb
+#' ffscbExtra
 #'
-#' This package contains example codes for inferential tools suggested in Liebl and Reimherr (2019), titled 'Fast and Fair Simultaneous Confidence Bands for Functional Parameters'.
+#' This package contains example codes for inferential tools suggested in Liebl and Reimherr (2019), titled 'Fast and Fair Simultaneous Confidence Bands for Functional Parameters'. and builds on the original package, ffscb.
+#' The added capabilities include the ability to create one-sided bands, prediction bands, and concurrent regression bands.
 #' The top level functions allow to construct simultaneous confidence bands and pvalue functions.
 #' The inputs can be either vector/matrix or \link{fd}/\link{bifd} object from \link{fda} package.
 #' @references Liebl, D. and Reimherr, M. (2019). Fast and fair simultaneous confidence bands for functional parameters.
+#' @references Creutzinger, M., Liebl, D., and Sharp, J. (2024+). Fair Simultaneous Prediction and Confidence Bands for Concurrent Functional Regressions: Comparing Sprinters with Prosthetic versus Biological Legs
 #' @examples
 #' # Generate a sample
 #' p <- 200
@@ -35,5 +37,6 @@
 #' plot(b)
 #' lines(x = grid, y = mu0, lty = 2)
 #' @docType package
-#' @name ffscb
+#' @name ffscbExtra
+#' @aliases ffscbExtra-package
 NULL
