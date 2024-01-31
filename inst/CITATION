@@ -22,7 +22,7 @@ citEntry(
    entry    = "Article",
    title    = "Fair Simultaneous Prediction and Confidence Bands for Concurrent Functional Regressions: Comparing Sprinters with Prosthetic versus Biological Legs",
    author   = c(person(given = "Michael",
-                       family = "Creutzinger),
+                       family = "Creutzinger"),
                 person(given  = "Dominik",  
                        family = "Liebl"),
                 person(given  = "Julia",  
