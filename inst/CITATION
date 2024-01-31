@@ -1,16 +1,40 @@
-@article{liebl_reimherr2023,
-  title    = {{Fast and fair simultaneous confidence bands for functional parameters}},
-  author   = {Liebl, Dominik and Reimherr, Matthew},
-  journal  = {Journal of the Royal Statistical Society Series B: Statistical Methodology},
-  year     = {2023},
-  pages    = {1-57},
-  url      = {https://academic.oup.com/jrsssb/article/85/3/842/7133768}
-}
+citHeader("To cite ffscb in publications use:")
 
-@article{liebl_reimherr2023,
-  title    = {{Fair Simultaneous Prediction and Confidence Bands for Concurrent Functional Regressions: Comparing Sprinters with Prosthetic versus Biological Legs}},
-  author   = {Creutzinger, Michael L., Liebl, Dominik, and Sharp, Julia L.},
-  year     = {2024+},
-  pages    = {1-38}
-}
+citEntry(
+   entry    = "Article",
+   title    = "Fast and fair simultaneous confidence bands for functional parameters",
+   author   = c(person(given  = "Dominik",  
+                     family = "Liebl"),
+              person(given  = "Matthew",  
+                     family = "Reimherr")),
+   journal  = "arXiv preprint arXiv:1910.00131",
+   year     = "2022{+}",
+   volume   = "",
+   number   = "",
+   pages    = "1-57",
+   url      = "https://arxiv.org/abs/1910.00131",
+   textVersion = paste(
+   "Liebl, D. & Reimherr, M. (2022+). Fast and fair simultaneous confidence bands for functional parameters. arXiv preprint arXiv:1910.00131."
+   )
+ )
+
+citEntry(
+   entry    = "Article",
+   title    = "Fair Simultaneous Prediction and Confidence Bands for Concurrent Functional Regressions: Comparing Sprinters with Prosthetic versus Biological Legs",
+   author   = c(person(given = "Michael",
+                       family = "Creutzinger),
+                person(given  = "Dominik",  
+                       family = "Liebl"),
+                person(given  = "Julia",  
+                       family = "Sharp")),
+   journal  = "",
+   year     = "2024{+}",
+   volume   = "",
+   number   = "",
+   pages    = "1-38",
+   url      = "",
+   textVersion = paste(
+   "Creutzinger, M., Liebl, D. & Sharp, J. (2022+). Fair Simultaneous Prediction and Confidence Bands for Concurrent Functional Regressions: Comparing Sprinters with Prosthetic versus Biological Legs."
+   )
+ )
 
