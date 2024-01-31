@@ -1,40 +1,41 @@
-citHeader("To cite ffscb in publications use:")
+c(
+   bibentry(
+      header   = "To cite "ffscb", use:",
+      bibtype  = "Article",
+      title    = "Fast and fair simultaneous confidence bands for functional parameters",
+      author   = c(person(given  = "Dominik",  
+                          family = "Liebl"),
+                   person(given  = "Matthew",  
+                          family = "Reimherr")),
+      journal  = "arXiv preprint arXiv:1910.00131",
+      year     = "2022{+}",
+      volume   = "",
+      number   = "",
+      pages    = "1-57",
+      url      = "https://arxiv.org/abs/1910.00131",
+      textVersion = paste(
+         "Liebl, D. & Reimherr, M. (2022+). Fast and fair simultaneous confidence bands for functional parameters. arXiv preprint arXiv:1910.00131."
+      )
+    ),
 
-bibentry(
-   entry    = "Article",
-   title    = "Fast and fair simultaneous confidence bands for functional parameters",
-   author   = c(person(given  = "Dominik",  
-                     family = "Liebl"),
-              person(given  = "Matthew",  
-                     family = "Reimherr")),
-   journal  = "arXiv preprint arXiv:1910.00131",
-   year     = "2022{+}",
-   volume   = "",
-   number   = "",
-   pages    = "1-57",
-   url      = "https://arxiv.org/abs/1910.00131",
-   textVersion = paste(
-   "Liebl, D. & Reimherr, M. (2022+). Fast and fair simultaneous confidence bands for functional parameters. arXiv preprint arXiv:1910.00131."
-   )
- )
-
-bibentry(
-   entry    = "Article",
-   title    = "Fair Simultaneous Prediction and Confidence Bands for Concurrent Functional Regressions: Comparing Sprinters with Prosthetic versus Biological Legs",
-   author   = c(person(given = "Michael",
-                       family = "Creutzinger"),
-                person(given  = "Dominik",  
-                       family = "Liebl"),
-                person(given  = "Julia",  
-                       family = "Sharp")),
-   journal  = "will be submitted to Journal of American Statistical Association: Case Studies",
-   year     = "2024{+}",
-   volume   = "",
-   number   = "",
-   pages    = "1-38",
-   url      = "",
-   textVersion = paste(
-   "Creutzinger, M., Liebl, D. & Sharp, J. (2022+). Fair Simultaneous Prediction and Confidence Bands for Concurrent Functional Regressions: Comparing Sprinters with Prosthetic versus Biological Legs."
+   bibentry(
+      header   = "To cite Creutzinger, Liebl, and Sharp (2024+), use:",
+      bibtype  = "Article",
+      title    = "Fair Simultaneous Prediction and Confidence Bands for Concurrent Functional Regressions: Comparing Sprinters with Prosthetic versus Biological Legs",
+      author   = c(person(given = "Michael",
+                          family = "Creutzinger"),
+                   person(given  = "Dominik",  
+                          family = "Liebl"),
+                   person(given  = "Julia",  
+                          family = "Sharp")),
+      journal  = "will be submitted to Journal of American Statistical Association: Case Studies",
+      year     = "2024{+}",
+      volume   = "",
+      number   = "",
+      pages    = "1-38",
+      url      = "",
+      textVersion = paste(
+         "Creutzinger, M., Liebl, D. & Sharp, J. (2022+). Fair Simultaneous Prediction and Confidence Bands for Concurrent Functional Regressions: Comparing Sprinters with Prosthetic versus Biological Legs."
    )
  )
 
