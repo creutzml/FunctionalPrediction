@@ -17,8 +17,8 @@ require(devtools)
 install_github("creutzml/ffscbExtra")
 
 ## Packages
-library("tidyverse")
-library("ffscb")
+library(tidyverse)
+library(ffscbExtra)
 library(glmnet)
 require(methods)
 library(abind)

@@ -19,6 +19,7 @@ library(mvtnorm)
 library(tidyverse)
 library(fda)
 library(ffscb)
+library(ffscbExtra)
 library(conformalInference.fd)
 #####################################################################
 
