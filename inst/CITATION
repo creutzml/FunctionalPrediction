@@ -1,6 +1,6 @@
 citHeader("To cite ffscb in publications use:")
 
-citEntry(
+bibentry(
    entry    = "Article",
    title    = "Fast and fair simultaneous confidence bands for functional parameters",
    author   = c(person(given  = "Dominik",  
@@ -18,7 +18,7 @@ citEntry(
    )
  )
 
-citEntry(
+bibentry(
    entry    = "Article",
    title    = "Fair Simultaneous Prediction and Confidence Bands for Concurrent Functional Regressions: Comparing Sprinters with Prosthetic versus Biological Legs",
    author   = c(person(given = "Michael",
