@@ -38,8 +38,8 @@ a $(1-\alpha(a_j-a_{j-1}))\times 100\%$ coverage probability.
   Reimherr](http://www.personal.psu.edu/mlr36/) and for concurrent functional
   regression parameters in the paper **Fair Simultaneous Prediction and Confidence
   Bands for Concurrent Functional Regressions: Comparing Sprinters with Prosthetic
-  versus Biological Legs** by [Michael L. Creutzinger], [Dominik Liebl](www.dliebl.com),
-  and [Julia L. Sharp](https://sites.google.com/view/juliasharp/home).
+  versus Biological Legs** by [Michael L. Creutzinger](https://www.linkedin.com/in/michaellcreutzinger/),
+   [Dominik Liebl](www.dliebl.com), and [Julia L. Sharp](https://sites.google.com/view/juliasharp/home).
 
 - The R-codes of the R package `ffscb` can be found at the GitHub repo
   <https://github.com/lidom/ffscb>
