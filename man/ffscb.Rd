@@ -2,7 +2,6 @@
 % Please edit documentation in R/ffscb.R
 \docType{package}
 \name{ffscb}
-\alias{ffscb-package}
 \alias{ffscb}
 \title{ffscb}
 \description{
@@ -43,13 +42,4 @@ lines(x = grid, y = mu0, lty = 2)
 }
 \references{
 Liebl, D. and Reimherr, M. (2019). Fast and fair simultaneous confidence bands for functional parameters.
-}
-\author{
-\strong{Maintainer}: Dominik Liebl \email{r.packages.mail@gmail.com}
-
-Authors:
-\itemize{
-  \item Matthew Reimherr \email{mreimherr@psu.edu}
-}
-
 }
