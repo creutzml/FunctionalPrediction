@@ -20,7 +20,7 @@ pkgdown::build_site()
 
 
 ## Remove pkg 
-remove.packages("ffscb")
+remove.packages("ffscbExtra")
 
 ## Create/update documentation and (re-)write NAMESPACE
 devtools::document()
@@ -32,10 +32,10 @@ devtools::document()
 ## Install
 devtools::install_local(force = TRUE)
 ##
-library("ffscb")
-citation("ffscb")
+library("ffscbExtra")
+citation("ffscbExtra")
 
-help("ffscb")
+help("ffscbExtra")
 
 
 ## Terminal command search and replace in all files (incl subdirectories)
