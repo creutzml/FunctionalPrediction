@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# R-package: ffscb
+# R-package: ffscbExtra
 
 <!-- badges: start -->
 
@@ -14,10 +14,12 @@
 
 # Description
 
-The R package `ffscb` allows to compute simultaneous confidence bands
+The R package `ffscbExtra` allows to compute simultaneous confidence bands
 for function-valued parameters (e.g. for mean functions
-$\mu=\{\mu(t):t\in[0,1]\}$). The band shapes are constructed under the
-fairness constraint of *false positive rate balance* which allows to
+$\mu=\{\mu(t):t\in[0,1]\}$) and adds the ability to create one-sided bands, 
+prediction bands, and simultaneous bands for the conditional mean of a 
+functional concurrent regression model. The band shapes are constructed under
+the fairness constraint of *false positive rate balance* which allows to
 distribute the total false positive rate $\alpha\in(0,1)$ over
 partitions $0=a_0<a_1<\dots<a_p=1$ of the function domain $[0,1]$.[^1]
 This leads to band shapes that are interpretable both globally and
@@ -27,27 +29,34 @@ probability. Locally (i.e. over sub-intervals
 $[a_{j-1},a_j]\subseteq[0,1]$) the simultaneous confidence band provides
 a $(1-\alpha(a_j-a_{j-1}))\times 100\%$ coverage probability.
 
-- The statistical theory and methodology are described in:<br> Fast ‘n’
+- The statistical theory and methodology are described in: <br> Fast ‘n’
   fair simultaneous confidence bands for functional parameters as
   introduced in the paper [**Fast and Fair Simultaneous Confidence Bands
   for Functional Parameters**
   (arXiv:1910.00131)](https://arxiv.org/abs/1910.00131) by [Dominik
   Liebl](www.dliebl.com) and [Matthew
-  Reimherr](http://www.personal.psu.edu/mlr36/).
+  Reimherr](http://www.personal.psu.edu/mlr36/) and for concurrent functional
+  regression parameters in the paper **Fair Simultaneous Prediction and Confidence
+  Bands for Concurrent Functional Regressions: Comparing Sprinters with Prosthetic
+  versus Biological Legs** by [Michael L. Creutzinger], [Dominik Liebl](www.dliebl.com),
+  and [Julia L. Sharp](https://sites.google.com/view/juliasharp/home).
 
 - The R-codes of the R package `ffscb` can be found at the GitHub repo
   <https://github.com/lidom/ffscb>
 
+- The R-codes of the R package `ffscbExtra` can be found at the GitHub repo
+  <https://github.com/creutzml/ffscbExtra>
+
 ## Installation
 
 ``` r
-devtools::install_github("lidom/ffscb")
+devtools::install_github("creutzml/ffscbExtra")
 ```
 
 ## Small example based on artifical data
 
 ``` r
-library("ffscb")
+library(ffscbExtra)
 # Generate a sample
 p          <- 200 
 N          <- 80 
