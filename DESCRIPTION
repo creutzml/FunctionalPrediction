@@ -12,14 +12,16 @@ Authors@R: c(person(given  = "Michael",
                     role   = c("aut")))
 Description: Simultaneous confidence and prediction bands for functional parameters including those in concurrent regression. 
 License: GPL (>= 3)
+Additional_repositories:
+    https://github.com/lidom/ffscb.git
 Suggests: 
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    ffscb
 Depends: 
     R (>= 3.5.0)
 Imports:
     CompQuadForm,
     fda,
-    ffscb,
     MASS,
     pracma,
     rmutil
