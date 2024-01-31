@@ -1,6 +1,6 @@
 c(
    bibentry(
-      header   = "To cite "ffscb", use:",
+      header   = "To cite ffscb, use:",
       bibtype  = "Article",
       title    = "Fast and fair simultaneous confidence bands for functional parameters",
       author   = c(person(given  = "Dominik",  
