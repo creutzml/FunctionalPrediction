@@ -36,7 +36,7 @@ Fast 'n' fair simultaneous confidence bands for functional parameters as introdu
 
 ## Installation 
 ```{r, eval = FALSE, echo=TRUE}
-devtools::install_github("lidom/ffscb")
+devtools::install_github("creutzml/ffscbExtra")
 ```
 
 
@@ -45,7 +45,7 @@ devtools::install_github("lidom/ffscb")
 
 
 ```{r, fig.height=5}
-library("ffscb")
+library(ffscbExtra)
 # Generate a sample
 p <- 200
 N <- 80
