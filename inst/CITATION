@@ -7,13 +7,33 @@ citEntry(
                     family = "Liebl"),
              person(given  = "Matthew",  
                     family = "Reimherr")),
-  journal  = "arXiv preprint arXiv:1910.00131",
-  year     = "2022{+}",
+  journal  = "Journal of the Royal Statistical Society Series B: Statistical Methodology",
+  year     = "2023",
   volume   = "",
   number   = "",
   pages    = "1-57",
-  url      = "https://arxiv.org/abs/1910.00131",
+  url      = "https://academic.oup.com/jrsssb/article/85/3/842/7133768",
   textVersion = paste(
-  "Liebl, D. & Reimherr, M. (2022+). Fast and fair simultaneous confidence bands for functional parameters. arXiv preprint arXiv:1910.00131."
+  "Liebl, D. & Reimherr, M. (2023). Fast and fair simultaneous confidence bands for functional parameters."
+  )
+)
+
+citHeader("To cite ffscbExtra in publications use:")
+
+citEntry(
+  entry    = "Article",
+  title    = "Fair Simultaneous Prediction and Confidence Bands for Concurrent Functional Regressions: Comparing Sprinters with Prosthetic versus Biological Legs",
+  author   = c(person(given  = "Michael L.",  
+                    family = "Creutzinger"),
+             person(given  = "Dominik",  
+                    family = "Liebl")),
+  journal  = "",
+  year     = "2024+",
+  volume   = "",
+  number   = "",
+  pages    = "1-38",
+  url      = "",
+  textVersion = paste(
+  "Creutzinger, M. L. & Liebl, D. (2024+). Fair Simultaneous Prediction and Confidence Bands for Concurrent Functional Regressions: Comparing Sprinters with Prosthetic versus Biological Legs."
   )
 )
