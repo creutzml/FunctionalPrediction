@@ -1,5 +1,3 @@
-citHeader("To cite ffscb in publications use:")
-
 @article{liebl_reimherr2023,
   title    = {{Fast and fair simultaneous confidence bands for functional parameters}},
   author   = {Liebl, Dominik and Reimherr, Matthew},
@@ -8,8 +6,6 @@ citHeader("To cite ffscb in publications use:")
   pages    = {1-57},
   url      = {https://academic.oup.com/jrsssb/article/85/3/842/7133768}
 }
-
-citHeader("To cite ffscbExtra in publications use:")
 
 @article{liebl_reimherr2023,
   title    = {{Fair Simultaneous Prediction and Confidence Bands for Concurrent Functional Regressions: Comparing Sprinters with Prosthetic versus Biological Legs}},
