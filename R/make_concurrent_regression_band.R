@@ -1,4 +1,4 @@
-#' Fast 'n' Fair Simultaneous Confidence/Preidction Band for Concurrent Functional Regression
+#' Fast 'n' Fair Simultaneous Confidence/Prediction Band for Concurrent Functional Regression
 #'
 #' @param concurrent_list object returned from running concurrent regression with `fRegress_concurrent`
 #' @param interval return a "confidence" or "prediction" band?
