@@ -2,7 +2,7 @@
 % Please edit documentation in R/make_concurrent_regression_band.R
 \name{predict_concurrent}
 \alias{predict_concurrent}
-\title{Fast 'n' Fair Simultaneous Confidence/Preidction Band for Concurrent Functional Regression}
+\title{Fast 'n' Fair Simultaneous Confidence/Prediction Band for Concurrent Functional Regression}
 \usage{
 predict_concurrent(
   concurrent_list,
@@ -40,5 +40,5 @@ predict_concurrent(
 a list containing fast n fair simultaneous confidence or prediction band for the marginal mean of a concurrent functional regression ("simultaneous_band") and an estimate of the degrees of freedom for the Student's t error process ("nu0_hat_est"), if applicable
 }
 \description{
-Fast 'n' Fair Simultaneous Confidence/Preidction Band for Concurrent Functional Regression
+Fast 'n' Fair Simultaneous Confidence/Prediction Band for Concurrent Functional Regression
 }
