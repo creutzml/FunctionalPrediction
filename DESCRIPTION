@@ -11,7 +11,8 @@ Authors@R: c(person(given  = "Michael",
                     email  = "r.packages.mail@gmail.com", 
                     role   = c("aut")), 
              person(given  = "Julia", 
-                    family = "Sharp"))
+                    family = "Sharp", 
+                    role   = c("aut")))
 Description: Simultaneous confidence and prediction bands for functional parameters including those in concurrent regression. 
 License: GPL (>= 3)
 Suggests: 
