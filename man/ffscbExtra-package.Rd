@@ -9,12 +9,12 @@
 Simultaneous confidence and prediction bands for functional parameters including those in concurrent regression.
 }
 \author{
-\strong{Maintainer}: Michael Creutzinger \email{creutzml@colostate.edu}
+\strong{Maintainer}: Michael L. Creutzinger \email{creutzml@colostate.edu}
 
 Authors:
 \itemize{
   \item Dominik Liebl \email{r.packages.mail@gmail.com}
-  \item Julia Sharp
+  \item Julia L. Sharp
 }
 
 }
