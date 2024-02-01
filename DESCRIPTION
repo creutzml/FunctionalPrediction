@@ -2,7 +2,7 @@ Package: ffscbExtra
 Type: Package
 Title: Fast 'n' Fair Simultaneous Confidence and Prediction Bands for Functional Parameters Including Concurrent Regression
 Version: 0.0.11
-Authors@R: c(person(given  = "Michael",  
+Authors@R: c(person(given  = "Michael L.",  
                     family = "Creutzinger", 
                     email  = "creutzml@colostate.edu",         
                     role   = c("aut", "cre")), 
@@ -10,7 +10,7 @@ Authors@R: c(person(given  = "Michael",
                     family = "Liebl",    
                     email  = "r.packages.mail@gmail.com", 
                     role   = c("aut")), 
-             person(given  = "Julia", 
+             person(given  = "Julia L.", 
                     family = "Sharp", 
                     role   = c("aut")))
 Description: Simultaneous confidence and prediction bands for functional parameters including those in concurrent regression. 
