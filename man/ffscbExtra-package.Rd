@@ -14,6 +14,7 @@ Simultaneous confidence and prediction bands for functional parameters including
 Authors:
 \itemize{
   \item Dominik Liebl \email{r.packages.mail@gmail.com}
+  \item Julia Sharp
 }
 
 }
