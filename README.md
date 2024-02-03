@@ -13,16 +13,18 @@
 
 # Description
 
-The R package `FunctionalPrediction` allows one to compute simultaneous confidence bands
-for function-valued parameters (e.g. for mean functions
-$\mu=\{\mu(t):t\in[0,1]\}$) and adds the ability to create one-sided bands, 
-prediction bands, and simultaneous bands for the conditional mean of a 
-functional concurrent regression model. Users can install `FunctionalPrediction` directly, and it will add on the original capabilities of `ffscb` alongside the concurrent regression model bands. 
+The R package `FunctionalPrediction` allows one to compute simultaneous
+confidence bands for function-valued parameters (e.g. for mean functions
+$\mu=\{\mu(t):t\in[0,1]\}$) and adds the ability to create one-sided
+bands, prediction bands, and simultaneous bands for the conditional mean
+of a functional concurrent regression model. Users can install
+`FunctionalPrediction` directly, and it will add on the original
+capabilities of `ffscb` alongside the concurrent regression model bands.
 
-The band shapes are constructed under
-the fairness constraint of *false positive rate balance* which allows to
-distribute the total false positive rate $\alpha\in(0,1)$ over
-partitions $0 = a_0 < a_1 < \ldots < a_p = 1$ of the function domain $[0,1]$.[^1]
+The band shapes are constructed under the fairness constraint of *false
+positive rate balance* which allows to distribute the total false
+positive rate $\alpha\in(0,1)$ over partitions
+$0 = a_0 < a_1 < \ldots < a_p = 1$ of the function domain $[0,1]$.\[^1\]
 This leads to band shapes that are interpretable both globally and
 locally. Globally (i.e. over the total domain $[0,1]$) the simultaneous
 confidence band provides a $(1-\alpha)\times 100\%$ coverage
@@ -30,10 +32,11 @@ probability. Locally (i.e. over sub-intervals
 $[a_{j-1},a_j]\subseteq[0,1]$) the simultaneous confidence band provides
 a $(1-\alpha(a_j-a_{j-1}))\times 100\%$ coverage probability.
 
-- The statistical theory and methodology for simultaneous confidence bands of the functional    mean of a univariate sample are described in: <br> Fast ‘n’
-  fair simultaneous confidence bands for functional parameters as
-  introduced in the paper [**Fast and Fair Simultaneous Confidence Bands
-  for Functional Parameters**
+- The statistical theory and methodology for simultaneous confidence
+  bands of the functional mean of a univariate sample are described in:
+  <br> Fast ‘n’ fair simultaneous confidence bands for functional
+  parameters as introduced in the paper [**Fast and Fair Simultaneous
+  Confidence Bands for Functional Parameters**
   (arXiv:1910.00131)](https://arxiv.org/abs/1910.00131) by [Dominik
   Liebl](www.dliebl.com) and [Matthew
   Reimherr](http://www.personal.psu.edu/mlr36/).
@@ -41,18 +44,24 @@ a $(1-\alpha(a_j-a_{j-1}))\times 100\%$ coverage probability.
 - The R-codes of the R package `ffscb` can be found at the GitHub repo
   <https://github.com/lidom/ffscb>
 
-- The statistical theory and methodology for simultaneous confidence and prediction bands of    the conditional mean of a concurrent functional regression model are described in the paper   **Fair Simultaneous Prediction and Confidence
-  Bands for Concurrent Functional Regressions: Comparing Sprinters with Prosthetic
-  versus Biological Legs** by [Michael L.     Creutzinger](https://www.linkedin.com/in/michaellcreutzinger/),
-   [Dominik Liebl](www.dliebl.com), and [Julia L. Sharp](https://sites.google.com/view/juliasharp/home).
+- The statistical theory and methodology for simultaneous confidence and
+  prediction bands of the conditional mean of a concurrent functional
+  regression model are described in the paper **Fair Simultaneous
+  Prediction and Confidence Bands for Concurrent Functional Regressions:
+  Comparing Sprinters with Prosthetic versus Biological Legs** by
+  [Michael L.
+  Creutzinger](https://www.linkedin.com/in/michaellcreutzinger/),
+  [Dominik Liebl](www.dliebl.com), and [Julia L.
+  Sharp](https://sites.google.com/view/juliasharp/home).
 
-- The R-codes of the R package `FunctionalPrediction` can be found at the GitHub repo
-  <https://github.com/creutzml/FunctionalPrediction>
+- The R-codes of the R package `FunctionalPrediction` can be found at
+  the GitHub repo <https://github.com/creutzml/FunctionalPrediction>
 
 ## Installation
 
 ``` r
 devtools::install_github("creutzml/FunctionalPrediction")
+install.packages("ggplot2")
 ```
 
 ## Small example based on artifical data
@@ -61,11 +70,12 @@ devtools::install_github("creutzml/FunctionalPrediction")
 # Load the package and supporting packages
 library(FunctionalPrediction)
 library(ggplot2)
+#> Warning: package 'ggplot2' was built under R version 4.3.1
 
 ## Generate data:
 #################################################################
 # Number of observations and sampling points, 
-n_obs <- sim_parms$n[p]
+n_obs <- 30
 n_sp <- 101
 grid <- make_grid(n_sp, rangevals = c(0, 1))
 y_vals_mat <- matrix(0, nrow = n_sp, ncol = n_obs + 2)
@@ -90,20 +100,23 @@ true_int_beta_mean <- true_int_mean + b1(1:length(grid), grid)
 true_slope_mean <- b1(1:length(grid), grid)
 
 ## Generating response values
-# Random error covariance
+# Random error covariance with non-stationary matern covariance
 cov.m <- make_cov_m(
   cov.f = ffscb::covf_nonst_matern, #covf_st_matern,
   grid = grid, 
   cov.f.params=c(2, 1/4, 1/4) #c(3/2, 1/4)
 )
+#> Registered S3 method overwritten by 'ffscb':
+#>   method               from                
+#>   plot.confidence_band FunctionalPrediction
 
-# t-distributed errors
+# t-distributed errors with nu_0 = 5
 eps_mat <- make_sample(
   mean.v = rep(0, n_sp),
   cov.m = cov.m,
   N = n_obs + 2,
   dist = "rnorm"
-)*sqrt(sim_parms$dfs[p]/rchisq(1, df = sim_parms$dfs[p]))
+)*sqrt(5/rchisq(1, df = 5))
 
 
 # Generate the random data
@@ -162,10 +175,19 @@ ggplot() +
               data = band_plot_df) +
   geom_line(aes(x = t, y = y_true), 
             data = band_plot_df) +
-  geom_lines(aes(x = t, y = ff_pred), 
+  geom_line(aes(x = t, y = ff_pred), 
              color = "#56B4E9", 
              data = band_plot_df) +
-  theme_bw(base_size = 20)
+  theme_bw(base_size = 20) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank()) +
+  labs(y = "Functional Response Y(t)", 
+       x = "Sampling Point (t)")
+```
+
+<img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
+
+``` r
   
 
 # Second prediction: c(1,1)
@@ -183,7 +205,7 @@ fBands2 <- FunctionalPrediction::predict_concurrent(
 # Data frame to plot the band
 band_plot_df2 <- data.frame(
   t = seq(0,1, length.out = 101),
-  y_true = y_vals_mat_ho[,1],
+  y_true = y_vals_mat_ho[,2],
   ff_pred = fBands2[[1]][,1],
   ff_lower = fBands2[[1]][,3],
   ff_upper = fBands2[[1]][,2]
@@ -199,8 +221,14 @@ ggplot() +
               data = band_plot_df2) +
   geom_line(aes(x = t, y = y_true), 
             data = band_plot_df2) +
-  geom_lines(aes(x = t, y = ff_pred), 
+  geom_line(aes(x = t, y = ff_pred), 
              color = "#56B4E9", 
              data = band_plot_df2) +
-  theme_bw(base_size = 20)
+  theme_bw(base_size = 20) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank()) + 
+  labs(y = "Functional Response Y(t)", 
+       x = "Sampling Point (t)")
 ```
+
+<img src="man/figures/README-unnamed-chunk-3-2.png" width="100%" />
