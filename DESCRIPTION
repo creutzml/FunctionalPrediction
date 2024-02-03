@@ -4,7 +4,7 @@ Title: Fast 'n' Fair Simultaneous Confidence and Prediction Bands for Functional
 Version: 0.0.11
 Authors@R: c(person(given  = "Michael",  
                     family = "Creutzinger", 
-                    middle = "L."
+                    middle = "L.",
                     email  = "creutzml@colostate.edu",         
                     role   = c("aut", "cre")), 
              person(given  = "Dominik",  
@@ -13,7 +13,7 @@ Authors@R: c(person(given  = "Michael",
                     role   = c("aut")), 
              person(given  = "Julia", 
                     family = "Sharp",
-                    middle = "L."
+                    middle = "L.",
                     role   = c("aut")))
 Description: Simultaneous confidence and prediction bands for functional concurrent regression. 
 License: GPL (>= 3)
