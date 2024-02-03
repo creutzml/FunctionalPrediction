@@ -6,6 +6,9 @@
 ################################
 
 devtools::document()
+devtools::check(remote = T)
+devtools::check_built(path = "creutzml/FunctionalPrediction", 
+                      remote = TRUE)
 
 ## Adding github actions:
 usethis::use_github_action_check_release() # only linux RMD checks
