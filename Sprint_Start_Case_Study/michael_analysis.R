@@ -525,23 +525,23 @@ par(mfrow = c(2, 3),
 #      main = paste0("95% FFSCB for Estimated \n",
 #                    " Coefficient of Amputee"))
 # abline(h = 0, lty = "dashed")
-plot(beta_bands[[2]][[1]], 
+plot(beta_bands[[2]], 
      main = paste0("90% FFSCB for Estimated \n",
                    " Coefficient of Mass"))
 abline(h = 0, lty = "dashed")
-plot(beta_bands[[3]][[1]], 
+plot(beta_bands[[3]], 
      main = paste0("90% FFSCB for Estimated \n",
                    " Coefficient of Age"))
 abline(h = 0, lty = "dashed")
-plot(beta_bands[[4]][[1]], 
+plot(beta_bands[[4]], 
      main = paste0("90% FFSCB for Estimated \n",
                    " Coefficient of Height"))
 abline(h = 0, lty = "dashed")
-plot(beta_bands[[5]][[1]], 
+plot(beta_bands[[5]], 
      main = paste0("90% FFSCB for Estimated \n",
                    " Coefficient of Sex"))
 abline(h = 0, lty = "dashed")
-plot(beta_bands[[6]][[1]], 
+plot(beta_bands[[6]], 
      main = paste0("90% FFSCB for Estimated \n",
                    " Coefficient of TPush_V"))
 abline(h = 0, lty = "dashed")
@@ -598,7 +598,7 @@ non_amp_pred_band1 <- predict_concurrent(
 
 ### Plot of the mean and band
 # Get the band
-non_amp_pred_band_data1 <- non_amp_pred_band1[[1]][[1]]
+non_amp_pred_band_data1 <- non_amp_pred_band1[[1]]
 non_amp_pred_band_data1_plot <- data.frame(
   t_pts = grid,
   mean = non_amp_pred_band_data1[,1],
@@ -645,29 +645,29 @@ amp_plot1 <- ggplot() +
 #                   "TPush_V = 0.441"))
 
 # Plot of "fair" critical value
-non_amp_pred_band_crit1 <- non_amp_pred_band1[[1]][[2]] %>%
-  data.frame() %>%
-  dplyr::rename("u_hat" = ".") %>%
-  dplyr::mutate(t_pts = grid)
-
-uhat_plot1 <- ggplot() +
-  geom_vline(xintercept = c(33 + 1/3, 66 + 2/3), 
-             color = "lightgray") +
-  geom_line(aes(x = 100*t_pts, y = u_hat), 
-            data = non_amp_pred_band_crit1) +
-  scale_x_continuous(breaks = round(seq(0, 100, 33 + 1/3), 2), 
-                     expand = c(0,0)) +
-  theme_bw() + 
-  theme(text = element_text(size = 16), 
-        plot.margin = unit(c(.5, 1, 1, 1), "cm"), 
-        panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank()) +
-  labs(x = "% Push-Off Phase",
-       y = expression("Critical value "*hat(u)[t[nu[0]]*", "*alpha/2]^"*"))
-
-library(cowplot)
-plot_grid(tau_realigned_plot, uhat_plot1, 
-          align = "v", nrow = 2, labels = c("(a)", "(b)"))
+# non_amp_pred_band_crit1 <- non_amp_pred_band1[[2]] %>%
+#   data.frame() %>%
+#   dplyr::rename("u_hat" = ".") %>%
+#   dplyr::mutate(t_pts = grid)
+# 
+# uhat_plot1 <- ggplot() +
+#   geom_vline(xintercept = c(33 + 1/3, 66 + 2/3), 
+#              color = "lightgray") +
+#   geom_line(aes(x = 100*t_pts, y = u_hat), 
+#             data = non_amp_pred_band_crit1) +
+#   scale_x_continuous(breaks = round(seq(0, 100, 33 + 1/3), 2), 
+#                      expand = c(0,0)) +
+#   theme_bw() + 
+#   theme(text = element_text(size = 16), 
+#         plot.margin = unit(c(.5, 1, 1, 1), "cm"), 
+#         panel.grid.major = element_blank(), 
+#         panel.grid.minor = element_blank()) +
+#   labs(x = "% Push-Off Phase",
+#        y = expression("Critical value "*hat(u)[t[nu[0]]*", "*alpha/2]^"*"))
+# 
+# library(cowplot)
+# plot_grid(tau_realigned_plot, uhat_plot1, 
+#           align = "v", nrow = 2, labels = c("(a)", "(b)"))
 
 ### September 12th, 2023
 ## Creating a comparison plot of Conformal Inference vs Fast and Fair
