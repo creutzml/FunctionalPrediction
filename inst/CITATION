@@ -14,7 +14,7 @@ c(
       pages    = "842-868",
       url      = "https://doi.org/10.1093/jrsssb/qkad026",
       textVersion = paste(
-         "Liebl, Dominik, and Matthew Reimherr. 2023. Fast and Fair Simultaneous Confidence Bands for Functional Parameters. Journal of the Royal Statistical Society Series B: Statistical Methodology 85 (3): 842–68. https://doi.org/10.1093/jrsssb/qkad026"
+         "Liebl, Dominik, and Reimherr, Matthew. (2023). Fast and Fair Simultaneous Confidence Bands for Functional Parameters. Journal of the Royal Statistical Society Series B: Statistical Methdology 85 (3): 842-868. https://doi.org/10.193/jrsssb/qkad026."
       )
     ),
 
@@ -35,7 +35,7 @@ c(
       pages    = "1-34",
       url      = "",
       textVersion = paste(
-         "Creutzinger, M., Liebl, D. & Sharp, J. (2024{+}). Fair Simultaneous Prediction and Confidence Bands for Concurrent Functional Regressions: Comparing Sprinters with Prosthetic versus Biological Legs."
+         "Creutzinger, M., Liebl, D. & Sharp, J. (2024+). Fair Simultaneous Prediction and Confidence Bands for Concurrent Functional Regressions: Comparing Sprinters with Prosthetic versus Biological Legs."
    )
  )
 )
