@@ -25,6 +25,7 @@ library(fda)
 library(ffscb)
 library(conformalInference.fd)
 library(progress)
+library(ffscbExtra)
 #####################################################################
 
 
