@@ -651,7 +651,7 @@ band_plot_df_ci_nonst <- data.frame(
   # ff_lower = fBands2[[1]][[1]][,3],
   # ff_upper = fBands2[[1]][[1]][,2]
 ) %>%
-mutate(band_type = "Conformal \n Inference", 
+mutate(band_type = "Conformal Inference", 
        cov_st = "Non-Stationary")
 
 ## And now, if we fit with concurrent regression I made and our bands
@@ -680,7 +680,7 @@ band_plot_df_ff_nonst <- data.frame(
   ff_lower = fBands_nonst[[1]][,3],
   ff_upper = fBands_nonst[[1]][,2]
 ) %>%
-  mutate(band_type = "Fast and \n Fair", 
+  mutate(band_type = "Fast 'n' Fair", 
          cov_st = "Non-Stationary")
 
 # Quick comparison plot of bands created by conformal vs fast and fair
@@ -743,7 +743,7 @@ band_plot_df_ci_st <- data.frame(
   # ff_lower = fBands2[[1]][[1]][,3],
   # ff_upper = fBands2[[1]][[1]][,2]
 ) %>%
-  mutate(band_type = "Conformal \n Inference", 
+  mutate(band_type = "Conformal Inference", 
          cov_st = "Stationary")
 
 ## And now, if we fit with concurrent regression I made and our bands
@@ -772,7 +772,7 @@ band_plot_df_ff_st <- data.frame(
   ff_lower = fBands_st[[1]][,3],
   ff_upper = fBands_st[[1]][,2]
 ) %>%
-  mutate(band_type = "Fast and \n Fair", 
+  mutate(band_type = "Fast 'n' Fair", 
          cov_st = "Stationary")
 
 ## Combine data frames
@@ -814,43 +814,44 @@ ggplot() +
                 linetype = band_type),
             linewidth = 1.25,
             data = band_plot_df_ff) +
-  facet_wrap(vars(cov_st), nrow = 2, 
-             strip.position = "right") +
-  theme_bw(base_size = 20) +
+  facet_wrap(vars(cov_st), ncol = 2, 
+             strip.position = "top") +
+  theme_bw(base_size = 16) +
   # theme(text = element_text(size = 16)) +
   labs(#color = "Prediction Band: ",
     # linetype = "Prediction Band: ",
     # fill = "Prediction Band: ",
     y = "Y(t)") +
   scale_color_manual(name = "Prediction Band: ",
-                     breaks = c("Conformal \n Inference",
-                                "Fast and \n Fair"),
-                     values = c("Conformal \n Inference" = "#D55E00",
-                                "Fast and \n Fair" = "#56B4E9")) +
+                     breaks = c("Conformal Inference",
+                                "Fast 'n' Fair"),
+                     values = c("Conformal Inference" = "#D55E00",
+                                "Fast 'n' Fair" = "#56B4E9")) +
   scale_fill_manual(name = "Prediction Band: ",
-                    breaks = c("Conformal \n Inference",
-                               "Fast and \n Fair"),
-                    values = c("Conformal \n Inference" = NA,
-                               "Fast and \n Fair" = "#56B4E9")) +
+                    breaks = c("Conformal Inference",
+                               "Fast 'n' Fair"),
+                    values = c("Conformal Inference" = NA,
+                               "Fast 'n' Fair" = "#56B4E9")) +
   scale_linetype_manual(name = "Prediction Band: ",
-                        breaks = c("Conformal \n Inference",
-                                   "Fast and \n Fair"),
-                        values = c("Conformal \n Inference" = "dotdash",
-                                   "Fast and \n Fair" = "solid")) +
+                        breaks = c("Conformal Inference",
+                                   "Fast 'n' Fair"),
+                        values = c("Conformal Inference" = "dotdash",
+                                   "Fast 'n' Fair" = "solid")) +
   guides(fill = "none",
          color = guide_legend(override.aes = list(fill = NA))) +
   # title = "Comparison of 90% Prediction Bands for x(t) = 1",
   # subtitle = expression(nu[0]*" = 30, n = 100")) +
-  theme(legend.position = c(.5, .95),
+  theme(legend.position = c(.5, .90),
         legend.direction = "horizontal",
         legend.background = element_rect(colour = 'black',
                                          fill = 'white',
                                          linetype='solid'),
         # text = element_text(size = 16),
-        plot.margin = unit(c(1, 1, 0.1, 1), "cm"),
+        plot.margin = unit(c(0.1, 0.7, 0.1, 0.1), "cm"),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(), 
-        strip.text.y = element_text(size = 20)) +
+        strip.text = element_text(size = 16), 
+        panel.spacing.x = unit(2.5, "lines")) +
   scale_x_continuous(expand = c(0, 0),
                      breaks = round(c(0, 1/3, 2/3, 1), 2)) +
   coord_cartesian(ylim = c(-0.25, 3))
