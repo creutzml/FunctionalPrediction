@@ -5,6 +5,8 @@
 ##
 ################################
 
+devtools::document()
+
 ## Adding github actions:
 usethis::use_github_action_check_release() # only linux RMD checks
 usethis::use_github_action("test-coverage")
