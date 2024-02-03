@@ -35,7 +35,7 @@ c(
       pages    = "1-34",
       url      = "",
       textVersion = paste(
-         "Creutzinger, M., Liebl, D. & Sharp, J. (2024+). Fair Simultaneous Prediction and Confidence Bands for Concurrent Functional Regressions: Comparing Sprinters with Prosthetic versus Biological Legs."
+         "Creutzinger, M., Liebl, D. & Sharp, J. (2024{+}). Fair Simultaneous Prediction and Confidence Bands for Concurrent Functional Regressions: Comparing Sprinters with Prosthetic versus Biological Legs."
    )
  )
 )
