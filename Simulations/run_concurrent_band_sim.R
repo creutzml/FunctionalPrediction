@@ -563,22 +563,23 @@ ggplot() +
   geom_line(aes(x = t, y = `Y(t)`,
                 color = `x(t)`, linetype = `x(t)`, group = Obs),
             data = y_vals_df) +
-  facet_wrap(vars(cov_st), nrow = 2, 
-             strip.position = "right") +
+  facet_wrap(vars(cov_st), ncol = 2, 
+             strip.position = "top") +
   scale_color_manual(values = c("#D55E00", "#56B4E9")) +
   scale_linetype_manual(values = c("dashed", "solid")) +
-  theme_bw(base_size = 20) +
+  theme_bw(base_size = 16) +
   labs(color = "Predictor:", linetype = "Predictor:") +
-  theme(legend.position = c(.5, .95),
+  theme(legend.position = c(.5, .9),
         legend.direction = "horizontal",
         legend.background = element_rect(colour = 'black',
                                          fill = 'white',
                                          linetype='solid'),
         # text = element_text(size = 16),
-        plot.margin = unit(c(1, 1, 0.1, 1), "cm"),
+        plot.margin = unit(c(0.1, .7, 0.1, 0.1), "cm"),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(), 
-        strip.text.y = element_text(size = 20)) +
+        strip.text = element_text(size = 16), 
+        panel.spacing.x = unit(2.5, "lines")) +
   scale_x_continuous(expand = c(0, 0),
                      breaks = round(c(0, 1/3, 2/3, 1), 2)) +
   coord_cartesian(ylim = c(0, 3))
