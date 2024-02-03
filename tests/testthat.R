@@ -1,4 +1,4 @@
 library("testthat")
-library("ffscbExtra")
+library("FunctionalPrediction")
 
 # test_check("ffscb")

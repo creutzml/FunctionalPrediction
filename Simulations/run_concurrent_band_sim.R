@@ -16,7 +16,7 @@
 #####################################################################
 # Install Creutzml fork
 require(devtools)
-install_github("creutzml/ffscb", force = T)
+install_github("creutzml/FunctionalPrediction", force = T)
 
 # Packages
 library(mvtnorm)
@@ -25,7 +25,7 @@ library(fda)
 library(ffscb)
 library(conformalInference.fd)
 library(progress)
-library(ffscbExtra)
+library(FunctionalPrediction)
 #####################################################################
 
 
@@ -306,11 +306,13 @@ for (p in 1:nrow(sim_parms)) {
     ## FFSCB fitting
     #################################################################
     ## And now, if we fit with concurrent regression I made and our bands
-    fReg_list <- fRegress_concurrent(y_mat = y_vals_mat_temp, 
-                                     x_array = x_array_temp[,,-1])
+    fReg_list <- FunctionalPrediction::fRegress_concurrent(
+      y_mat = y_vals_mat_temp, 
+      x_array = x_array_temp[,,-1]
+    )
     
     # First prediction: c(1,0)
-    fBands <- predict_concurrent(
+    fBands <- FunctionalPrediction::predict_concurrent(
       concurrent_list = fReg_list,
       interval = "prediction", 
       err_str = "t",
@@ -354,7 +356,7 @@ for (p in 1:nrow(sim_parms)) {
                              na.rm = T)
     
     # Second prediction: c(1,1)
-    fBands2 <- predict_concurrent(
+    fBands2 <- FunctionalPrediction::predict_concurrent(
       concurrent_list = fReg_list,
       interval = "prediction", 
       err_str = "t",

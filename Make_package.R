@@ -20,7 +20,7 @@ pkgdown::build_site()
 
 
 ## Remove pkg 
-remove.packages("ffscbExtra")
+remove.packages("FunctionalPrediction")
 
 ## Create/update documentation and (re-)write NAMESPACE
 devtools::document()
@@ -32,10 +32,10 @@ devtools::document()
 ## Install
 devtools::install_local(force = TRUE)
 ##
-library("ffscbExtra")
-citation("ffscbExtra")
+library("FunctionalPrediction")
+citation("FunctionalPrediction")
 
-help("ffscbExtra")
+help("FunctionalPrediction")
 
 
 ## Terminal command search and replace in all files (incl subdirectories)

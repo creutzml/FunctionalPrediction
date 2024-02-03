@@ -14,11 +14,11 @@
 
 ## Creutzinger version of package
 require(devtools)
-install_github("creutzml/ffscbExtra")
+install_github("creutzml/FunctionalPrediction")
 
 ## Packages
 library(tidyverse)
-library(ffscbExtra)
+library(FunctionalPrediction)
 library(glmnet)
 require(methods)
 library(abind)
@@ -218,7 +218,7 @@ n_sp <- nrow(Y_curves_shifted_mat)
 grid <- seq(0, 1, length.out = n_sp)
 
 # Estimate and plot tau
-front_v_tau_est <- ffscb::tau_fun(Y_curves_shifted_mat)
+front_v_tau_est <- FunctionalPrediction::tau_fun(Y_curves_shifted_mat)
 ggplot() +
   geom_line(aes(x = grid, y = front_v_tau_est)) +
   theme_bw() + 
@@ -321,9 +321,11 @@ pred_array <- abind(
 )
 
 # Fit the concurrent regression model
-nonamp_model <- fRegress_concurrent(resp_mat, pred_array)
+nonamp_model <- FunctionalPrediction::fRegress_concurrent(
+  resp_mat, pred_array
+)
 
-front_v_tau_est <- ffscb::tau_fun(nonamp_model$y_resid_mat)
+front_v_tau_est <- FunctionalPrediction::tau_fun(nonamp_model$y_resid_mat)
 tau_realigned_plot <- ggplot() +
   geom_line(aes(x = 100*grid, y = front_v_tau_est)) +
   scale_x_continuous(breaks = round(seq(0, 100, 100/3), 2), 
@@ -509,9 +511,11 @@ matplot(nonamp_model$y_resid_mat, nonamp_model$y_hat_mat,
         ylab = "Fitted Values")
 
 ## How do the confidence bands for the beta parameters look?
-beta_bands <- confint_concurrent(nonamp_model, 
-                                 n_int = 3, 
-                                 conf.level = .90)
+beta_bands <- FunctionalPrediction::confint_concurrent(
+  nonamp_model, 
+  n_int = 3, 
+  conf.level = .90
+)
 ## Notes: 
 ##  - Age is not significant anywhere along the domain
 ##  - Height is not significant anywhere along the domain
@@ -585,7 +589,7 @@ new_dat_mat1 <- matrix(
       each = n_sp), 
   nrow = n_sp
 )
-non_amp_pred_band1 <- predict_concurrent(
+non_amp_pred_band1 <- FunctionalPrediction::predict_concurrent(
   concurrent_list = nonamp_model, 
   interval = "prediction", 
   new_dat = new_dat_mat1, 
@@ -767,7 +771,7 @@ new_dat_mat2 <- matrix(
       each = n_sp), 
   nrow = n_sp
 )
-non_amp_pred_band2 <- predict_concurrent(
+non_amp_pred_band2 <- FunctionalPrediction::predict_concurrent(
   concurrent_list = nonamp_model, 
   interval = "prediction", 
   new_dat = new_dat_mat2, 
@@ -934,7 +938,7 @@ new_dat_mat3 <- matrix(
       each = n_sp), 
   nrow = n_sp
 )
-non_amp_pred_band3 <- predict_concurrent(
+non_amp_pred_band3 <- FunctionalPrediction::predict_concurrent(
   concurrent_list = nonamp_model, 
   interval = "prediction", 
   new_dat = new_dat_mat3, 
@@ -1086,7 +1090,7 @@ new_dat_mat4 <- matrix(
       each = n_sp), 
   nrow = n_sp
 )
-non_amp_pred_band4 <- predict_concurrent(
+non_amp_pred_band4 <- FunctionalPrediction::predict_concurrent(
   concurrent_list = nonamp_model, 
   interval = "prediction", 
   new_dat = new_dat_mat4, 
@@ -1238,7 +1242,7 @@ new_dat_mat5 <- matrix(
       each = n_sp), 
   nrow = n_sp
 )
-non_amp_pred_band5 <- predict_concurrent(
+non_amp_pred_band5 <- FunctionalPrediction::predict_concurrent(
   concurrent_list = nonamp_model, 
   interval = "prediction", 
   new_dat = new_dat_mat5, 
@@ -1391,7 +1395,7 @@ new_dat_mat6 <- matrix(
       each = n_sp), 
   nrow = n_sp
 )
-non_amp_pred_band6 <- predict_concurrent(
+non_amp_pred_band6 <- FunctionalPrediction::predict_concurrent(
   concurrent_list = nonamp_model, 
   interval = "prediction", 
   new_dat = new_dat_mat6, 
@@ -1543,7 +1547,7 @@ new_dat_mat7 <- matrix(
       each = n_sp), 
   nrow = n_sp
 )
-non_amp_pred_band7 <- predict_concurrent(
+non_amp_pred_band7 <- FunctionalPrediction::predict_concurrent(
   concurrent_list = nonamp_model, 
   interval = "prediction", 
   new_dat = new_dat_mat7, 

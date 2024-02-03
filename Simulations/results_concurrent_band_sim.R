@@ -12,14 +12,14 @@
 #####################################################################
 # Install ffscb from forked package
 require(devtools)
-install_github("creutzml/ffscbExtra")
+install_github("creutzml/FunctionalPrediction")
 
 # Packages
 library(mvtnorm)
 library(tidyverse)
 library(fda)
 # library(ffscb)
-library(ffscbExtra)
+library(FunctionalPrediction)
 library(conformalInference.fd)
 #####################################################################
 

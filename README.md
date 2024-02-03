@@ -1,23 +1,25 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# R-package: ffscbExtra
+# R-package: FunctionalPrediction
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/creutzml/ffscbExtra/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/creutzml/ffscbExtra/actions/workflows/R-CMD-check.yaml)
-[![pages-build-deployment](https://github.com/creutzml/ffscbExtra/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/creutzml/ffscbExtra/actions/workflows/pages/pages-build-deployment)
-[![pkgdown](https://github.com/creutzml/ffscbExtra/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/creutzml/ffscbExtra/actions/workflows/pkgdown.yaml)
-[![test-coverage](https://github.com/creutzml/ffscbExtra/actions/workflows/test-coverage.yaml/badge.svg)](https://github.com/creutzml/ffscbExtra/actions/workflows/test-coverage.yaml)
+[![R-CMD-check](https://github.com/creutzml/FunctionalPrediction/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/creutzml/FunctionalPrediction/actions/workflows/R-CMD-check.yaml)
+[![pages-build-deployment](https://github.com/creutzml/FunctionalPrediction/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/creutzml/FunctionalPrediction/actions/workflows/pages/pages-build-deployment)
+[![pkgdown](https://github.com/creutzml/FunctionalPrediction/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/creutzml/FunctionalPrediction/actions/workflows/pkgdown.yaml)
+[![test-coverage](https://github.com/creutzml/FunctionalPrediction/actions/workflows/test-coverage.yaml/badge.svg)](https://github.com/creutzml/FunctionalPrediction/actions/workflows/test-coverage.yaml)
 <!-- badges: end -->
 
 # Description
 
-The R package `ffscbExtra` allows to compute simultaneous confidence bands
+The R package `FunctionalPrediction` allows one to compute simultaneous confidence bands
 for function-valued parameters (e.g. for mean functions
 $\mu=\{\mu(t):t\in[0,1]\}$) and adds the ability to create one-sided bands, 
 prediction bands, and simultaneous bands for the conditional mean of a 
-functional concurrent regression model. The band shapes are constructed under
+functional concurrent regression model. Users can install `FunctionalPrediction` directly, and it will add on the original capabilities of `ffscb` alongside the concurrent regression model bands. 
+
+The band shapes are constructed under
 the fairness constraint of *false positive rate balance* which allows to
 distribute the total false positive rate $\alpha\in(0,1)$ over
 partitions $0 = a_0 < a_1 < \ldots < a_p = 1$ of the function domain $[0,1]$.[^1]
@@ -28,34 +30,35 @@ probability. Locally (i.e. over sub-intervals
 $[a_{j-1},a_j]\subseteq[0,1]$) the simultaneous confidence band provides
 a $(1-\alpha(a_j-a_{j-1}))\times 100\%$ coverage probability.
 
-- The statistical theory and methodology are described in: <br> Fast ‘n’
+- The statistical theory and methodology for simultaneous confidence bands of the functional    mean of a univariate sample are described in: <br> Fast ‘n’
   fair simultaneous confidence bands for functional parameters as
   introduced in the paper [**Fast and Fair Simultaneous Confidence Bands
   for Functional Parameters**
   (arXiv:1910.00131)](https://arxiv.org/abs/1910.00131) by [Dominik
   Liebl](www.dliebl.com) and [Matthew
-  Reimherr](http://www.personal.psu.edu/mlr36/) and for concurrent functional
-  regression parameters in the paper **Fair Simultaneous Prediction and Confidence
-  Bands for Concurrent Functional Regressions: Comparing Sprinters with Prosthetic
-  versus Biological Legs** by [Michael L. Creutzinger](https://www.linkedin.com/in/michaellcreutzinger/),
-   [Dominik Liebl](www.dliebl.com), and [Julia L. Sharp](https://sites.google.com/view/juliasharp/home).
+  Reimherr](http://www.personal.psu.edu/mlr36/).
 
 - The R-codes of the R package `ffscb` can be found at the GitHub repo
   <https://github.com/lidom/ffscb>
 
-- The R-codes of the R package `ffscbExtra` can be found at the GitHub repo
-  <https://github.com/creutzml/ffscbExtra>
+- The statistical theory and methodology for simultaneous confidence and prediction bands of    the conditional mean of a concurrent functional regression model are described in the paper   **Fair Simultaneous Prediction and Confidence
+  Bands for Concurrent Functional Regressions: Comparing Sprinters with Prosthetic
+  versus Biological Legs** by [Michael L.     Creutzinger](https://www.linkedin.com/in/michaellcreutzinger/),
+   [Dominik Liebl](www.dliebl.com), and [Julia L. Sharp](https://sites.google.com/view/juliasharp/home).
+
+- The R-codes of the R package `FunctionalPrediction` can be found at the GitHub repo
+  <https://github.com/creutzml/FunctionalPrediction>
 
 ## Installation
 
 ``` r
-devtools::install_github("creutzml/ffscbExtra")
+devtools::install_github("creutzml/FunctionalPrediction")
 ```
 
 ## Small example based on artifical data
 
 ``` r
-library(ffscbExtra)
+library(FunctionalPrediction)
 # Generate a sample
 p          <- 200 
 N          <- 80 
@@ -102,7 +105,7 @@ Legend for band-`type`:
 ## Example using real functional data
 
 The following code replicates the sports biomechanics real data example
-of our paper [Liebl and Reimherr
+of the paper by [Liebl and Reimherr
 (2022+)](https://arxiv.org/abs/1910.00131). First, we read in and plot
 the data.
 
@@ -185,7 +188,7 @@ b                 <- confidence_band(x          = hat_mu,
 ```
 
 A quick and dirty plot can be generated by `plot(b)`. The following
-code, however, replicates the plot of our paper [Liebl and Reimherr
+code, however, replicates the plot from the paper [Liebl and Reimherr
 (2022+)](https://arxiv.org/abs/1910.00131):
 
 ``` r
@@ -238,8 +241,8 @@ box()
 
 Our method even works in the case of fragmentary functional data, where
 it is impossible to compute estimates of the total covariance function.
-The following code replicates the framentary functional data example of
-our paper [Liebl and Reimherr
+The following code replicates the framentary functional data example from
+the paper [Liebl and Reimherr
 (2022+)](https://arxiv.org/abs/1910.00131). First, we read in and plot
 the data.
 
@@ -369,7 +372,7 @@ mtext(text = "Age", 1, line = 2.25, cex=cexs)
 
 <img src="man/figures/README-unnamed-chunk-11-1.png" width="100%" />
 
-More detailes about this real-ata application can be found in our paper
+More detailes about this real-data application can be found in the paper
 [Liebl and Reimherr (2022+)](https://arxiv.org/abs/1910.00131).
 
 <script>if(!sessionStorage.getItem("_swa")&&document.referrer.indexOf(location.protocol+"//"+location.host)!== 0){fetch("https://counter.dev/track?"+new URLSearchParams({referrer:document.referrer,screen:screen.width+"x"+screen.height,user:"dliebl",utcoffset:"2"}))};sessionStorage.setItem("_swa","1");
