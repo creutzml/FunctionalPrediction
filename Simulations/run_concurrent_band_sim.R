@@ -567,7 +567,7 @@ ggplot() +
              strip.position = "top") +
   scale_color_manual(values = c("#D55E00", "#56B4E9")) +
   scale_linetype_manual(values = c("dashed", "solid")) +
-  theme_bw(base_size = 16) +
+  theme_bw(base_size = 20) +
   labs(color = "Predictor:", linetype = "Predictor:") +
   theme(legend.position = c(.5, .9),
         legend.direction = "horizontal",
@@ -578,7 +578,7 @@ ggplot() +
         plot.margin = unit(c(0.1, .7, 0.1, 0.1), "cm"),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(), 
-        strip.text = element_text(size = 16), 
+        strip.text = element_text(size = 20), 
         panel.spacing.x = unit(2.5, "lines")) +
   scale_x_continuous(expand = c(0, 0),
                      breaks = round(c(0, 1/3, 2/3, 1), 2)) +
@@ -816,7 +816,7 @@ ggplot() +
             data = band_plot_df_ff) +
   facet_wrap(vars(cov_st), ncol = 2, 
              strip.position = "top") +
-  theme_bw(base_size = 16) +
+  theme_bw(base_size = 20) +
   # theme(text = element_text(size = 16)) +
   labs(#color = "Prediction Band: ",
     # linetype = "Prediction Band: ",
@@ -850,7 +850,7 @@ ggplot() +
         plot.margin = unit(c(0.1, 0.7, 0.1, 0.1), "cm"),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(), 
-        strip.text = element_text(size = 16), 
+        strip.text = element_text(size = 20), 
         panel.spacing.x = unit(2.5, "lines")) +
   scale_x_continuous(expand = c(0, 0),
                      breaks = round(c(0, 1/3, 2/3, 1), 2)) +
