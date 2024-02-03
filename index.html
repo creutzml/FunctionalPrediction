@@ -85,24 +85,32 @@
 <span></span>
 <span><span class="co">## Generate data:</span></span>
 <span><span class="co">#################################################################</span></span>
-<span><span class="co"># Number of observations and sampling points, </span></span>
+<span><span class="co"># Number of observations and sampling points,</span></span>
 <span><span class="va">n_obs</span> <span class="op">&lt;-</span> <span class="fl">30</span></span>
 <span><span class="va">n_sp</span> <span class="op">&lt;-</span> <span class="fl">101</span></span>
 <span><span class="va">grid</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/make_grid.html">make_grid</a></span><span class="op">(</span><span class="va">n_sp</span>, rangevals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">y_vals_mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">0</span>, nrow <span class="op">=</span> <span class="va">n_sp</span>, ncol <span class="op">=</span> <span class="va">n_obs</span> <span class="op">+</span> <span class="fl">2</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Need an array for the predictor matrix</span></span>
-<span><span class="va">x_array</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/array.html" class="external-link">array</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">1</span>, nrow <span class="op">=</span> <span class="va">n_sp</span>, ncol <span class="op">=</span> <span class="va">n_obs</span> <span class="op">+</span> <span class="fl">2</span><span class="op">)</span>, </span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">n_sp</span><span class="op">*</span><span class="va">n_obs</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span>,</span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">n_sp</span><span class="op">*</span><span class="va">n_obs</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span>, </span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">n_sp</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">n_sp</span><span class="op">)</span><span class="op">)</span>, </span>
-<span>nrow <span class="op">=</span> <span class="va">n_sp</span>, ncol <span class="op">=</span> <span class="va">n_obs</span> <span class="op">+</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span>, </span>
-<span>dim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">grid</span><span class="op">)</span>, <span class="va">n_obs</span> <span class="op">+</span> <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">x_array</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/array.html" class="external-link">array</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">1</span>, nrow <span class="op">=</span> <span class="va">n_sp</span>, ncol <span class="op">=</span> <span class="va">n_obs</span> <span class="op">+</span> <span class="fl">2</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">n_sp</span> <span class="op">*</span> <span class="va">n_obs</span> <span class="op">/</span> <span class="fl">2</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">n_sp</span> <span class="op">*</span> <span class="va">n_obs</span> <span class="op">/</span> <span class="fl">2</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">n_sp</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">n_sp</span><span class="op">)</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      nrow <span class="op">=</span> <span class="va">n_sp</span>, ncol <span class="op">=</span> <span class="va">n_obs</span> <span class="op">+</span> <span class="fl">2</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  dim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">grid</span><span class="op">)</span>, <span class="va">n_obs</span> <span class="op">+</span> <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Beta functions</span></span>
 <span><span class="va">b0</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
 <span><span class="va">b1</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">i</span>, <span class="va">t_mat</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/Trig.html" class="external-link">sin</a></span><span class="op">(</span><span class="fl">8</span><span class="op">*</span><span class="va">pi</span><span class="op">*</span><span class="va">t_mat</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span><span class="op">*</span><span class="va">t_mat</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span> <span class="va">t_mat</span><span class="op">[</span><span class="va">i</span><span class="op">]</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/Trig.html" class="external-link">sin</a></span><span class="op">(</span><span class="fl">8</span> <span class="op">*</span> <span class="va">pi</span> <span class="op">*</span> <span class="va">t_mat</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span> <span class="op">*</span> <span class="va">t_mat</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span> <span class="va">t_mat</span><span class="op">[</span><span class="va">i</span><span class="op">]</span></span>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="co"># True mean functionals</span></span>
@@ -113,9 +121,9 @@
 <span><span class="co">## Generating response values</span></span>
 <span><span class="co"># Random error covariance with non-stationary matern covariance</span></span>
 <span><span class="va">cov.m</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/make_cov_m.html">make_cov_m</a></span><span class="op">(</span></span>
-<span>  cov.f <span class="op">=</span> <span class="fu">ffscb</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/ffscb/man/covf_nonst_matern.html" class="external-link">covf_nonst_matern</a></span>, <span class="co">#covf_st_matern,</span></span>
-<span>  grid <span class="op">=</span> <span class="va">grid</span>, </span>
-<span>  cov.f.params<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">1</span><span class="op">/</span><span class="fl">4</span>, <span class="fl">1</span><span class="op">/</span><span class="fl">4</span><span class="op">)</span> <span class="co">#c(3/2, 1/4)</span></span>
+<span>  cov.f <span class="op">=</span> <span class="fu">ffscb</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/ffscb/man/covf_nonst_matern.html" class="external-link">covf_nonst_matern</a></span>, <span class="co"># covf_st_matern,</span></span>
+<span>  grid <span class="op">=</span> <span class="va">grid</span>,</span>
+<span>  cov.f.params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">1</span> <span class="op">/</span> <span class="fl">4</span>, <span class="fl">1</span> <span class="op">/</span> <span class="fl">4</span><span class="op">)</span> <span class="co"># c(3/2, 1/4)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; Registered S3 method overwritten by 'ffscb':</span></span>
 <span><span class="co">#&gt;   method               from                </span></span>
@@ -127,22 +135,22 @@
 <span>  cov.m <span class="op">=</span> <span class="va">cov.m</span>,</span>
 <span>  N <span class="op">=</span> <span class="va">n_obs</span> <span class="op">+</span> <span class="fl">2</span>,</span>
 <span>  dist <span class="op">=</span> <span class="st">"rnorm"</span></span>
-<span><span class="op">)</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="fl">5</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/stats/Chisquare.html" class="external-link">rchisq</a></span><span class="op">(</span><span class="fl">1</span>, df <span class="op">=</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="fl">5</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/stats/Chisquare.html" class="external-link">rchisq</a></span><span class="op">(</span><span class="fl">1</span>, df <span class="op">=</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span></span>
 <span><span class="co"># Generate the random data</span></span>
-<span><span class="va">y_vals_mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">x_array</span><span class="op">[</span><span class="fl">1</span>,,<span class="op">]</span><span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">true_int_mean</span>, <span class="va">true_slope_mean</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span><span class="va">y_vals_mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">x_array</span><span class="op">[</span><span class="fl">1</span>, , <span class="op">]</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">true_int_mean</span>, <span class="va">true_slope_mean</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="va">eps_mat</span></span>
 <span></span>
 <span><span class="co"># matplot(y_vals_mat, type = "l")</span></span>
 <span></span>
 <span></span>
 <span><span class="co"># Next, remove the last two columns for hold out prediction</span></span>
-<span><span class="va">y_vals_mat_temp</span> <span class="op">&lt;-</span> <span class="va">y_vals_mat</span><span class="op">[</span>,<span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">n_obs</span> <span class="op">+</span> <span class="fl">1</span>, <span class="va">n_obs</span> <span class="op">+</span> <span class="fl">2</span><span class="op">)</span><span class="op">]</span></span>
-<span><span class="va">x_array_temp</span> <span class="op">&lt;-</span> <span class="va">x_array</span><span class="op">[</span>,<span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">n_obs</span> <span class="op">+</span> <span class="fl">1</span>, <span class="va">n_obs</span> <span class="op">+</span> <span class="fl">2</span><span class="op">)</span>,<span class="op">]</span></span>
-<span><span class="va">y_vals_mat_ho</span> <span class="op">&lt;-</span> <span class="va">y_vals_mat</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">n_obs</span> <span class="op">+</span> <span class="fl">1</span>, <span class="va">n_obs</span> <span class="op">+</span> <span class="fl">2</span><span class="op">)</span><span class="op">]</span></span>
-<span><span class="va">x_array_ho</span> <span class="op">&lt;-</span> <span class="va">x_array</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">n_obs</span> <span class="op">+</span> <span class="fl">1</span>, <span class="va">n_obs</span> <span class="op">+</span> <span class="fl">2</span><span class="op">)</span>,<span class="op">]</span></span>
+<span><span class="va">y_vals_mat_temp</span> <span class="op">&lt;-</span> <span class="va">y_vals_mat</span><span class="op">[</span>, <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">n_obs</span> <span class="op">+</span> <span class="fl">1</span>, <span class="va">n_obs</span> <span class="op">+</span> <span class="fl">2</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="va">x_array_temp</span> <span class="op">&lt;-</span> <span class="va">x_array</span><span class="op">[</span>, <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">n_obs</span> <span class="op">+</span> <span class="fl">1</span>, <span class="va">n_obs</span> <span class="op">+</span> <span class="fl">2</span><span class="op">)</span>, <span class="op">]</span></span>
+<span><span class="va">y_vals_mat_ho</span> <span class="op">&lt;-</span> <span class="va">y_vals_mat</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">n_obs</span> <span class="op">+</span> <span class="fl">1</span>, <span class="va">n_obs</span> <span class="op">+</span> <span class="fl">2</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="va">x_array_ho</span> <span class="op">&lt;-</span> <span class="va">x_array</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">n_obs</span> <span class="op">+</span> <span class="fl">1</span>, <span class="va">n_obs</span> <span class="op">+</span> <span class="fl">2</span><span class="op">)</span>, <span class="op">]</span></span>
 <span><span class="co">#################################################################</span></span>
 <span></span>
 <span></span>
@@ -151,17 +159,17 @@
 <span><span class="co">#################################################################</span></span>
 <span><span class="co">## And now, if we fit with concurrent regression I made and our bands</span></span>
 <span><span class="va">fReg_list</span> <span class="op">&lt;-</span> <span class="fu">FunctionalPrediction</span><span class="fu">::</span><span class="fu"><a href="reference/fRegress_concurrent.html">fRegress_concurrent</a></span><span class="op">(</span></span>
-<span>  y_mat <span class="op">=</span> <span class="va">y_vals_mat_temp</span>, </span>
-<span>  x_array <span class="op">=</span> <span class="va">x_array_temp</span><span class="op">[</span>,,<span class="op">-</span><span class="fl">1</span><span class="op">]</span></span>
+<span>  y_mat <span class="op">=</span> <span class="va">y_vals_mat_temp</span>,</span>
+<span>  x_array <span class="op">=</span> <span class="va">x_array_temp</span><span class="op">[</span>, , <span class="op">-</span><span class="fl">1</span><span class="op">]</span></span>
 <span><span class="op">)</span></span>
-<span>    </span>
+<span></span>
 <span><span class="co"># First prediction: c(1,0)</span></span>
 <span><span class="va">fBands</span> <span class="op">&lt;-</span> <span class="fu">FunctionalPrediction</span><span class="fu">::</span><span class="fu"><a href="reference/predict_concurrent.html">predict_concurrent</a></span><span class="op">(</span></span>
 <span>  concurrent_list <span class="op">=</span> <span class="va">fReg_list</span>,</span>
-<span>  interval <span class="op">=</span> <span class="st">"prediction"</span>, </span>
+<span>  interval <span class="op">=</span> <span class="st">"prediction"</span>,</span>
 <span>  err_str <span class="op">=</span> <span class="st">"t"</span>,</span>
-<span>  new_dat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span>, </span>
-<span>  conf.level <span class="op">=</span> <span class="fl">0.90</span>, </span>
+<span>  new_dat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span>,</span>
+<span>  conf.level <span class="op">=</span> <span class="fl">0.90</span>,</span>
 <span>  n_int <span class="op">=</span> <span class="fl">3</span>,</span>
 <span>  nu0_hat <span class="op">=</span> <span class="st">"singh_df"</span>,</span>
 <span>  mse_scalar <span class="op">=</span> <span class="st">"ub"</span></span>
@@ -169,42 +177,51 @@
 <span></span>
 <span><span class="co"># Data frame to plot the band</span></span>
 <span><span class="va">band_plot_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span>  t <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span>, length.out <span class="op">=</span> <span class="fl">101</span><span class="op">)</span>,</span>
-<span>  y_true <span class="op">=</span> <span class="va">y_vals_mat_ho</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>,</span>
-<span>  ff_pred <span class="op">=</span> <span class="va">fBands</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>,</span>
-<span>  ff_lower <span class="op">=</span> <span class="va">fBands</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span>,<span class="fl">3</span><span class="op">]</span>,</span>
-<span>  ff_upper <span class="op">=</span> <span class="va">fBands</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span></span>
+<span>  t <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, length.out <span class="op">=</span> <span class="fl">101</span><span class="op">)</span>,</span>
+<span>  y_true <span class="op">=</span> <span class="va">y_vals_mat_ho</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span>,</span>
+<span>  ff_pred <span class="op">=</span> <span class="va">fBands</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span>,</span>
+<span>  ff_lower <span class="op">=</span> <span class="va">fBands</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span>, <span class="fl">3</span><span class="op">]</span>,</span>
+<span>  ff_upper <span class="op">=</span> <span class="va">fBands</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Plot of the band and true line</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_vline</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="fl">3</span>, <span class="fl">2</span><span class="op">/</span><span class="fl">3</span><span class="op">)</span>,</span>
-<span>             color <span class="op">=</span> <span class="st">"lightgrey"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html" class="external-link">geom_ribbon</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">t</span>, ymin <span class="op">=</span> <span class="va">ff_lower</span>, ymax <span class="op">=</span> <span class="va">ff_upper</span><span class="op">)</span>, </span>
-<span>              fill <span class="op">=</span> <span class="st">"#56B4E9"</span>, alpha <span class="op">=</span> <span class="fl">0.5</span>, </span>
-<span>              linewidth <span class="op">=</span> <span class="fl">1.25</span>, </span>
-<span>              data <span class="op">=</span> <span class="va">band_plot_df</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">t</span>, y <span class="op">=</span> <span class="va">y_true</span><span class="op">)</span>, </span>
-<span>            data <span class="op">=</span> <span class="va">band_plot_df</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">t</span>, y <span class="op">=</span> <span class="va">ff_pred</span><span class="op">)</span>, </span>
-<span>             color <span class="op">=</span> <span class="st">"#56B4E9"</span>, </span>
-<span>             data <span class="op">=</span> <span class="va">band_plot_df</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_vline</a></span><span class="op">(</span></span>
+<span>    xintercept <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">/</span> <span class="fl">3</span>, <span class="fl">2</span> <span class="op">/</span> <span class="fl">3</span><span class="op">)</span>,</span>
+<span>    color <span class="op">=</span> <span class="st">"lightgrey"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html" class="external-link">geom_ribbon</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">t</span>, ymin <span class="op">=</span> <span class="va">ff_lower</span>, ymax <span class="op">=</span> <span class="va">ff_upper</span><span class="op">)</span>,</span>
+<span>    fill <span class="op">=</span> <span class="st">"#56B4E9"</span>, alpha <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span>    linewidth <span class="op">=</span> <span class="fl">1.25</span>,</span>
+<span>    data <span class="op">=</span> <span class="va">band_plot_df</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">t</span>, y <span class="op">=</span> <span class="va">y_true</span><span class="op">)</span>,</span>
+<span>    data <span class="op">=</span> <span class="va">band_plot_df</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">t</span>, y <span class="op">=</span> <span class="va">ff_pred</span><span class="op">)</span>,</span>
+<span>    color <span class="op">=</span> <span class="st">"#56B4E9"</span>,</span>
+<span>    data <span class="op">=</span> <span class="va">band_plot_df</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">20</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>panel.grid.major <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>        panel.grid.minor <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"Functional Response Y(t)"</span>, </span>
-<span>       x <span class="op">=</span> <span class="st">"Sampling Point (t)"</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span></span>
+<span>    panel.grid.major <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    panel.grid.minor <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
+<span>    y <span class="op">=</span> <span class="st">"Functional Response Y(t)"</span>,</span>
+<span>    x <span class="op">=</span> <span class="st">"Sampling Point (t)"</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-3-1.png" width="100%"></p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span>  </span>
+<code class="sourceCode R"><span></span>
 <span></span>
 <span><span class="co"># Second prediction: c(1,1)</span></span>
 <span><span class="va">fBands2</span> <span class="op">&lt;-</span> <span class="fu">FunctionalPrediction</span><span class="fu">::</span><span class="fu"><a href="reference/predict_concurrent.html">predict_concurrent</a></span><span class="op">(</span></span>
 <span>  concurrent_list <span class="op">=</span> <span class="va">fReg_list</span>,</span>
-<span>  interval <span class="op">=</span> <span class="st">"prediction"</span>, </span>
+<span>  interval <span class="op">=</span> <span class="st">"prediction"</span>,</span>
 <span>  err_str <span class="op">=</span> <span class="st">"t"</span>,</span>
-<span>  new_dat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>, </span>
-<span>  conf.level <span class="op">=</span> <span class="fl">0.90</span>, </span>
+<span>  new_dat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>,</span>
+<span>  conf.level <span class="op">=</span> <span class="fl">0.90</span>,</span>
 <span>  n_int <span class="op">=</span> <span class="fl">3</span>,</span>
 <span>  nu0_hat <span class="op">=</span> <span class="st">"singh_df"</span>,</span>
 <span>  mse_scalar <span class="op">=</span> <span class="st">"ub"</span></span>
@@ -212,31 +229,40 @@
 <span></span>
 <span><span class="co"># Data frame to plot the band</span></span>
 <span><span class="va">band_plot_df2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span>  t <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span>, length.out <span class="op">=</span> <span class="fl">101</span><span class="op">)</span>,</span>
-<span>  y_true <span class="op">=</span> <span class="va">y_vals_mat_ho</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span>,</span>
-<span>  ff_pred <span class="op">=</span> <span class="va">fBands2</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>,</span>
-<span>  ff_lower <span class="op">=</span> <span class="va">fBands2</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span>,<span class="fl">3</span><span class="op">]</span>,</span>
-<span>  ff_upper <span class="op">=</span> <span class="va">fBands2</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span></span>
+<span>  t <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, length.out <span class="op">=</span> <span class="fl">101</span><span class="op">)</span>,</span>
+<span>  y_true <span class="op">=</span> <span class="va">y_vals_mat_ho</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span>,</span>
+<span>  ff_pred <span class="op">=</span> <span class="va">fBands2</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span>,</span>
+<span>  ff_lower <span class="op">=</span> <span class="va">fBands2</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span>, <span class="fl">3</span><span class="op">]</span>,</span>
+<span>  ff_upper <span class="op">=</span> <span class="va">fBands2</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Plot of the band and true line</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_vline</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="fl">3</span>, <span class="fl">2</span><span class="op">/</span><span class="fl">3</span><span class="op">)</span>,</span>
-<span>             color <span class="op">=</span> <span class="st">"lightgrey"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html" class="external-link">geom_ribbon</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">t</span>, ymin <span class="op">=</span> <span class="va">ff_lower</span>, ymax <span class="op">=</span> <span class="va">ff_upper</span><span class="op">)</span>, </span>
-<span>              fill <span class="op">=</span> <span class="st">"#56B4E9"</span>, alpha <span class="op">=</span> <span class="fl">0.5</span>, </span>
-<span>              linewidth <span class="op">=</span> <span class="fl">1.25</span>, </span>
-<span>              data <span class="op">=</span> <span class="va">band_plot_df2</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">t</span>, y <span class="op">=</span> <span class="va">y_true</span><span class="op">)</span>, </span>
-<span>            data <span class="op">=</span> <span class="va">band_plot_df2</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">t</span>, y <span class="op">=</span> <span class="va">ff_pred</span><span class="op">)</span>, </span>
-<span>             color <span class="op">=</span> <span class="st">"#56B4E9"</span>, </span>
-<span>             data <span class="op">=</span> <span class="va">band_plot_df2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_vline</a></span><span class="op">(</span></span>
+<span>    xintercept <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">/</span> <span class="fl">3</span>, <span class="fl">2</span> <span class="op">/</span> <span class="fl">3</span><span class="op">)</span>,</span>
+<span>    color <span class="op">=</span> <span class="st">"lightgrey"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html" class="external-link">geom_ribbon</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">t</span>, ymin <span class="op">=</span> <span class="va">ff_lower</span>, ymax <span class="op">=</span> <span class="va">ff_upper</span><span class="op">)</span>,</span>
+<span>    fill <span class="op">=</span> <span class="st">"#56B4E9"</span>, alpha <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span>    linewidth <span class="op">=</span> <span class="fl">1.25</span>,</span>
+<span>    data <span class="op">=</span> <span class="va">band_plot_df2</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">t</span>, y <span class="op">=</span> <span class="va">y_true</span><span class="op">)</span>,</span>
+<span>    data <span class="op">=</span> <span class="va">band_plot_df2</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">t</span>, y <span class="op">=</span> <span class="va">ff_pred</span><span class="op">)</span>,</span>
+<span>    color <span class="op">=</span> <span class="st">"#56B4E9"</span>,</span>
+<span>    data <span class="op">=</span> <span class="va">band_plot_df2</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">20</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>panel.grid.major <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>        panel.grid.minor <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"Functional Response Y(t)"</span>, </span>
-<span>       x <span class="op">=</span> <span class="st">"Sampling Point (t)"</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span></span>
+<span>    panel.grid.major <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    panel.grid.minor <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
+<span>    y <span class="op">=</span> <span class="st">"Functional Response Y(t)"</span>,</span>
+<span>    x <span class="op">=</span> <span class="st">"Sampling Point (t)"</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-3-2.png" width="100%"></p>
 </div>
 </div>
