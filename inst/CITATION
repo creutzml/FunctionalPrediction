@@ -19,7 +19,7 @@ c(
     ),
 
    bibentry(
-      header   = "To cite Creutzinger, Liebl, and Sharp (2024+), use:",
+      header   = "To cite FunctionalPrediction, use:",
       bibtype  = "Article",
       title    = "Fair Simultaneous Prediction and Confidence Bands for Concurrent Functional Regressions: Comparing Sprinters with Prosthetic versus Biological Legs",
       author   = c(person(given = "Michael L.",
