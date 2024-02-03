@@ -1647,7 +1647,8 @@ conf_ff_comp7_fig1 <- ggplot() +
             data = non_amp_pred_band_data7_comp_plot, 
             key_glyph = "blank") +
   geom_line(aes(x = 100*t_pts, y = ff_mean, 
-                color = "Fast n Fair", linetype = "Fast n Fair"), 
+                color = "Fast n Fair Prediction Band", 
+                linetype = "Fast n Fair Prediction Band"), 
             linewidth = 1.25,
             data = non_amp_pred_band_data7_comp_plot) +
   scale_x_continuous(breaks = round(seq(0,100,(33 + 1/3)), 2)) +
@@ -1664,10 +1665,12 @@ conf_ff_comp7_fig1 <- ggplot() +
         plot.margin = unit(c(1, 1, 1, 1), "cm"), 
         panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank(), 
-        legend.position = c(0.25, 0.8), 
+        legend.position = c(0.28, 0.9), 
         legend.title = element_blank(), 
         legend.box.background = element_rect(color = "black"), 
-        legend.spacing.y = unit(0, "mm"))
+        legend.spacing.y = unit(0, "mm"), 
+        legend.key.width = unit(1.5, "cm"),
+        legend.text = element_text(size = 16))
 # annotate("label", 
 #          x = 35, y = 1100, 
 #          label = "Seventh Amputee", 
