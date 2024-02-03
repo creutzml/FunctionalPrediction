@@ -5,14 +5,14 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="Simultaneous confidence and prediction bands for functional parameters including those in concurrent regression. ">
-<title>Fast n Fair Simultaneous Confidence and Prediction Bands for Functional Parameters Including Concurrent Regression • ffscbExtra</title>
+<meta name="description" content="Simultaneous confidence and prediction bands for functional concurrent regression. ">
+<title>Fast n Fair Simultaneous Confidence and Prediction Bands for Functional Concurrent Regression • FunctionalPrediction</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Fast n Fair Simultaneous Confidence and Prediction Bands for Functional Parameters Including Concurrent Regression">
-<meta property="og:description" content="Simultaneous confidence and prediction bands for functional parameters including those in concurrent regression. ">
+<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Fast n Fair Simultaneous Confidence and Prediction Bands for Functional Concurrent Regression">
+<meta property="og:description" content="Simultaneous confidence and prediction bands for functional concurrent regression. ">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -24,7 +24,7 @@
 
     <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
     
-    <a class="navbar-brand me-2" href="index.html">ffscbExtra</a>
+    <a class="navbar-brand me-2" href="index.html">FunctionalPrediction</a>
 
     <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.11</small>
 
@@ -51,7 +51,7 @@
 </nav><div class="container template-home">
 <div class="row">
   <main id="main" class="col-md-9"><div class="section level1">
-<div class="page-header"><h1 id="r-package-ffscbextra">R-package: ffscbExtra<a class="anchor" aria-label="anchor" href="#r-package-ffscbextra"></a>
+<div class="page-header"><h1 id="r-package-functionalprediction">R-package: FunctionalPrediction<a class="anchor" aria-label="anchor" href="#r-package-functionalprediction"></a>
 </h1></div>
 <!-- badges: start -->
 
@@ -59,23 +59,25 @@
 <div class="section level1">
 <h1 id="description">Description<a class="anchor" aria-label="anchor" href="#description"></a>
 </h1>
-<p>The R package <code>ffscbExtra</code> allows to compute simultaneous confidence bands for function-valued parameters (e.g. for mean functions <span class="math inline"><em>μ</em> = {<em>μ</em>(<em>t</em>) : <em>t</em> ∈ [0,1]}</span>) and adds the ability to create one-sided bands, prediction bands, and simultaneous bands for the conditional mean of a functional concurrent regression model. The band shapes are constructed under the fairness constraint of <em>false positive rate balance</em> which allows to distribute the total false positive rate <span class="math inline"><em>α</em> ∈ (0,1)</span> over partitions <span class="math inline">0 = <em>a</em><sub>0</sub> &lt; <em>a</em><sub>1</sub> &lt; … &lt; <em>a</em><sub><em>p</em></sub> = 1</span> of the function domain <span class="math inline">[0,1]</span>.<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;Using a standardized function domain, &lt;span class="math inline"&gt;[0,1]&lt;/span&gt; is, of course, without loss of generality.&lt;/p&gt;'><sup>1</sup></a> This leads to band shapes that are interpretable both globally and locally. Globally (i.e. over the total domain <span class="math inline">[0,1]</span>) the simultaneous confidence band provides a <span class="math inline">(1−<em>α</em>) × 100%</span> coverage probability. Locally (i.e. over sub-intervals <span class="math inline">[<em>a</em><sub><em>j</em> − 1</sub>,<em>a</em><sub><em>j</em></sub>] ⊆ [0,1]</span>) the simultaneous confidence band provides a <span class="math inline">(1−<em>α</em>(<em>a</em><sub><em>j</em></sub>−<em>a</em><sub><em>j</em> − 1</sub>)) × 100%</span> coverage probability.</p>
+<p>The R package <code>FunctionalPrediction</code> allows one to compute simultaneous confidence bands for function-valued parameters (e.g. for mean functions <span class="math inline"><em>μ</em> = {<em>μ</em>(<em>t</em>) : <em>t</em> ∈ [0,1]}</span>) and adds the ability to create one-sided bands, prediction bands, and simultaneous bands for the conditional mean of a functional concurrent regression model. Users can install <code>FunctionalPrediction</code> directly, and it will add on the original capabilities of <code>ffscb</code> alongside the concurrent regression model bands.</p>
+<p>The band shapes are constructed under the fairness constraint of <em>false positive rate balance</em> which allows to distribute the total false positive rate <span class="math inline"><em>α</em> ∈ (0,1)</span> over partitions <span class="math inline">0 = <em>a</em><sub>0</sub> &lt; <em>a</em><sub>1</sub> &lt; … &lt; <em>a</em><sub><em>p</em></sub> = 1</span> of the function domain <span class="math inline">[0,1]</span>.<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;Using a standardized function domain, &lt;span class="math inline"&gt;[0,1]&lt;/span&gt; is, of course, without loss of generality.&lt;/p&gt;'><sup>1</sup></a> This leads to band shapes that are interpretable both globally and locally. Globally (i.e. over the total domain <span class="math inline">[0,1]</span>) the simultaneous confidence band provides a <span class="math inline">(1−<em>α</em>) × 100%</span> coverage probability. Locally (i.e. over sub-intervals <span class="math inline">[<em>a</em><sub><em>j</em> − 1</sub>,<em>a</em><sub><em>j</em></sub>] ⊆ [0,1]</span>) the simultaneous confidence band provides a <span class="math inline">(1−<em>α</em>(<em>a</em><sub><em>j</em></sub>−<em>a</em><sub><em>j</em> − 1</sub>)) × 100%</span> coverage probability.</p>
 <ul>
-<li><p>The statistical theory and methodology are described in: <br> Fast ‘n’ fair simultaneous confidence bands for functional parameters as introduced in the paper <a href="https://arxiv.org/abs/1910.00131" class="external-link"><strong>Fast and Fair Simultaneous Confidence Bands for Functional Parameters</strong> (arXiv:1910.00131)</a> by <a href="www.dliebl.com">Dominik Liebl</a> and <a href="http://www.personal.psu.edu/mlr36/" class="external-link">Matthew Reimherr</a> and for concurrent functional regression parameters in the paper <strong>Fair Simultaneous Prediction and Confidence Bands for Concurrent Functional Regressions: Comparing Sprinters with Prosthetic versus Biological Legs</strong> by <a href="https://www.linkedin.com/in/michaellcreutzinger/" class="external-link">Michael L. Creutzinger</a>, <a href="www.dliebl.com">Dominik Liebl</a>, and <a href="https://sites.google.com/view/juliasharp/home" class="external-link">Julia L. Sharp</a>.</p></li>
+<li><p>The statistical theory and methodology for simultaneous confidence bands of the functional mean of a univariate sample are described in: <br> Fast ‘n’ fair simultaneous confidence bands for functional parameters as introduced in the paper <a href="https://arxiv.org/abs/1910.00131" class="external-link"><strong>Fast and Fair Simultaneous Confidence Bands for Functional Parameters</strong> (arXiv:1910.00131)</a> by <a href="www.dliebl.com">Dominik Liebl</a> and <a href="http://www.personal.psu.edu/mlr36/" class="external-link">Matthew Reimherr</a>.</p></li>
 <li><p>The R-codes of the R package <code>ffscb</code> can be found at the GitHub repo <a href="https://github.com/lidom/ffscb" class="external-link uri">https://github.com/lidom/ffscb</a></p></li>
-<li><p>The R-codes of the R package <code>ffscbExtra</code> can be found at the GitHub repo <a href="https://github.com/creutzml/ffscbExtra" class="external-link uri">https://github.com/creutzml/ffscbExtra</a></p></li>
+<li><p>The statistical theory and methodology for simultaneous confidence and prediction bands of the conditional mean of a concurrent functional regression model are described in the paper <strong>Fair Simultaneous Prediction and Confidence Bands for Concurrent Functional Regressions: Comparing Sprinters with Prosthetic versus Biological Legs</strong> by <a href="https://www.linkedin.com/in/michaellcreutzinger/" class="external-link">Michael L. Creutzinger</a>, <a href="www.dliebl.com">Dominik Liebl</a>, and <a href="https://sites.google.com/view/juliasharp/home" class="external-link">Julia L. Sharp</a>.</p></li>
+<li><p>The R-codes of the R package <code>FunctionalPrediction</code> can be found at the GitHub repo <a href="https://github.com/creutzml/FunctionalPrediction" class="external-link uri">https://github.com/creutzml/FunctionalPrediction</a></p></li>
 </ul>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"creutzml/ffscbExtra"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"creutzml/FunctionalPrediction"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="small-example-based-on-artifical-data">Small example based on artifical data<a class="anchor" aria-label="anchor" href="#small-example-based-on-artifical-data"></a>
 </h2>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">ffscbExtra</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">FunctionalPrediction</span><span class="op">)</span></span>
 <span><span class="co"># Generate a sample</span></span>
 <span><span class="va">p</span>          <span class="op">&lt;-</span> <span class="fl">200</span> </span>
 <span><span class="va">N</span>          <span class="op">&lt;-</span> <span class="fl">80</span> </span>
@@ -143,7 +145,7 @@
 <div class="section level2">
 <h2 id="example-using-real-functional-data">Example using real functional data<a class="anchor" aria-label="anchor" href="#example-using-real-functional-data"></a>
 </h2>
-<p>The following code replicates the sports biomechanics real data example of our paper <a href="https://arxiv.org/abs/1910.00131" class="external-link">Liebl and Reimherr (2022+)</a>. First, we read in and plot the data.</p>
+<p>The following code replicates the sports biomechanics real data example of the paper by <a href="https://arxiv.org/abs/1910.00131" class="external-link">Liebl and Reimherr (2022+)</a>. First, we read in and plot the data.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st">"ffscb"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"Biomechanics"</span><span class="op">)</span></span>
@@ -204,7 +206,7 @@
 <span>                                     int.type   <span class="op">=</span> <span class="st">"confidence"</span>,</span>
 <span>                                     n.curves   <span class="op">=</span> <span class="va">df</span> <span class="op">+</span> <span class="fl">1</span>,</span>
 <span>                                     upper      <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
-<p>A quick and dirty plot can be generated by <code>plot(b)</code>. The following code, however, replicates the plot of our paper <a href="https://arxiv.org/abs/1910.00131" class="external-link">Liebl and Reimherr (2022+)</a>:</p>
+<p>A quick and dirty plot can be generated by <code>plot(b)</code>. The following code, however, replicates the plot from the paper <a href="https://arxiv.org/abs/1910.00131" class="external-link">Liebl and Reimherr (2022+)</a>:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">FF8_t_band</span>        <span class="op">&lt;-</span> <span class="va">b</span><span class="op">[</span>,<span class="op">-</span><span class="fl">1</span><span class="op">]</span> </span>
 <span><span class="va">FF8_crit_value_u</span>  <span class="op">&lt;-</span> <span class="op">(</span><span class="va">FF8_t_band</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span> <span class="op">-</span> <span class="va">hat_mu</span><span class="op">)</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="va">hat.cov.mu</span><span class="op">)</span><span class="op">)</span></span>
@@ -252,7 +254,7 @@
 <div class="section level2">
 <h2 id="example-using-real-fragmentary-functional-data">Example using real fragmentary functional data<a class="anchor" aria-label="anchor" href="#example-using-real-fragmentary-functional-data"></a>
 </h2>
-<p>Our method even works in the case of fragmentary functional data, where it is impossible to compute estimates of the total covariance function. The following code replicates the framentary functional data example of our paper <a href="https://arxiv.org/abs/1910.00131" class="external-link">Liebl and Reimherr (2022+)</a>. First, we read in and plot the data.</p>
+<p>Our method even works in the case of fragmentary functional data, where it is impossible to compute estimates of the total covariance function. The following code replicates the framentary functional data example from the paper <a href="https://arxiv.org/abs/1910.00131" class="external-link">Liebl and Reimherr (2022+)</a>. First, we read in and plot the data.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://tidyverse.tidyverse.org" class="external-link">"tidyverse"</a></span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: package 'ggplot2' was built under R version 4.3.1</span></span>
@@ -360,7 +362,7 @@
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/mtext.html" class="external-link">mtext</a></span><span class="op">(</span>text <span class="op">=</span> <span class="st">"Differences in mean functions"</span>, <span class="fl">3</span>, line <span class="op">=</span> <span class="fl">0.4</span>, adj <span class="op">=</span> <span class="fl">0</span>, cex<span class="op">=</span><span class="va">cex</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/mtext.html" class="external-link">mtext</a></span><span class="op">(</span>text <span class="op">=</span> <span class="st">"Age"</span>, <span class="fl">1</span>, line <span class="op">=</span> <span class="fl">2.25</span>, cex<span class="op">=</span><span class="va">cexs</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-11-1.png" width="100%"></p>
-<p>More detailes about this real-ata application can be found in our paper <a href="https://arxiv.org/abs/1910.00131" class="external-link">Liebl and Reimherr (2022+)</a>.</p>
+<p>More detailes about this real-data application can be found in the paper <a href="https://arxiv.org/abs/1910.00131" class="external-link">Liebl and Reimherr (2022+)</a>.</p>
 <script>if(!sessionStorage.getItem("_swa")&&document.referrer.indexOf(location.protocol+"//"+location.host)!== 0){fetch("https://counter.dev/track?"+new URLSearchParams({referrer:document.referrer,screen:screen.width+"x"+screen.height,user:"dliebl",utcoffset:"2"}))};sessionStorage.setItem("_swa","1");
 </script>
 </div>
@@ -379,7 +381,7 @@
 <div class="citation">
 <h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
-<li><a href="authors.html#citation">Citing ffscbExtra</a></li>
+<li><a href="authors.html#citation">Citing FunctionalPrediction</a></li>
 </ul>
 </div>
 
@@ -395,10 +397,10 @@
 <div class="dev-status">
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/creutzml/ffscbExtra/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/creutzml/ffscbExtra/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
-<li><a href="https://github.com/creutzml/ffscbExtra/actions/workflows/pages/pages-build-deployment" class="external-link"><img src="https://github.com/creutzml/ffscbExtra/actions/workflows/pages/pages-build-deployment/badge.svg" alt="pages-build-deployment"></a></li>
-<li><a href="https://github.com/creutzml/ffscbExtra/actions/workflows/pkgdown.yaml" class="external-link"><img src="https://github.com/creutzml/ffscbExtra/actions/workflows/pkgdown.yaml/badge.svg" alt="pkgdown"></a></li>
-<li><a href="https://github.com/creutzml/ffscbExtra/actions/workflows/test-coverage.yaml" class="external-link"><img src="https://github.com/creutzml/ffscbExtra/actions/workflows/test-coverage.yaml/badge.svg" alt="test-coverage"></a></li>
+<li><a href="https://github.com/creutzml/FunctionalPrediction/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/creutzml/FunctionalPrediction/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://github.com/creutzml/FunctionalPrediction/actions/workflows/pages/pages-build-deployment" class="external-link"><img src="https://github.com/creutzml/FunctionalPrediction/actions/workflows/pages/pages-build-deployment/badge.svg" alt="pages-build-deployment"></a></li>
+<li><a href="https://github.com/creutzml/FunctionalPrediction/actions/workflows/pkgdown.yaml" class="external-link"><img src="https://github.com/creutzml/FunctionalPrediction/actions/workflows/pkgdown.yaml/badge.svg" alt="pkgdown"></a></li>
+<li><a href="https://github.com/creutzml/FunctionalPrediction/actions/workflows/test-coverage.yaml" class="external-link"><img src="https://github.com/creutzml/FunctionalPrediction/actions/workflows/test-coverage.yaml/badge.svg" alt="test-coverage"></a></li>
 </ul>
 </div>
 
