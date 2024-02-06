@@ -14,7 +14,7 @@
 
 ## Creutzinger version of package
 require(devtools)
-install_github("creutzml/FunctionalPrediction")
+install_github("creutzml/FunctionalPrediction", force = T)
 
 ## Packages
 library(tidyverse)
@@ -37,19 +37,13 @@ time_vec <- grid
 ## Load data in:
 dir_path <- file.path(here::here())
 ## 1/28/2024: need to wait to see if it's okay to upload data to repo
-
+data_path <- file.path(dir_path,
+                       "Sprint_Start_Case_Study",
+                       "sprint_start_data")
 ## Choose one of different functional outcome variables:
 slct <- 7 # <- focusing on "FRONT_V" looks most promising to me
 Y_curves <- readr::read_delim(
-  file = c("data/BACK_AP.csv", # 1
-           "data/BACK_ML.csv", # 2
-           "data/BACK_V.csv",  # 3
-           "data/BACK_RES.csv",# 4
-           "data/FRONT_AP.csv",# 5
-           "data/FRONT_ML.csv",# 6
-           "data/FRONT_V.csv", # 7
-           "data/FRONT_RES.csv"# 8
-  )[slct], 
+  file = file.path(data_path, "FRONT_V.csv"),
   delim=";",
   col_names = FALSE) %>% 
   as.matrix(.)
@@ -57,8 +51,8 @@ Y_curves <- readr::read_delim(
 
 ## Classic predictors
 X_pred <- readr::read_delim(
-  file = "DATA/Covariates.csv", 
-  delim=";",
+  file = file.path(data_path, "CovariatesReduced.csv"), 
+  delim=",",
   col_names = TRUE) 
 X_pred <- X_pred[,-1]
 colnames(X_pred) <- gsub("'", "", colnames(X_pred))
@@ -231,43 +225,43 @@ ggplot() +
 
 
 
-### Exploring the predictor variables
-#####################################################################
-## We choose a point along the grid to isolate a random set
-## of y values, upon which we can run classic lasso over all the 
-## covariates
-# Create the data structure needed
-sp_iso <- seq(1, n_sp, by = 2)
-Y_vals <- Y_curves_shifted_mat[sp_iso,]
-X_pred_mat <- as.matrix(X_pred)
-
-var_selection <- as.data.frame(matrix(
-  0, nrow = length(sp_iso), ncol = ncol(X_pred) + 1
-))
-colnames(var_selection) <- c("sp_iso", colnames(X_pred))
-var_selection$sp_iso <- sp_iso
-
-for (i in 1:length(sp_iso)) {
-  # Run the lasso
-  cv_model <- cv.glmnet(
-    x = data.matrix(X_pred), y = c(Y_vals[i,]), alpha = 1
-  )
-  se1_lambda <- cv_model$lambda.1se
-
-  # Grab the results
-  se1_model <- glmnet(data.matrix(X_pred), c(Y_vals[i,]),
-                      alpha = 1, lambda = se1_lambda)
-  test_se1 <- coef(se1_model)
-
-  # Mark down the variables chosen
-  var_names <- names(test_se1[test_se1[,1] != 0,])
-  col_idx <- which(colnames(var_selection) %in% var_names)
-  var_selection[i, col_idx] <- var_selection[i, col_idx] + 1
-}
-
-# See what the results are
-sort(colSums(var_selection), decreasing = T)
-#####################################################################
+# ### Exploring the predictor variables
+# #####################################################################
+# ## We choose a point along the grid to isolate a random set
+# ## of y values, upon which we can run classic lasso over all the 
+# ## covariates
+# # Create the data structure needed
+# sp_iso <- seq(1, n_sp, by = 2)
+# Y_vals <- Y_curves_shifted_mat[sp_iso,]
+# X_pred_mat <- as.matrix(X_pred)
+# 
+# var_selection <- as.data.frame(matrix(
+#   0, nrow = length(sp_iso), ncol = ncol(X_pred) + 1
+# ))
+# colnames(var_selection) <- c("sp_iso", colnames(X_pred))
+# var_selection$sp_iso <- sp_iso
+# 
+# for (i in 1:length(sp_iso)) {
+#   # Run the lasso
+#   cv_model <- cv.glmnet(
+#     x = data.matrix(X_pred), y = c(Y_vals[i,]), alpha = 1
+#   )
+#   se1_lambda <- cv_model$lambda.1se
+# 
+#   # Grab the results
+#   se1_model <- glmnet(data.matrix(X_pred), c(Y_vals[i,]),
+#                       alpha = 1, lambda = se1_lambda)
+#   test_se1 <- coef(se1_model)
+# 
+#   # Mark down the variables chosen
+#   var_names <- names(test_se1[test_se1[,1] != 0,])
+#   col_idx <- which(colnames(var_selection) %in% var_names)
+#   var_selection[i, col_idx] <- var_selection[i, col_idx] + 1
+# }
+# 
+# # See what the results are
+# sort(colSums(var_selection), decreasing = T)
+# #####################################################################
 
 
 
@@ -358,7 +352,7 @@ fun=mean_lists()
 
 # Holdout design matrix values
 X_pred_amp <- X_pred[which(X_pred$Amp == "amputee"), ]
-X_pred_amp_model <- X_pred_amp[,c(2,3,4,6,10)]
+X_pred_amp_model <- X_pred_amp #[,c(2,3,4,6,10)]
 design_list_ho <- vector("list", length = nrow(X_pred_amp_model))
 
 for (i in 1:nrow(X_pred_amp_model)) {
@@ -529,23 +523,23 @@ par(mfrow = c(2, 3),
 #      main = paste0("95% FFSCB for Estimated \n",
 #                    " Coefficient of Amputee"))
 # abline(h = 0, lty = "dashed")
-plot(beta_bands[[2]], 
+plot(beta_bands[[2]]$band, 
      main = paste0("90% FFSCB for Estimated \n",
                    " Coefficient of Mass"))
 abline(h = 0, lty = "dashed")
-plot(beta_bands[[3]], 
+plot(beta_bands[[3]]$band, 
      main = paste0("90% FFSCB for Estimated \n",
                    " Coefficient of Age"))
 abline(h = 0, lty = "dashed")
-plot(beta_bands[[4]], 
+plot(beta_bands[[4]]$band, 
      main = paste0("90% FFSCB for Estimated \n",
                    " Coefficient of Height"))
 abline(h = 0, lty = "dashed")
-plot(beta_bands[[5]], 
+plot(beta_bands[[5]]$band, 
      main = paste0("90% FFSCB for Estimated \n",
                    " Coefficient of Sex"))
 abline(h = 0, lty = "dashed")
-plot(beta_bands[[6]], 
+plot(beta_bands[[6]]$band, 
      main = paste0("90% FFSCB for Estimated \n",
                    " Coefficient of TPush_V"))
 abline(h = 0, lty = "dashed")
@@ -560,8 +554,10 @@ abline(h = 0, lty = "dashed")
 # amputee?
 par(mfrow = c(2, 4))
 X_pred_amp <- X_pred[which(X_pred$Amp == "amputee"), ]
-X_pred_amp[, c(2,3,4,6,10)]
-
+# X_pred_amp[, c(2,3,4,6,10)]
+X_pred_mat_chol <- X_pred %>%
+  select(-Amp) %>%
+  mutate(Sex = 1*(Sex == "male"))
 # Before we predict the bands, let's use a distance matrix calculated
 # with Mahalanobis distance to find the nearest neighbor of each 
 # amputee sprinter
@@ -570,14 +566,14 @@ cholMaha <- function(X) {
   tmp <- forwardsolve(t(dec), t(X) )
   dist(t(tmp))
 }
-X_pred_md <- cholMaha(X_pred[, c(2,3,4,10)])
+X_pred_md <- cholMaha(X_pred_mat_chol)#[, c(2,3,4,10)])
 X_pred_amp_md <- as.matrix(X_pred_md)[-c(155:161),155:161]
 
 # Find the index for the observation with minimum distance to each
 X_pred_nonamp_sim <- apply(X_pred_amp_md, 2, FUN = which.min)
 
 ## First amputee runner
-X_pred_amp1 <- X_pred_amp[1, c(2,3,4,6,10)]
+X_pred_amp1 <- X_pred_amp[1,]# c(2,3,4,6,10)]
 
 # First amputee
 new_dat_mat1 <- matrix(
@@ -602,7 +598,7 @@ non_amp_pred_band1 <- FunctionalPrediction::predict_concurrent(
 
 ### Plot of the mean and band
 # Get the band
-non_amp_pred_band_data1 <- non_amp_pred_band1[[1]]
+non_amp_pred_band_data1 <- non_amp_pred_band1[[1]][[1]]
 non_amp_pred_band_data1_plot <- data.frame(
   t_pts = grid,
   mean = non_amp_pred_band_data1[,1],
@@ -648,30 +644,30 @@ amp_plot1 <- ggplot() +
 #                   "years, Height = 2m, Sex = Male, and ",
 #                   "TPush_V = 0.441"))
 
-# Plot of "fair" critical value
-# non_amp_pred_band_crit1 <- non_amp_pred_band1[[2]] %>%
-#   data.frame() %>%
-#   dplyr::rename("u_hat" = ".") %>%
-#   dplyr::mutate(t_pts = grid)
-# 
-# uhat_plot1 <- ggplot() +
-#   geom_vline(xintercept = c(33 + 1/3, 66 + 2/3), 
-#              color = "lightgray") +
-#   geom_line(aes(x = 100*t_pts, y = u_hat), 
-#             data = non_amp_pred_band_crit1) +
-#   scale_x_continuous(breaks = round(seq(0, 100, 33 + 1/3), 2), 
-#                      expand = c(0,0)) +
-#   theme_bw() + 
-#   theme(text = element_text(size = 16), 
-#         plot.margin = unit(c(.5, 1, 1, 1), "cm"), 
-#         panel.grid.major = element_blank(), 
-#         panel.grid.minor = element_blank()) +
-#   labs(x = "% Push-Off Phase",
-#        y = expression("Critical value "*hat(u)[t[nu[0]]*", "*alpha/2]^"*"))
-# 
-# library(cowplot)
-# plot_grid(tau_realigned_plot, uhat_plot1, 
-#           align = "v", nrow = 2, labels = c("(a)", "(b)"))
+#Plot of "fair" critical value
+non_amp_pred_band_crit1 <- non_amp_pred_band1[[1]][[2]] %>%
+  data.frame() %>%
+  dplyr::rename("u_hat" = ".") %>%
+  dplyr::mutate(t_pts = grid)
+
+uhat_plot1 <- ggplot() +
+  geom_vline(xintercept = c(33 + 1/3, 66 + 2/3),
+             color = "lightgray") +
+  geom_line(aes(x = 100*t_pts, y = u_hat),
+            data = non_amp_pred_band_crit1) +
+  scale_x_continuous(breaks = round(seq(0, 100, 33 + 1/3), 2),
+                     expand = c(0,0)) +
+  theme_bw() +
+  theme(text = element_text(size = 16),
+        plot.margin = unit(c(.5, 1, 1, 1), "cm"),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank()) +
+  labs(x = "% Push-Off Phase",
+       y = expression("Critical value "*hat(u)[t[nu[0]]*", "*alpha/2]^"*"))
+
+library(cowplot)
+plot_grid(tau_realigned_plot, uhat_plot1,
+          align = "v", nrow = 2, labels = c("(a)", "(b)"))
 
 ### September 12th, 2023
 ## Creating a comparison plot of Conformal Inference vs Fast and Fair
@@ -754,7 +750,7 @@ conf_ff_comp1 <- ggplot() +
 
 
 ## Second amputee runner
-X_pred_amp2 <- X_pred_amp[2, c(2,3,4,6,10)]
+X_pred_amp2 <- X_pred_amp[2,]# c(2,3,4,6,10)]
 
 # Non-amputee runners that are at least 30 years old and male
 nonamp_idx2 <- which(X_pred_nonamp$Mass < 75 &
@@ -919,7 +915,7 @@ conf_ff_comp2 <- ggplot() +
 
 
 ## Third amputee runner
-X_pred_amp3 <- X_pred_amp[3, c(2,3,4,6,10)]
+X_pred_amp3 <- X_pred_amp[3,]# c(2,3,4,6,10)]
 
 # Non-amputee runners that are at least 23 years old and female
 # The fifth runner of that^ list is the closest counterpart
@@ -1073,7 +1069,7 @@ conf_ff_comp3 <- ggplot() +
 
 
 ## Fourth amputee runner
-X_pred_amp4 <- X_pred_amp[4, c(2,3,4,6,10)]
+X_pred_amp4 <- X_pred_amp[4,]# c(2,3,4,6,10)]
 
 # Non-amputee runners that are at least 25 years old and female
 # The fourth runner of that^ list is the closest counterpart
@@ -1224,7 +1220,7 @@ conf_ff_comp4 <- ggplot() +
 
 
 ## Fifth amputee runner
-X_pred_amp5 <- X_pred_amp[5, c(2,3,4,6,10)]
+X_pred_amp5 <- X_pred_amp[5,]# c(2,3,4,6,10)]
 
 # Non-amputee runners that are at least 25 years old and female
 # The fourth runner of that^ list is the closest counterpart
@@ -1376,7 +1372,7 @@ conf_ff_comp5 <- ggplot() +
 
 
 ## Sixth amputee runner
-X_pred_amp6 <- X_pred_amp[6, c(2,3,4,6,10)]
+X_pred_amp6 <- X_pred_amp[6,]# c(2,3,4,6,10)]
 
 # Non-amputee runners that are at least 25 years old and female
 # The fourth runner of that^ list is the closest counterpart
@@ -1529,7 +1525,7 @@ conf_ff_comp6 <- ggplot() +
 
 
 ## Seventh amputee runner
-X_pred_amp7 <- X_pred_amp[7, c(2,3,4,6,10)]
+X_pred_amp7 <- X_pred_amp[7,]# c(2,3,4,6,10)]
 
 # Non-amputee runners that are at least 25 years old and female
 # The fourth runner of that^ list is the closest counterpart
@@ -1744,7 +1740,7 @@ conf_ff_comp7 <- ggplot() +
 
 ## Arrange all the plots into one figure
 # Make a "figure" of demographics table
-X_mod_amp <- X_pred_amp[, c(2,3,4,6,10)] %>%
+X_mod_amp <- X_pred_amp[,] %>% # c(2,3,4,6,10)] %>%
   rename("Push-Time" = "TPush_V")
 
 demo_tab <- tableGrob(X_mod_amp, 
