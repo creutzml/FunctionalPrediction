@@ -53,7 +53,7 @@
 #'   x = hat.mu, cov.x = hat.cov.mu, tau = hat.tau, df = N - 1,
 #'   type = c("FFSCB.t", "Bs", "BEc", "naive.t"),
 #'   conf.level = 0.95, n_int = 4
-#' )
+#' )$band
 #' plot(b)
 #' lines(x = grid, y = mu0, lty = 2)
 #' @export
@@ -204,10 +204,10 @@ confidence_band <- function(x,
   if (datatype == "fd") {
     result.fd <- fda::Data2fd(evalgrid, result, basisobj = x$basis)
     class(result.fd) <- "confidence_band"
-    return(list(result.fd, uhat_result))
+    return(list(band = result.fd, uhat_results = uhat_result))
   } else {
     class(result) <- "confidence_band"
-    return(list(result, uhat_result))
+    return(list(band = result, uhat_result = uhat_result))
   }
 }
 
