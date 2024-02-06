@@ -219,7 +219,7 @@ make_band_FFSCB_z <- function(x, diag.cov.x, tau, conf.level = 0.95, n_int = 4, 
       band <- const_band * sqrt(diag.cov * n.curves) * sqrt(1 + 1 / n.curves)
     }
 
-    return(band)
+    return(list(band = band, band.eval = const_band))
   }
   ##
   ## Remainder part considers the case of n_int >1
@@ -453,7 +453,7 @@ make_band_FFSCB_t <- function(x, diag.cov.x, tau, df, conf.level = 0.95, n_int =
       band <- const_band * sqrt(diag.cov * n.curves) * sqrt(1 + 1 / n.curves)
     }
     # Return the MOE
-    return(band)
+    return(list(band = band, band.eval = const_band))
   }
   ##
   ## Remainder part considers the case of n_int >1

@@ -158,7 +158,9 @@ confidence_band <- function(x,
 
     if ("FFSCB.z" %in% type) {
       tmp.colnames <- c(colnames(result), paste0("FFSCB.z.u.", level), paste0("FFSCB.z.l.", level))
-      FFSCB.z <- .make_band_FFSCB_z(tau = tau, diag.cov = diag(cov.m), conf.level = level, n_int = n_int, n.curves = n.curves, int.type = int.type, one.sided = one.sided)
+      FFSCB.z_list <- .make_band_FFSCB_z(tau = tau, diag.cov = diag(cov.m), conf.level = level, n_int = n_int, n.curves = n.curves, int.type = int.type, one.sided = one.sided)
+      FFSCB.z <- FFSCB.z_list$band
+      uhat_result <- FFSCB.z_list$band.eval
       if (one.sided) {
         if (upper) {
           result <- cbind(result, x.v + FFSCB.z)
@@ -176,12 +178,13 @@ confidence_band <- function(x,
     if ("FFSCB.t" %in% type) {
       tmp.colnames <- c(colnames(result), paste0("FFSCB.t.u.", level), paste0("FFSCB.t.l.", level))
       if (df <= 100) {
-        FFSCB.t <- .make_band_FFSCB_t(tau = tau, diag.cov = diag(cov.m), df = df, conf.level = level, n_int = n_int, int.type = int.type, one.sided = one.sided)
-        # FFSCB.t          <- FFSCB.t_list$band
-        # matplot(cbind(x.v + FFSCB.t, x.v - FFSCB.t,x.v),type="l",lty=1,col=c(2,2,1))
+        FFSCB.t_list <- .make_band_FFSCB_t(tau = tau, diag.cov = diag(cov.m), df = df, conf.level = level, n_int = n_int, int.type = int.type, one.sided = one.sided)
+        FFSCB.t <- FFSCB.t_list$band
+        uhat_result <- FFSCB.t_list$band.eval
       } else {
-        FFSCB.t <- .make_band_FFSCB_z(tau = tau, diag.cov = diag(cov.m), conf.level = level, n_int = n_int, n.curves = n.curves, int.type = int.type, one.sided = one.sided)
-        # FFSCB.t          <- FFSCB.t_list$band
+        FFSCB.t_list <- .make_band_FFSCB_z(tau = tau, diag.cov = diag(cov.m), conf.level = level, n_int = n_int, n.curves = n.curves, int.type = int.type, one.sided = one.sided)
+        FFSCB.t <- FFSCB.t_list$band
+        uhat_result <- FFSCB.t_list$band.eval
       }
 
       if (one.sided) {
