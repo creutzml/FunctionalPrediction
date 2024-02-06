@@ -304,17 +304,17 @@ make_band_FFSCB_z <- function(x, diag.cov.x, tau, conf.level = 0.95, n_int = 4, 
     c_v[j] <- stats::uniroot(f = myfunj, interval = c(-10, 10), extendInt = "downX", tol = tol)$root
   }
   ##
-  band.eval <- ufun(t=tt, c_v=c_v, knots=knots)
-  
+  band.eval <- ufun(t = tt, c_v = c_v, knots = knots)
+
   # Make the band MOE
   band <- 0
   if (int.type == "confidence") {
-    band <- band.eval * sqrt(diag.cov)   
+    band <- band.eval * sqrt(diag.cov)
   } else if (int.type == "prediction") {
-    band <- band.eval * sqrt(diag.cov*n.curves) * 
-      sqrt(1 + 1/n.curves)
+    band <- band.eval * sqrt(diag.cov * n.curves) *
+      sqrt(1 + 1 / n.curves)
   }
-  
+
   ##
   return(list(band = band, band.eval = band.eval))
 }
@@ -540,19 +540,19 @@ make_band_FFSCB_t <- function(x, diag.cov.x, tau, df, conf.level = 0.95, n_int =
     # 2.7206646  0.5871968  0.8107724 -0.7136544
     c_v[j] <- stats::uniroot(f = myfunj, interval = c(-10, 10), extendInt = "downX", tol = tol)$root
   }
-  
-  band.eval <- ufun(t=tt, c_v=c_v, knots=knots) 
+
+  band.eval <- ufun(t = tt, c_v = c_v, knots = knots)
   # plot(y=band.eval,x=tt, type="l")
-  
+
   # Make the band MOE
   band <- 0
   if (int.type == "confidence") {
-    band <- band.eval * sqrt(diag.cov)   
+    band <- band.eval * sqrt(diag.cov)
   } else if (int.type == "prediction") {
-    band <- band.eval * sqrt(diag.cov*n.curves) * 
-      sqrt(1 + 1/n.curves)
+    band <- band.eval * sqrt(diag.cov * n.curves) *
+      sqrt(1 + 1 / n.curves)
   }
-  
+
   ##
   return(list(band = band, band.eval = band.eval))
 }
