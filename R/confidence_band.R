@@ -198,13 +198,13 @@ confidence_band <- function(x,
       }
     }
   }
-  if (datatype == "fd") {
-    result.fd <- fda::Data2fd(evalgrid, result, basisobj = x$basis)
+  if (datatype=="fd") {
+    result.fd <- fda::Data2fd(evalgrid, result, basisobj=x$basis)
     class(result.fd) <- "confidence_band"
-    return(result.fd)
+    return(list(result.fd, uhat_result))
   } else {
     class(result) <- "confidence_band"
-    return(result)
+    return(list(result, uhat_result))
   }
 }
 

@@ -152,7 +152,7 @@ make_band_FFSCB_z <- function(x, diag.cov.x, tau, conf.level = 0.95, n_int = 4, 
     warning("This method may not work if tau(t) is too small.")
   }
   ##
-  band <- .make_band_FFSCB_z(tau = tau, diag.cov = diag.cov.x, conf.level = conf.level, n_int = n_int, int.type = int.type, one.sided = one.sided, n.curves = n.curves)
+  band <- .make_band_FFSCB_z(tau = tau, diag.cov = diag.cov.x, conf.level = conf.level, n_int = n_int, int.type = int.type, one.sided = one.sided, n.curves = n.curves)$band
   if (one.sided) {
     if (upper) {
       band_m <- cbind(x, x + band)
@@ -304,15 +304,19 @@ make_band_FFSCB_z <- function(x, diag.cov.x, tau, conf.level = 0.95, n_int = 4, 
     c_v[j] <- stats::uniroot(f = myfunj, interval = c(-10, 10), extendInt = "downX", tol = tol)$root
   }
   ##
-  band.eval <- ufun(t = tt, c_v = c_v, knots = knots) # plot(x=tt,y=band.eval, type="l", main="z")
+  band.eval <- ufun(t=tt, c_v=c_v, knots=knots)
+  
+  # Make the band MOE
   band <- 0
   if (int.type == "confidence") {
-    band <- band.eval * sqrt(diag.cov)
+    band <- band.eval * sqrt(diag.cov)   
   } else if (int.type == "prediction") {
-    band <- band.eval * sqrt(diag.cov * n.curves) * sqrt(1 + 1 / n.curves)
-  } # plot(x=tt,y=band, type="l", main="z")
+    band <- band.eval * sqrt(diag.cov*n.curves) * 
+      sqrt(1 + 1/n.curves)
+  }
+  
   ##
-  return(band)
+  return(list(band = band, band.eval = band.eval))
 }
 
 
@@ -370,9 +374,9 @@ make_band_FFSCB_t <- function(x, diag.cov.x, tau, df, conf.level = 0.95, n_int =
   }
   ##
   if (df <= 101) {
-    band <- .make_band_FFSCB_t(tau = tau, diag.cov = diag.cov.x, df = df, conf.level = conf.level, n_int = n_int, int.type = int.type, one.sided = one.sided)
+    band <- .make_band_FFSCB_t(tau = tau, diag.cov = diag.cov.x, df = df, conf.level = conf.level, n_int = n_int, int.type = int.type, one.sided = one.sided)$band
   } else {
-    band <- .make_band_FFSCB_z(tau = tau, diag.cov = diag.cov.x, conf.level = conf.level, n_int = n_int, int.type = int.type, one.sided = one.sided, n.curves = n.curves)
+    band <- .make_band_FFSCB_z(tau = tau, diag.cov = diag.cov.x, conf.level = conf.level, n_int = n_int, int.type = int.type, one.sided = one.sided, n.curves = n.curves)$band
   }
 
   # Specify the MOE based on one-sided vs two-sided
@@ -536,15 +540,19 @@ make_band_FFSCB_t <- function(x, diag.cov.x, tau, df, conf.level = 0.95, n_int =
     # 2.7206646  0.5871968  0.8107724 -0.7136544
     c_v[j] <- stats::uniroot(f = myfunj, interval = c(-10, 10), extendInt = "downX", tol = tol)$root
   }
-  ##
-  band.eval <- ufun(t = tt, c_v = c_v, knots = knots) # plot(y=band.eval,x=tt, type="l")
+  
+  band.eval <- ufun(t=tt, c_v=c_v, knots=knots) 
+  # plot(y=band.eval,x=tt, type="l")
+  
   # Make the band MOE
   band <- 0
   if (int.type == "confidence") {
-    band <- band.eval * sqrt(diag.cov)
+    band <- band.eval * sqrt(diag.cov)   
   } else if (int.type == "prediction") {
-    band <- band.eval * sqrt(diag.cov * n.curves) * sqrt(1 + 1 / n.curves)
-  } # plot(y=band,x=tt, type="l", main="t")
+    band <- band.eval * sqrt(diag.cov*n.curves) * 
+      sqrt(1 + 1/n.curves)
+  }
+  
   ##
-  return(band)
+  return(list(band = band, band.eval = band.eval))
 }
