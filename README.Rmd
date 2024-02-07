@@ -53,13 +53,12 @@ a $(1-\alpha(a_j-a_{j-1}))\times 100\%$ coverage probability.
 * The R-codes of the R package `ffscb` can be found at the GitHub repo
   <https://github.com/lidom/ffscb>
 
-* The statistical theory and methodology for simultaneous confidence and prediction bands of    the conditional mean of a concurrent functional regression model are described in the paper   **Fair Simultaneous Prediction and Confidence
-  Bands for Concurrent Functional Regressions: Comparing Sprinters with Prosthetic
-  versus Biological Legs** by [Michael L.     Creutzinger](https://www.linkedin.com/in/michaellcreutzinger/),
-   [Dominik Liebl](www.dliebl.com), and [Julia L. Sharp](https://sites.google.com/view/juliasharp/home).
+* The statistical theory and methodology for simultaneous confidence and prediction bands of    the conditional mean of a concurrent functional regression model are described in the paper   **Fair Simultaneous Prediction and Confidence Bands for Concurrent Functional Regressions: Comparing Sprinters with Prosthetic versus Biological Legs** by [Michael L. Creutzinger](https://www.linkedin.com/in/michaellcreutzinger/), [Dominik Liebl](www.dliebl.com), and [Julia L. Sharp](https://sites.google.com/view/juliasharp/home).
 
 * The R-codes of the R package `FunctionalPrediction` can be found at the GitHub repo
   <https://github.com/creutzml/FunctionalPrediction>
+
+* The R script, [michael_analysis.R](https://github.com/creutzml/FunctionalPrediction/blob/master/Sprint_Start_Case_Study/michael_analysis.R) reproduces the Sprint Start case study found in **Fair Simultaneous Prediction and Confidence Bands for Concurrent Functional Regressions: Comparing Sprinters with Prosthetic versus Biological Legs** by [Michael L. Creutzinger](https://www.linkedin.com/in/michaellcreutzinger/), [Dominik Liebl](www.dliebl.com), and [Julia L. Sharp](https://sites.google.com/view/juliasharp/home).
 
 
 ## Installation 
@@ -171,9 +170,9 @@ fBands <- FunctionalPrediction::predict_concurrent(
 band_plot_df <- data.frame(
   t = seq(0, 1, length.out = 101),
   y_true = y_vals_mat_ho[, 1],
-  ff_pred = fBands[[1]][, 1],
-  ff_lower = fBands[[1]][, 3],
-  ff_upper = fBands[[1]][, 2]
+  ff_pred = fBands[[1]][[1]][, 1],
+  ff_lower = fBands[[1]][[1]][, 3],
+  ff_upper = fBands[[1]][[1]][, 2]
 )
 
 # Plot of the band and true line
@@ -221,9 +220,9 @@ fBands2 <- FunctionalPrediction::predict_concurrent(
 band_plot_df2 <- data.frame(
   t = seq(0, 1, length.out = 101),
   y_true = y_vals_mat_ho[, 2],
-  ff_pred = fBands2[[1]][, 1],
-  ff_lower = fBands2[[1]][, 3],
-  ff_upper = fBands2[[1]][, 2]
+  ff_pred = fBands2[[1]][[1]][, 1],
+  ff_lower = fBands2[[1]][[1]][, 3],
+  ff_upper = fBands2[[1]][[1]][, 2]
 )
 
 # Plot of the band and true line
