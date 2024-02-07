@@ -80,7 +80,7 @@ a $(1-\alpha(a_j-a_{j-1}))\times 100\%$ coverage probability.
 ## Installation
 
 ``` r
-devtools::install_github("creutzml/FunctionalPrediction")
+devtools::install_github("creutzml/FunctionalPrediction", force = T)
 install.packages("ggplot2")
 ```
 
