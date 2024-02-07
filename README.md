@@ -67,6 +67,16 @@ a $(1-\alpha(a_j-a_{j-1}))\times 100\%$ coverage probability.
   [Dominik Liebl](www.dliebl.com), and [Julia L.
   Sharp](https://sites.google.com/view/juliasharp/home).
 
+- A [supplementary
+  paper](https://github.com/creutzml/FunctionalPrediction/blob/master/Sprint_Start_Case_Study/SupplementaryPaper.pdf)
+  is also provided, which contains the proofs, additional definitions,
+  and additional figures for **Fair Simultaneous Prediction and
+  Confidence Bands for Concurrent Functional Regressions: Comparing
+  Sprinters with Prosthetic versus Biological Legs** by [Michael L.
+  Creutzinger](https://www.linkedin.com/in/michaellcreutzinger/),
+  [Dominik Liebl](www.dliebl.com), and [Julia L.
+  Sharp](https://sites.google.com/view/juliasharp/home).
+
 ## Installation
 
 ``` r
