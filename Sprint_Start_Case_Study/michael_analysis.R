@@ -1741,7 +1741,8 @@ conf_ff_comp7 <- ggplot() +
 ## Arrange all the plots into one figure
 # Make a "figure" of demographics table
 X_mod_amp <- X_pred_amp[,] %>% # c(2,3,4,6,10)] %>%
-  rename("Push-Time" = "TPush_V")
+  rename("Push-Time" = "TPush_V") %>%
+  select(-Amp)
 
 demo_tab <- tableGrob(X_mod_amp, 
                       theme = ttheme_default(base_size = 16))
