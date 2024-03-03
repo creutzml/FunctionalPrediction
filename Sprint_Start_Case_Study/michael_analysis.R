@@ -113,7 +113,7 @@ Y_curves_dat <- Y_curves %>%
 ## Recreates Figure 7 in Chapter 3, Creutzinger (2024) dissertation
 # Plot of original Front V curves, with a point highlighting their max
 y_max_plot <- ggplot() + 
-  geom_line(aes(x = 100*t_pts, y = Front_V, group = Observation), 
+  geom_line(aes(x = 100*t_pts, y = Front_V,group = Observation), 
             color = "gray", 
             data = Y_curves_dat) +
   geom_point(aes(x = 100*V1, y = max_vals), 
@@ -172,7 +172,14 @@ Y_curves_interp_long <- Y_curves_interp %>%
   dplyr::mutate(t_pts = grid) %>%
   tidyr::pivot_longer(cols = -t_pts, 
                       names_to = "Obs", 
-                      values_to = "Front_V")
+                      values_to = "Front_V") %>%
+  dplyr::mutate(sprinter = dplyr::case_when(
+    Obs %in% c("X155", "X156", "X157", 
+               "X158", "X159", "X160", "X161") ~ "Amputee", 
+    TRUE ~ "Non-amputee"
+  )) %>%
+  dplyr::mutate(sprinter = factor(sprinter, levels = c("Non-amputee", 
+                                                       "Amputee")))
 
 # matplot(Y_curves_shifted_wide[,-1], type = "l")
 y_shifted_plot <- ggplot() + 
@@ -188,6 +195,27 @@ y_shifted_plot <- ggplot() +
         plot.margin = unit(c(0.6, 1, .6, .6), "cm"), 
         panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank()) 
+
+# y_colors <- c("gray", "#E69F00")
+# y_shifted_plot <- ggplot() + 
+#   geom_line(aes(x = 100*t_pts, y = Front_V, group = Obs), 
+#             color = "gray",
+#             data = Y_curves_interp_long %>% 
+#               filter(sprinter == "Non-amputee")) +
+#   geom_line(aes(x = 100*t_pts, y = Front_V, group = Obs), 
+#             color = "#E69F00", linewidth = 1.5,
+#             data = Y_curves_interp_long %>% 
+#               filter(sprinter == "Amputee")) +
+#   scale_x_continuous(breaks = round(seq(0, 100, 100/3), 2), 
+#                      expand = c(0,0)) +
+#   labs(x = "% Push-Off Phase", 
+#        y = "Force (N/kg)") +
+#   theme_bw() +
+#   theme(text = element_text(size = 16), 
+#         plot.margin = unit(c(0.6, 1, .6, .6), "cm"), 
+#         panel.grid.major = element_blank(), 
+#         panel.grid.minor = element_blank()) +
+#   scale_color_manual(values = y_colors)
 
 plot_grid(y_max_plot, y_shifted_plot, ncol = 1, align = "v")
 #####################################################################
