@@ -189,16 +189,6 @@ y_shifted_plot <- ggplot() +
         panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank()) 
 
-# ggsave(filename = "original_responses.pdf",
-#        plot = y_max_plot,
-#        device = "pdf",
-#        path = paste0("/Users/creutzml/Library/Mobile Documents/com",
-#                      "~apple~CloudDocs/Documents/Dissertation/func",
-#                      "tional_data_analysis/data/Sprint_Start/figures"),
-#        width = 11,
-#        height = 8.5,
-#        units = "in")
-
 plot_grid(y_max_plot, y_shifted_plot, ncol = 1, align = "v")
 #####################################################################
 
