@@ -197,23 +197,23 @@ y_shifted_plot <- ggplot() +
         panel.grid.minor = element_blank()) 
 
 # y_colors <- c("gray", "#E69F00")
-# y_shifted_plot <- ggplot() + 
-#   geom_line(aes(x = 100*t_pts, y = Front_V, group = Obs), 
-#             color = "gray",
-#             data = Y_curves_interp_long %>% 
+# ggplot() +
+#   geom_line(aes(x = 100*t_pts, y = Front_V, group = Obs),
+#             color = "lightgray",
+#             data = Y_curves_interp_long %>%
 #               filter(sprinter == "Non-amputee")) +
-#   geom_line(aes(x = 100*t_pts, y = Front_V, group = Obs), 
+#   geom_line(aes(x = 100*t_pts, y = Front_V, group = Obs),
 #             color = "#E69F00", linewidth = 1.5,
-#             data = Y_curves_interp_long %>% 
+#             data = Y_curves_interp_long %>%
 #               filter(sprinter == "Amputee")) +
-#   scale_x_continuous(breaks = round(seq(0, 100, 100/3), 2), 
+#   scale_x_continuous(breaks = round(seq(0, 100, 100/3), 2),
 #                      expand = c(0,0)) +
-#   labs(x = "% Push-Off Phase", 
+#   labs(x = "% Push-Off Phase",
 #        y = "Force (N/kg)") +
 #   theme_bw() +
-#   theme(text = element_text(size = 16), 
-#         plot.margin = unit(c(0.6, 1, .6, .6), "cm"), 
-#         panel.grid.major = element_blank(), 
+#   theme(text = element_text(size = 16),
+#         plot.margin = unit(c(0.6, 1, .6, .6), "cm"),
+#         panel.grid.major = element_blank(),
 #         panel.grid.minor = element_blank()) +
 #   scale_color_manual(values = y_colors)
 
