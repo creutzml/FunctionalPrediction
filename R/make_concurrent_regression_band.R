@@ -246,9 +246,11 @@ predict_concurrent <- function(concurrent_list, interval = "prediction", new_dat
   }
 
   if (interval == "confidence") {
-    cov_est <- diag(cov_x_pc * mse_est)
+    cov_est <- cov_x_pc * mse_est 
+    #diag(cov_x_pc * mse_est)
   } else if (interval == "prediction") {
-    cov_est <- diag((cov_x_pc + ((nu0_hat_est - 2) / nu0_hat_est)) * mse_est)
+    cov_est <- (cov_x_pc + ((nu0_hat_est - 2) / nu0_hat_est))*mse_est
+              #diag((cov_x_pc + ((nu0_hat_est - 2) / nu0_hat_est)) * mse_est)
   }
 
   # Fourth: estimate the tau function
