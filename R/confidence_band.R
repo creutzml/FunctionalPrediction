@@ -53,7 +53,7 @@
 #'   x = hat.mu, cov.x = hat.cov.mu, tau = hat.tau, df = N - 1,
 #'   type = c("FFSCB.t", "Bs", "BEc", "naive.t"),
 #'   conf.level = 0.95, n_int = 4
-#' )[[1]]$band
+#' )$band
 #' plot(b)
 #' lines(x = grid, y = mu0, lty = 2)
 #' @export
@@ -178,11 +178,11 @@ confidence_band <- function(x,
     if ("FFSCB.t" %in% type) {
       tmp.colnames <- c(colnames(result), paste0("FFSCB.t.u.", level), paste0("FFSCB.t.l.", level))
       if (df <= 100) {
-        FFSCB.t_list <- .make_band_FFSCB_t(tau = tau, diag.cov = cov.m, df = df, conf.level = level, n_int = n_int, int.type = int.type, one.sided = one.sided)
+        FFSCB.t_list <- .make_band_FFSCB_t(tau = tau, diag.cov = diag(cov.m), df = df, conf.level = level, n_int = n_int, int.type = int.type, one.sided = one.sided)
         FFSCB.t <- FFSCB.t_list$band
         uhat_result <- FFSCB.t_list$band.eval
       } else {
-        FFSCB.t_list <- .make_band_FFSCB_z(tau = tau, diag.cov = cov.m, conf.level = level, n_int = n_int, n.curves = n.curves, int.type = int.type, one.sided = one.sided)
+        FFSCB.t_list <- .make_band_FFSCB_z(tau = tau, diag.cov = diag(cov.m), conf.level = level, n_int = n_int, n.curves = n.curves, int.type = int.type, one.sided = one.sided)
         FFSCB.t <- FFSCB.t_list$band
         uhat_result <- FFSCB.t_list$band.eval
       }
