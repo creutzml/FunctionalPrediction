@@ -448,7 +448,7 @@ sim_results_df <- do.call(rbind, sim_results_list)
 #####################################################################
 save(sim_results_df, 
      file = paste0("/Users/creutzml/Downloads",
-                   "/ff_confidence_st.RData"))
+                   "/ff_confidence_st_nondiag.RData"))
 
 sim_results_df_sum_st <- sim_results_df %>%
   mutate(out = as.logical(out), 
