@@ -85,7 +85,7 @@ b <- confidence_band(
   x = hat.mu, cov.x = hat.cov.mu, tau = hat.tau, df = N - 1,
   type = c("FFSCB.t", "Bs", "BEc", "naive.t"),
   conf.level = 0.95, n_int = 4
-)$band
+)[[1]]$band
 plot(b)
 lines(x = grid, y = mu0, lty = 2)
 }

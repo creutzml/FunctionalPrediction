@@ -547,10 +547,10 @@ make_band_FFSCB_t <- function(x, diag.cov.x, tau, df, conf.level = 0.95, n_int =
   # Make the band MOE
   band <- 0
   if (int.type == "confidence") {
-    band <- band.eval * sqrt(diag.cov)
+    band <- t(band.eval %*% sqrt(diag.cov))
   } else if (int.type == "prediction") {
-    band <- band.eval * sqrt(diag.cov * n.curves) *
-      sqrt(1 + 1 / n.curves)
+    band <- t(band.eval %*% sqrt(diag.cov * n.curves) *
+      sqrt(1 + 1 / n.curves))
   }
 
   ##
