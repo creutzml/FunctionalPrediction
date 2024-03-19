@@ -49,7 +49,7 @@ predict_concurrent <- function(concurrent_list, interval = "prediction", new_dat
 
   # Get the interval type and number of intervals
   conf_type <- list(...)$type
-  n_ints <- list(...)$n_int
+  # n_ints <- list(...)$n_int
 
   # Set argument type to correct one, based on 'err_str' argument
   if (is.null(conf_type) & err_str == "normal") {
@@ -269,7 +269,6 @@ predict_concurrent <- function(concurrent_list, interval = "prediction", new_dat
     n.curves = n_obs,
     int.type = "confidence",
     type = conf_type,
-    n_int = n_ints,
     ...
   )
 
