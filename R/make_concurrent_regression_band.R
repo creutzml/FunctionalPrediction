@@ -198,7 +198,7 @@ predict_concurrent <- function(concurrent_list, interval = "prediction", new_dat
   } else if (mse_scalar == "ub") {
     mse_scalar_est <- 1 / (n_obs - n_pred)
   } else if (mse_scalar == "mm") {
-    mse_scalar_est <- (nu0_hat_est - 4)/((nu0_hat_est - 2)*(n_obs - n_pred + 2))
+    mse_scalar_est <- (nu0_hat_est - 4) / ((nu0_hat_est - 2) * (n_obs - n_pred + 2))
   } else {
     stop("Arguemtnt `mse_scalar` must be either 'mle' or 'ub' or 'mm'.")
   }
