@@ -248,7 +248,7 @@ predict_concurrent <- function(concurrent_list, interval = "prediction", new_dat
 
   if (interval == "confidence") {
     cov_est <- diag(cov_x_pc * mse_est)
-    
+
     # Update degrees of freedom and band type
     if (n_obs >= 50) {
       band_df <- n_obs
@@ -256,7 +256,7 @@ predict_concurrent <- function(concurrent_list, interval = "prediction", new_dat
     } else {
       band_df <- n_obs - n_pred
     }
-    
+
     # diag(cov_x_pc * mse_est)
   } else if (interval == "prediction") {
     cov_est <- diag((cov_x_pc + ((nu0_hat_est - 2) / nu0_hat_est)) * mse_est)
