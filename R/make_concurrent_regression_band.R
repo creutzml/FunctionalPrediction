@@ -248,9 +248,19 @@ predict_concurrent <- function(concurrent_list, interval = "prediction", new_dat
 
   if (interval == "confidence") {
     cov_est <- diag(cov_x_pc * mse_est)
+    
+    # Update degrees of freedom and band type
+    if (n_obs >= 50) {
+      band_df <- n_obs
+      conf_type <- "FFSCB.z"
+    } else {
+      band_df <- n_obs - n_pred
+    }
+    
     # diag(cov_x_pc * mse_est)
   } else if (interval == "prediction") {
     cov_est <- diag((cov_x_pc + ((nu0_hat_est - 2) / nu0_hat_est)) * mse_est)
+    band_df <- nu0_hat_est
     # diag((cov_x_pc + ((nu0_hat_est - 2) / nu0_hat_est)) * mse_est)
   }
 
@@ -265,7 +275,7 @@ predict_concurrent <- function(concurrent_list, interval = "prediction", new_dat
     x = mean_est,
     cov.x = cov_est,
     tau = tau_est,
-    df = nu0_hat_est,
+    df = band_df,
     n.curves = n_obs,
     int.type = "confidence",
     type = conf_type,
