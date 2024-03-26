@@ -315,7 +315,7 @@ for (p in 1:nrow(sim_parms)) {
       interval = "confidence", 
       err_str = "t",
       new_dat = c(0), 
-      conf.level = 0.90, 
+      conf.level = 0.9, 
       n_int = 3,
       nu0_hat = "singh_df",
       mse_scalar = "ub"
@@ -359,7 +359,7 @@ for (p in 1:nrow(sim_parms)) {
       interval = "confidence", 
       err_str = "t",
       new_dat = c(1), 
-      conf.level = 0.90, 
+      conf.level = 0.9, 
       n_int = 3,
       nu0_hat = "singh_df",
       mse_scalar = "ub"
