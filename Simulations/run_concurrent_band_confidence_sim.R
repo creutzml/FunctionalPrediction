@@ -318,7 +318,7 @@ for (p in 1:nrow(sim_parms)) {
       conf.level = 0.9, 
       n_int = 3,
       nu0_hat = "singh_df",
-      mse_scalar = "ub"
+      mse_scalar = "mle"
     )
     
     # Check coverage
@@ -362,7 +362,7 @@ for (p in 1:nrow(sim_parms)) {
       conf.level = 0.9, 
       n_int = 3,
       nu0_hat = "singh_df",
-      mse_scalar = "ub"
+      mse_scalar = "mle"
     )
     
     # Check coverage
