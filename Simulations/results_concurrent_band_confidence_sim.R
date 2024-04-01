@@ -39,7 +39,7 @@ load(file.path(dir_path, "ff_confidence_st.RData"))
 # Recreates results for Tables 1 and 3 (if stationary results are 
 # loaded), and Tables 2 and 4 (if non-stationary results are loaded)
 ## Modify variables appropriately and create a summary table:
-sim_results_df_sum_st <- sim_results_df %>%
+sim_results_df_sum_nonst_mle <- sim_results_df %>%
   mutate(out = as.logical(out), 
          out1 = as.logical(out1), 
          out2 = as.logical(out2), 
@@ -56,14 +56,14 @@ sim_results_df_sum_st <- sim_results_df %>%
             mean_band_score = mean(band_score, na.rm = T), 
             mean_max_band_width = mean(max_band_width, 
                                        na.rm = T)) %>%
-  mutate(covg = format(round(covg, 2), 
-                       nsmall = 2),
-         covg_int1 = format(round(covg_int1, 2), 
-                       nsmall = 2),
-         covg_int2 = format(round(covg_int2, 2), 
-                       nsmall = 2),
-         covg_int3 = format(round(covg_int3, 2), 
-                       nsmall = 2),
+  mutate(covg = format(round(covg, 3), 
+                       nsmall = 3),
+         covg_int1 = format(round(covg_int1, 3), 
+                       nsmall = 3),
+         covg_int2 = format(round(covg_int2, 3), 
+                       nsmall = 3),
+         covg_int3 = format(round(covg_int3, 3), 
+                       nsmall = 3),
          # covg_int4 = format(round(covg_int4, 2), 
                        # nsmall = 2),
          # covg_int5 = format(round(covg_int5, 2), 

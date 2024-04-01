@@ -140,9 +140,9 @@ for (p in 1:nrow(sim_parms)) {
     ## Generating response values
     # Random error covariance
     cov.m <- make_cov_m(
-      cov.f = ffscb::covf_st_matern, #covf_nonst_matern,
+      cov.f = ffscb::covf_nonst_matern, #covf_st_matern,
       grid = grid, 
-      cov.f.params=c(3/2, 1/4) #c(2, 1/4, 1/4)
+      cov.f.params=c(2, 1/4, 1/4) #c(3/2, 1/4)
     )
     
     # t-distributed errors
@@ -448,7 +448,7 @@ sim_results_df <- do.call(rbind, sim_results_list)
 #####################################################################
 save(sim_results_df, 
      file = paste0("/Users/creutzml/Downloads",
-                   "/ff_confidence_st_nondiag.RData"))
+                   "/ff_confidence_st_3_26_24.RData"))
 
 sim_results_df_sum_st <- sim_results_df %>%
   mutate(out = as.logical(out), 
