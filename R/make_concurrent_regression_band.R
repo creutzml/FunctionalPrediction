@@ -265,7 +265,7 @@ predict_concurrent <- function(concurrent_list, interval = "prediction", new_dat
   }
 
   # Fourth: estimate the tau function
-  tau_est <- ((n_obs - 1)/(n_obs - n_pred))*ffscb::tau_fun(x = e_mat)
+  tau_est <- ((n_obs - 1) / (n_obs - n_pred)) * ffscb::tau_fun(x = e_mat)
 
   # Fifth: pass into main confidence band function
   # Note: "confidence" is fixed for int.type because of how that
