@@ -318,7 +318,7 @@ for (p in 1:nrow(sim_parms)) {
       conf.level = 0.9, 
       n_int = 3,
       nu0_hat = "singh_df",
-      mse_scalar = "mle"
+      mse_scalar = "ub"
     )
     
     # Check coverage
@@ -362,7 +362,7 @@ for (p in 1:nrow(sim_parms)) {
       conf.level = 0.9, 
       n_int = 3,
       nu0_hat = "singh_df",
-      mse_scalar = "mle"
+      mse_scalar = "ub"
     )
     
     # Check coverage
@@ -446,19 +446,7 @@ for (p in 1:nrow(sim_parms)) {
 # Create and save data frame from list
 sim_results_df <- do.call(rbind, sim_results_list)
 #####################################################################
-save(sim_results_df, 
-     file = paste0("/Users/creutzml/Downloads",
-                   "/ff_confidence_st_3_26_24.RData"))
 
-sim_results_df_sum_st <- sim_results_df %>%
-  mutate(out = as.logical(out), 
-         out1 = as.logical(out1), 
-         out2 = as.logical(out2), 
-         out3 = as.logical(out3),
-         band_score = as.numeric(band_score),
-         max_band_width = as.numeric(max_band_width)) %>%
-  group_by(err_dist, n, dfs, prediction) %>%
-  summarise(across(out:max_band_width, ~ mean(.x, na.rm = TRUE)))
 
 
 ### This code will reproduce Figure 2 in Creutzinger, Liebl, and 
