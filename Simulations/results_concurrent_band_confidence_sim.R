@@ -39,7 +39,7 @@ load(file.path(dir_path, "ff_confidence_st.RData"))
 # Recreates results for Tables 1 and 3 (if stationary results are 
 # loaded), and Tables 2 and 4 (if non-stationary results are loaded)
 ## Modify variables appropriately and create a summary table:
-sim_results_df_sum_nonst_mle <- sim_results_df %>%
+sim_results_df_sum <- sim_results_df %>%
   mutate(out = as.logical(out), 
          out1 = as.logical(out1), 
          out2 = as.logical(out2), 
